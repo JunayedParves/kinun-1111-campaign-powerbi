@@ -1,5 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
   "name": "6ed4e7233c985203f8c6",
   "position": {
     "x": 1078,
@@ -28,6 +28,7 @@
               },
               "queryRef": "DimProduct.ProductName",
               "nativeQueryRef": "ProductName",
+              "active": true,
               "displayName": "SKU"
             }
           ]
@@ -65,6 +66,7 @@
               },
               "queryRef": "_Measures.Net Merchandise Sales",
               "nativeQueryRef": "Net Merchandise Sales",
+              "active": true,
               "displayName": "Net sales"
             }
           ]

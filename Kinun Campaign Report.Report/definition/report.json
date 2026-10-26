@@ -52,14 +52,14 @@
       "type": "RegisteredResources",
       "items": [
         {
-          "name": "KinunBCGExecutive.json",
-          "path": "KinunBCGExecutive.json",
-          "type": "CustomTheme"
-        },
-        {
           "name": "kinun_logo_rail.svg",
           "path": "kinun_logo_rail.svg",
           "type": "Image"
+        },
+        {
+          "name": "KinunBCGExecutive.json",
+          "path": "KinunBCGExecutive.json",
+          "type": "CustomTheme"
         }
       ]
     }

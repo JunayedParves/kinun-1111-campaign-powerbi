@@ -12,6 +12,8 @@ measure and relationship is plain text that you can diff and review in Git.
 > ⚠️ All figures come from a **synthetic portfolio dataset** that simulates a realistic e-commerce business.
 > They are not real Kinun results.
 
+![Executive Summary page](docs/images/01-executive-summary.png)
+
 ---
 
 ## The storyline
@@ -88,6 +90,29 @@ October baseline, and the lift has grown every year: **3.2x in 2022 → 4.9x in 
 | 6 | **Strategic Priorities** | What should management do before the next launch, and what is it worth? |
 | 7 | *Category Deep Dive* | A hidden drill-through page: right-click any category and choose **Drill through** |
 
+<details open>
+<summary><b>Page tour</b> (screenshots show the top of each 1920×1080 page)</summary>
+
+#### 1 · Executive Summary: growth is strong, but 11.11 buys volume at the expense of margin
+![Executive Summary](docs/images/01-executive-summary.png)
+
+#### 2 · 11.11 Command Center: the biggest growth engine, and the biggest margin leak
+![11.11 Command Center](docs/images/02-1111-command-center.png)
+
+#### 3 · Marketing & Channels: owned channels and CRM out-earn paid social
+![Marketing & Channels](docs/images/03-marketing-channels.png)
+
+#### 4 · Product & Margin: Smartphones carry the top line, and lose money in 11.11
+![Product & Margin](docs/images/04-product-margin.png)
+
+#### 5 · Customers & Operations: operations break under peak load
+![Customers & Operations](docs/images/05-customers-operations.png)
+
+#### 6 · Strategic Priorities: five moves to make 11.11 profitable, not just bigger
+![Strategic Priorities](docs/images/06-strategic-priorities.png)
+
+</details>
+
 ### Interactivity
 
 - **Synced filters** for Year, Event Window, Division and Product Category, plus a one-click **Reset filters** button.
@@ -142,6 +167,7 @@ Commits use a GitHub no-reply e-mail address, so no personal e-mail appears in t
 ## Repository structure
 
 ```
+docs/images/                               # page screenshots used in this README
 Kinun Campaign Report.pbip                 # open this in Power BI Desktop
 Kinun Campaign Report.SemanticModel/
   definition/

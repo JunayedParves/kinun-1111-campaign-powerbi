@@ -1,5 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
   "name": "e3e6006c68cc74a058ad",
   "position": {
     "x": 244,
@@ -28,7 +28,26 @@
               },
               "queryRef": "DimDate.DayOfMonth",
               "nativeQueryRef": "DayOfMonth",
+              "active": true,
               "displayName": "Day of November"
+            }
+          ]
+        },
+        "Series": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimDate"
+                    }
+                  },
+                  "Property": "Year"
+                }
+              },
+              "queryRef": "DimDate.Year",
+              "nativeQueryRef": "Year"
             }
           ]
         },
@@ -48,24 +67,6 @@
               "queryRef": "_Measures.Net Merchandise Sales",
               "nativeQueryRef": "Net Merchandise Sales",
               "displayName": "Daily net sales"
-            }
-          ]
-        },
-        "Series": {
-          "projections": [
-            {
-              "field": {
-                "Column": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "DimDate"
-                    }
-                  },
-                  "Property": "Year"
-                }
-              },
-              "queryRef": "DimDate.Year",
-              "nativeQueryRef": "Year"
             }
           ]
         }

@@ -1,5 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
   "name": "32973041e8e01ac44db3",
   "position": {
     "x": 900,
@@ -28,7 +28,27 @@
               },
               "queryRef": "DimChannel.ChannelName",
               "nativeQueryRef": "ChannelName",
+              "active": true,
               "displayName": "Channel"
+            }
+          ]
+        },
+        "Size": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Advertising Spend"
+                }
+              },
+              "queryRef": "_Measures.Advertising Spend",
+              "nativeQueryRef": "Advertising Spend",
+              "displayName": "Ad spend"
             }
           ]
         },
@@ -47,6 +67,7 @@
               },
               "queryRef": "_Measures.Customer Acquisition Cost (CAC)",
               "nativeQueryRef": "Customer Acquisition Cost (CAC)",
+              "active": true,
               "displayName": "CAC (৳ per new-customer order)"
             }
           ]
@@ -67,25 +88,6 @@
               "queryRef": "_Measures.ROAS",
               "nativeQueryRef": "ROAS",
               "displayName": "ROAS (x)"
-            }
-          ]
-        },
-        "Size": {
-          "projections": [
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "_Measures"
-                    }
-                  },
-                  "Property": "Advertising Spend"
-                }
-              },
-              "queryRef": "_Measures.Advertising Spend",
-              "nativeQueryRef": "Advertising Spend",
-              "displayName": "Ad spend"
             }
           ]
         }

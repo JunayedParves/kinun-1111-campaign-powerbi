@@ -1,5 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
   "name": "64b496256ccbd34def38",
   "position": {
     "x": 244,
@@ -27,26 +27,8 @@
                 }
               },
               "queryRef": "Ops Metric.Metric",
-              "nativeQueryRef": "Metric"
-            }
-          ]
-        },
-        "Y": {
-          "projections": [
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "_Measures"
-                    }
-                  },
-                  "Property": "Ops Metric Value"
-                }
-              },
-              "queryRef": "_Measures.Ops Metric Value",
-              "nativeQueryRef": "Ops Metric Value",
-              "displayName": "Rate"
+              "nativeQueryRef": "Metric",
+              "active": true
             }
           ]
         },
@@ -68,6 +50,25 @@
               "displayName": "Window"
             }
           ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Ops Metric Value"
+                }
+              },
+              "queryRef": "_Measures.Ops Metric Value",
+              "nativeQueryRef": "Ops Metric Value",
+              "displayName": "Rate"
+            }
+          ]
         }
       },
       "sortDefinition": {
@@ -85,8 +86,7 @@
             },
             "direction": "Ascending"
           }
-        ],
-        "isDefaultSort": false
+        ]
       }
     },
     "objects": {

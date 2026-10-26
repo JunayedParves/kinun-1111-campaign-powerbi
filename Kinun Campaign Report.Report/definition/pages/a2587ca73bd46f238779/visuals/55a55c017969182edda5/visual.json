@@ -1,5 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
   "name": "55a55c017969182edda5",
   "position": {
     "x": 1340,
@@ -27,26 +27,8 @@
                 }
               },
               "queryRef": "DimProduct.Category",
-              "nativeQueryRef": "Category"
-            }
-          ]
-        },
-        "Y": {
-          "projections": [
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "_Measures"
-                    }
-                  },
-                  "Property": "Net Merchandise Sales"
-                }
-              },
-              "queryRef": "_Measures.Net Merchandise Sales",
-              "nativeQueryRef": "Net Merchandise Sales",
-              "displayName": "Net sales"
+              "nativeQueryRef": "Category",
+              "active": true
             }
           ]
         },
@@ -95,6 +77,25 @@
               "nativeQueryRef": "Discount Rate %"
             }
           ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Net Merchandise Sales"
+                }
+              },
+              "queryRef": "_Measures.Net Merchandise Sales",
+              "nativeQueryRef": "Net Merchandise Sales",
+              "displayName": "Net sales"
+            }
+          ]
         }
       },
       "sortDefinition": {
@@ -112,8 +113,7 @@
             },
             "direction": "Descending"
           }
-        ],
-        "isDefaultSort": false
+        ]
       }
     },
     "objects": {

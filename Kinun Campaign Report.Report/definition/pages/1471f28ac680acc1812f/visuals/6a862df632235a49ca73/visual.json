@@ -1,5 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
   "name": "6a862df632235a49ca73",
   "position": {
     "x": 244,
@@ -27,7 +27,26 @@
                 }
               },
               "queryRef": "Funnel Stage.Stage",
-              "nativeQueryRef": "Stage"
+              "nativeQueryRef": "Stage",
+              "active": true
+            }
+          ]
+        },
+        "Tooltips": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Funnel % of Sessions"
+                }
+              },
+              "queryRef": "_Measures.Funnel % of Sessions",
+              "nativeQueryRef": "Funnel % of Sessions"
             }
           ]
         },
@@ -49,24 +68,6 @@
               "displayName": "Volume"
             }
           ]
-        },
-        "Tooltips": {
-          "projections": [
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "_Measures"
-                    }
-                  },
-                  "Property": "Funnel % of Sessions"
-                }
-              },
-              "queryRef": "_Measures.Funnel % of Sessions",
-              "nativeQueryRef": "Funnel % of Sessions"
-            }
-          ]
         }
       },
       "sortDefinition": {
@@ -84,8 +85,7 @@
             },
             "direction": "Ascending"
           }
-        ],
-        "isDefaultSort": false
+        ]
       }
     },
     "objects": {

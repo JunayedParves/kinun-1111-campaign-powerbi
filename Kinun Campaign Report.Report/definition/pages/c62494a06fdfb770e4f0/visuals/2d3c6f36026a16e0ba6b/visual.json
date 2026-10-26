@@ -1,5 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
   "name": "2d3c6f36026a16e0ba6b",
   "position": {
     "x": 1078,
@@ -28,7 +28,26 @@
               },
               "queryRef": "FactHourlyCampaignTraffic.Hours Since Launch",
               "nativeQueryRef": "Hours Since Launch",
+              "active": true,
               "displayName": "Hours since 6 PM launch"
+            }
+          ]
+        },
+        "Series": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimDate"
+                    }
+                  },
+                  "Property": "Year"
+                }
+              },
+              "queryRef": "DimDate.Year",
+              "nativeQueryRef": "Year"
             }
           ]
         },
@@ -48,24 +67,6 @@
               "queryRef": "_Measures.Hourly Orders",
               "nativeQueryRef": "Hourly Orders",
               "displayName": "Orders per hour"
-            }
-          ]
-        },
-        "Series": {
-          "projections": [
-            {
-              "field": {
-                "Column": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "DimDate"
-                    }
-                  },
-                  "Property": "Year"
-                }
-              },
-              "queryRef": "DimDate.Year",
-              "nativeQueryRef": "Year"
             }
           ]
         }

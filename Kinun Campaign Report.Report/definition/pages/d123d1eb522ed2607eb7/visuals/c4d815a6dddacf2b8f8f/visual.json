@@ -1,5 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
   "name": "c4d815a6dddacf2b8f8f",
   "position": {
     "x": 620,
@@ -27,7 +27,8 @@
                 }
               },
               "queryRef": "DimCampaign.EventClassification",
-              "nativeQueryRef": "EventClassification"
+              "nativeQueryRef": "EventClassification",
+              "active": true
             }
           ]
         }

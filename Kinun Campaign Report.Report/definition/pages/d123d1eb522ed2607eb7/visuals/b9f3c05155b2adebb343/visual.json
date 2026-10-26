@@ -1,5 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
   "name": "b9f3c05155b2adebb343",
   "position": {
     "x": 1078,
@@ -28,6 +28,7 @@
               },
               "queryRef": "DimPaymentMethod.PaymentMethodName",
               "nativeQueryRef": "PaymentMethodName",
+              "active": true,
               "displayName": "Payment method"
             }
           ]
@@ -82,8 +83,7 @@
             },
             "direction": "Descending"
           }
-        ],
-        "isDefaultSort": false
+        ]
       }
     },
     "objects": {

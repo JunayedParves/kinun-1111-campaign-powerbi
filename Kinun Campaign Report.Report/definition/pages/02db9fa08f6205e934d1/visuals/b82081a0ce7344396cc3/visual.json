@@ -1,5 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
   "name": "b82081a0ce7344396cc3",
   "position": {
     "x": 1260,
@@ -27,7 +27,8 @@
                 }
               },
               "queryRef": "DimProduct.Category",
-              "nativeQueryRef": "Category"
+              "nativeQueryRef": "Category",
+              "active": true
             },
             {
               "field": {
@@ -41,7 +42,8 @@
                 }
               },
               "queryRef": "DimProduct.Subcategory",
-              "nativeQueryRef": "Subcategory"
+              "nativeQueryRef": "Subcategory",
+              "active": false
             }
           ]
         },
@@ -126,8 +128,7 @@
             },
             "direction": "Descending"
           }
-        ],
-        "isDefaultSort": false
+        ]
       }
     },
     "objects": {

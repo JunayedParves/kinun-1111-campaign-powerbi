@@ -1,5 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
   "name": "6974805be0b9559f2066",
   "position": {
     "x": 966,
@@ -27,7 +27,8 @@
                 }
               },
               "queryRef": "DimGeography.Division",
-              "nativeQueryRef": "Division"
+              "nativeQueryRef": "Division",
+              "active": true
             }
           ]
         }
