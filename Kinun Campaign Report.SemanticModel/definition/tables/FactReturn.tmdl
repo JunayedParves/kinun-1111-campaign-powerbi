@@ -1,0 +1,223 @@
+table FactReturn
+	lineageTag: 55df8336-78fd-452f-8e5a-38864dcb4383
+
+	column ReturnKey
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 09800a6e-46bb-4517-8e32-5acdfeda6fe0
+		summarizeBy: count
+		sourceColumn: ReturnKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column ReturnID
+		dataType: string
+		lineageTag: cebe68c1-9f13-4d53-95f3-a05d78753734
+		summarizeBy: none
+		sourceColumn: ReturnID
+
+		annotation SummarizationSetBy = Automatic
+
+	column OrderID
+		dataType: string
+		lineageTag: 9be9f34e-d281-4b48-9362-90cc37f9d734
+		summarizeBy: none
+		sourceColumn: OrderID
+
+		annotation SummarizationSetBy = Automatic
+
+	column OrderLineID
+		dataType: string
+		lineageTag: 75f32365-6975-4895-97b9-415556bda2c6
+		summarizeBy: none
+		sourceColumn: OrderLineID
+
+		annotation SummarizationSetBy = Automatic
+
+	column OrderLineKey
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 6269c02e-04c8-4f69-b2e6-42915158e601
+		summarizeBy: count
+		sourceColumn: OrderLineKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column OrderDateKey
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: a6bb68ca-9431-4699-82d8-0c32fc976b40
+		summarizeBy: count
+		sourceColumn: OrderDateKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column ReturnDateKey
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 7934e36b-bb17-4af0-a9bd-6d34cf97ba59
+		summarizeBy: count
+		sourceColumn: ReturnDateKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column OriginalOrderDate
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 8f8afc69-933e-48f8-bbc7-d25d353a9120
+		summarizeBy: none
+		sourceColumn: OriginalOrderDate
+
+		variation Variation
+			isDefault
+			relationship: 449d66f3-4062-4d1f-90c1-643d29a3cdaf
+			defaultHierarchy: LocalDateTable_be883b90-2503-41c9-bafa-ce32d896c78d.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column ReturnDate
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 4ea33a9e-c1ab-4473-bdff-47ec6bff296d
+		summarizeBy: none
+		sourceColumn: ReturnDate
+
+		variation Variation
+			isDefault
+			relationship: 5c00a87d-f871-4fac-8095-8865a8c59207
+			defaultHierarchy: LocalDateTable_8e6541c3-0bda-479a-bccf-6a4f1dfdb010.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column ProductKey
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 5a8e27ad-4aba-424f-97c5-617dd9a68dc7
+		summarizeBy: none
+		sourceColumn: ProductKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column CustomerKey
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 65b10e09-3b45-4644-83a6-d5d3661743a9
+		summarizeBy: none
+		sourceColumn: CustomerKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column GeographyKey
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 9ba90461-33a8-440f-8d24-5d92d52460ce
+		summarizeBy: none
+		sourceColumn: GeographyKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column CampaignKey
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: faf62403-0d22-4bf2-8fde-422d9b969e66
+		summarizeBy: none
+		sourceColumn: CampaignKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column WarehouseKey
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: af6ff847-1dcb-473b-8a9b-ba05fa2bc21b
+		summarizeBy: none
+		sourceColumn: WarehouseKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column ReturnReason
+		dataType: string
+		lineageTag: 494ec04b-6d46-49c0-8fc9-ed9dcb0d2139
+		summarizeBy: none
+		sourceColumn: ReturnReason
+
+		annotation SummarizationSetBy = Automatic
+
+	column ReturnQuantity
+		dataType: int64
+		formatString: 0
+		lineageTag: 2e6c8aae-c1cc-4cae-9d4b-2c53581bfdb7
+		summarizeBy: sum
+		sourceColumn: ReturnQuantity
+
+		annotation SummarizationSetBy = Automatic
+
+	column RefundAmountBDT
+		dataType: double
+		lineageTag: b933b44a-0f84-4efb-a4c5-1632335d3ed8
+		summarizeBy: sum
+		sourceColumn: RefundAmountBDT
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column IsRestockable
+		dataType: int64
+		formatString: 0
+		lineageTag: c42293c6-d16e-4135-8854-78554968896a
+		summarizeBy: sum
+		sourceColumn: IsRestockable
+
+		annotation SummarizationSetBy = Automatic
+
+	column ProductCondition
+		dataType: string
+		lineageTag: 4b785def-b37d-4060-9f36-bfa7e1b4a3c6
+		summarizeBy: none
+		sourceColumn: ProductCondition
+
+		annotation SummarizationSetBy = Automatic
+
+	column ReturnHandlingCostBDT
+		dataType: double
+		lineageTag: 77bb6488-258e-447a-aaae-bd965fa42c1a
+		summarizeBy: sum
+		sourceColumn: ReturnHandlingCostBDT
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column SyntheticDataFlag
+		dataType: int64
+		formatString: 0
+		lineageTag: 726f7b66-5898-45e4-b010-07c52c75a53f
+		summarizeBy: sum
+		sourceColumn: SyntheticDataFlag
+
+		annotation SummarizationSetBy = Automatic
+
+	partition FactReturn = m
+		mode: import
+		source =
+				let
+				  Source = GoogleBigQuery.Database([BillingProject = null, UseStorageApi = null, ConnectionTimeout = null, CommandTimeout = null]),
+				  #"Navigation 1" = Source{[Name = BigQueryProjectId]}[Data],
+				  #"Navigation 2" = #"Navigation 1"{[Name = "kinun_dw", Kind = "Schema"]}[Data],
+				  #"Navigation 3" = #"Navigation 2"{[Name = "FactReturn", Kind = "Table"]}[Data]
+				in
+				  #"Navigation 3"
+

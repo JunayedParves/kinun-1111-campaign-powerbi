@@ -1,0 +1,20 @@
+/// Axis table for the Normal vs 11.11 operational stress comparison.
+table 'Ops Metric'
+	lineageTag: d644624e-e05b-49be-9739-0809c2c45c25
+
+	column Metric
+		lineageTag: 1208af74-edbc-446e-8f95-6603f52eab5e
+		isNameInferred
+		sourceColumn: [Metric]
+		sortByColumn: 'Metric Order'
+
+	column 'Metric Order'
+		isHidden
+		lineageTag: 27d16d39-1512-41d9-b7c9-526b338ada80
+		isNameInferred
+		sourceColumn: [Metric Order]
+
+	partition 'Ops Metric' = calculated
+		mode: import
+		source = DATATABLE ( "Metric", STRING, "Metric Order", INTEGER, { { "Cancellation Rate", 1 }, { "Payment Failure Rate", 2 }, { "Doorstep RTO Rate", 3 }, { "Late Delivery Rate", 4 }, { "Discount Rate", 5 } } )
+

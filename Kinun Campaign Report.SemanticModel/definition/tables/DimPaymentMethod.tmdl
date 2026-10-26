@@ -1,0 +1,122 @@
+table DimPaymentMethod
+	lineageTag: 86b1f76a-0f78-44e6-bd6d-4684cbdc1e5f
+
+	column PaymentMethodKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 7a4b806b-59c0-40a8-a069-2cb4b70fbcbf
+		summarizeBy: none
+		sourceColumn: PaymentMethodKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column PaymentMethodCode
+		dataType: string
+		lineageTag: 1d0a18bc-8186-4efa-a3ef-4eed16088bb4
+		summarizeBy: none
+		sourceColumn: PaymentMethodCode
+
+		annotation SummarizationSetBy = Automatic
+
+	column PaymentMethodName
+		dataType: string
+		lineageTag: 51fe885d-ad32-4ae6-a1ea-0ca365749178
+		summarizeBy: none
+		sourceColumn: PaymentMethodName
+
+		annotation SummarizationSetBy = Automatic
+
+	column PaymentGroup
+		dataType: string
+		lineageTag: a56b80b1-b105-4b7f-92ea-df25439db183
+		summarizeBy: none
+		sourceColumn: PaymentGroup
+
+		annotation SummarizationSetBy = Automatic
+
+	column CODDigitalClass
+		dataType: string
+		lineageTag: a49d4a8a-f4be-4904-bcc8-d4f2ce9cab8d
+		summarizeBy: none
+		sourceColumn: CODDigitalClass
+
+		annotation SummarizationSetBy = Automatic
+
+	column IsDigitalPayment
+		dataType: int64
+		formatString: 0
+		lineageTag: 428a2090-3dd9-4f2d-9041-c6609d4084f1
+		summarizeBy: sum
+		sourceColumn: IsDigitalPayment
+
+		annotation SummarizationSetBy = Automatic
+
+	column IsEMIEligible
+		dataType: int64
+		formatString: 0
+		lineageTag: a98fd4f3-7ea3-489a-903b-fbe35446645d
+		summarizeBy: sum
+		sourceColumn: IsEMIEligible
+
+		annotation SummarizationSetBy = Automatic
+
+	column GatewayFeePct
+		dataType: double
+		lineageTag: 7fa437d7-cd4d-4947-87ca-3408a2d28657
+		summarizeBy: sum
+		sourceColumn: GatewayFeePct
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column NormalOrderShare
+		dataType: double
+		lineageTag: 56da73fa-269d-4801-8124-1c7428c02d70
+		summarizeBy: sum
+		sourceColumn: NormalOrderShare
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column ElevenElevenOrderShare
+		dataType: double
+		lineageTag: 151d252e-f3f8-4798-b808-92a3e7c93317
+		summarizeBy: sum
+		sourceColumn: ElevenElevenOrderShare
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column BaseFailureRate
+		dataType: double
+		lineageTag: 2b6d86a0-1c85-4318-92a5-28a15f2e0671
+		summarizeBy: sum
+		sourceColumn: BaseFailureRate
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column SyntheticDataFlag
+		dataType: int64
+		formatString: 0
+		lineageTag: 35a0999b-050a-4aee-9b7d-c2b7f6566ea1
+		summarizeBy: sum
+		sourceColumn: SyntheticDataFlag
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DimPaymentMethod = m
+		mode: import
+		source =
+				let
+				  Source = GoogleBigQuery.Database([BillingProject = null, UseStorageApi = null, ConnectionTimeout = null, CommandTimeout = null]),
+				  #"Navigation 1" = Source{[Name = BigQueryProjectId]}[Data],
+				  #"Navigation 2" = #"Navigation 1"{[Name = "kinun_dw", Kind = "Schema"]}[Data],
+				  #"Navigation 3" = #"Navigation 2"{[Name = "DimPaymentMethod", Kind = "Table"]}[Data]
+				in
+				  #"Navigation 3"
+

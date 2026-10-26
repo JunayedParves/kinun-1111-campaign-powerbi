@@ -1,0 +1,143 @@
+table DimCustomer
+	lineageTag: cec317ad-28ae-4d70-85f4-d1db6e11c1fe
+
+	column CustomerKey
+		dataType: int64
+		formatString: 0
+		lineageTag: e8d41237-c82a-472b-8ebc-0c6ba7cd6317
+		summarizeBy: none
+		sourceColumn: CustomerKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column CustomerID
+		dataType: string
+		lineageTag: b8eb5fdb-4d1d-4b29-bdd1-ef15df6fa430
+		summarizeBy: none
+		sourceColumn: CustomerID
+
+		annotation SummarizationSetBy = Automatic
+
+	column RegistrationDate
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: ce1e31d9-9527-4eb3-9b9d-32c7c38c2393
+		summarizeBy: none
+		sourceColumn: RegistrationDate
+
+		variation Variation
+			isDefault
+			relationship: 96a3b56b-6bee-4087-b5c9-8d4bf89f6451
+			defaultHierarchy: LocalDateTable_cc8f3978-a51b-42ed-8606-9907d268c3cc.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column FirstPurchaseDate
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: d857781b-2b31-4d77-a53d-39bc418bc708
+		summarizeBy: none
+		sourceColumn: FirstPurchaseDate
+
+		variation Variation
+			isDefault
+			relationship: 9aee5653-817c-4b36-ad81-5da7a060239b
+			defaultHierarchy: LocalDateTable_f68ee6fb-1494-4ddf-8cbb-114ea18d0bdd.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column FirstOrderCohortMonth
+		dataType: string
+		lineageTag: a8fd4e05-12ab-4f6d-988d-e56153fc7ed6
+		summarizeBy: none
+		sourceColumn: FirstOrderCohortMonth
+
+		annotation SummarizationSetBy = Automatic
+
+	column AcquiredDuring1111Flag
+		dataType: int64
+		formatString: 0
+		lineageTag: c27bbc82-ef61-4d40-8f4b-8883509e94b1
+		summarizeBy: sum
+		sourceColumn: AcquiredDuring1111Flag
+
+		annotation SummarizationSetBy = Automatic
+
+	column PrimaryGeographyKey
+		dataType: int64
+		formatString: 0
+		lineageTag: fd429d9e-62e1-47bb-9dbe-5122aa8a1ce6
+		summarizeBy: count
+		sourceColumn: PrimaryGeographyKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column AcquisitionChannelKey
+		dataType: int64
+		formatString: 0
+		lineageTag: f0f8834d-108a-4c07-9c99-c58bf6bec40d
+		summarizeBy: count
+		sourceColumn: AcquisitionChannelKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column AcquisitionChannelName
+		dataType: string
+		lineageTag: 56ecc8a8-2e0e-4cf5-a017-8f31fde2d0a1
+		summarizeBy: none
+		sourceColumn: AcquisitionChannelName
+
+		annotation SummarizationSetBy = Automatic
+
+	column CustomerSegment
+		dataType: string
+		lineageTag: 2f02f46b-391b-4391-8494-327d59ade649
+		summarizeBy: none
+		sourceColumn: CustomerSegment
+
+		annotation SummarizationSetBy = Automatic
+
+	column LoyaltyTier
+		dataType: string
+		lineageTag: f0f0629a-5a75-4f27-80fb-d97bf5260807
+		summarizeBy: none
+		sourceColumn: LoyaltyTier
+
+		annotation SummarizationSetBy = Automatic
+
+	column PreferredDevice
+		dataType: string
+		lineageTag: 892aad72-69e7-4ddb-97ed-d65c4ed8dfdd
+		summarizeBy: none
+		sourceColumn: PreferredDevice
+
+		annotation SummarizationSetBy = Automatic
+
+	column SyntheticDataFlag
+		dataType: int64
+		formatString: 0
+		lineageTag: bd1c7284-ba7e-42e7-9a2c-c875ab0debc5
+		summarizeBy: sum
+		sourceColumn: SyntheticDataFlag
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Acquisition Cohort' = IF ( DimCustomer[AcquiredDuring1111Flag] = 1, "Acquired in 11.11", "Acquired in normal trading" )
+		lineageTag: d42d7a0e-50c3-4f92-9770-001265a74f8b
+		summarizeBy: none
+
+	partition DimCustomer = m
+		mode: import
+		source =
+				let
+				  Source = GoogleBigQuery.Database([BillingProject = null, UseStorageApi = null, ConnectionTimeout = null, CommandTimeout = null]),
+				  #"Navigation 1" = Source{[Name = BigQueryProjectId]}[Data],
+				  #"Navigation 2" = #"Navigation 1"{[Name = "kinun_dw", Kind = "Schema"]}[Data],
+				  #"Navigation 3" = #"Navigation 2"{[Name = "DimCustomer", Kind = "Table"]}[Data]
+				in
+				  #"Navigation 3"
+

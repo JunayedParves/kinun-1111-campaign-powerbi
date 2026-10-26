@@ -1,0 +1,1164 @@
+/// Home table for all report measures, organized by display folder.
+table _Measures
+	lineageTag: 3a42c77f-360a-4688-b3aa-db1389acf7df
+
+	/// Gross demand placed (Quantity x list price), all order statuses, before discounts.
+	measure 'Gross Merchandise Value (GMV)' = SUM ( FactOrderLine[GrossLineAmountBDT] )
+		formatString: ৳#,0
+		displayFolder: 1. Sales
+		lineageTag: fa23caf9-4812-43a8-8763-47a4f61dcdb5
+
+	/// Gross line amount for Delivered orders only.
+	measure 'Gross Sales Before Discounts' = CALCULATE ( SUM ( FactOrderLine[GrossLineAmountBDT] ), FactOrderLine[OrderStatus] = "Delivered" )
+		formatString: ৳#,0
+		displayFolder: 1. Sales
+		lineageTag: 4d55f050-edad-4df6-ae7e-dab77589f4f0
+
+	/// Item + allocated order-level discounts across all placed orders.
+	measure 'Total Discount Amount' = SUM ( FactOrderLine[TotalLineDiscountBDT] )
+		formatString: ৳#,0
+		displayFolder: 1. Sales
+		lineageTag: 5c18b1dc-1730-4330-80fc-a7d587207ac0
+
+	/// Discounts on Delivered orders only.
+	measure 'Realized Discount Amount' = CALCULATE ( SUM ( FactOrderLine[TotalLineDiscountBDT] ), FactOrderLine[OrderStatus] = "Delivered" )
+		formatString: ৳#,0
+		displayFolder: 1. Sales
+		lineageTag: fc60b797-116d-46fd-bac2-267d996202db
+
+	/// Total Discount Amount / GMV.
+	measure 'Discount Rate %' = DIVIDE ( [Total Discount Amount], [Gross Merchandise Value (GMV)] )
+		formatString: 0.0%
+		displayFolder: 1. Sales
+		lineageTag: c5bdae7b-16b5-4413-8577-dd28d8044852
+
+	/// Realized revenue: net merchandise amount for Delivered orders, excluding shipping fee. Primary revenue measure.
+	measure 'Net Merchandise Sales' = CALCULATE ( SUM ( FactOrderLine[NetMerchandiseAmountBDT] ), FactOrderLine[OrderStatus] = "Delivered" )
+		formatString: ৳#,0
+		displayFolder: 1. Sales
+		lineageTag: 80731ebe-a079-4d48-adce-b84cde819236
+
+	/// Units on Delivered orders.
+	measure 'Units Sold' = CALCULATE ( SUM ( FactOrderLine[Quantity] ), FactOrderLine[OrderStatus] = "Delivered" )
+		formatString: #,0
+		displayFolder: 1. Sales
+		lineageTag: 43d4d409-39b5-4cc9-85ce-75e927e7e902
+
+	/// Net Merchandise Sales / Delivered Orders.
+	measure 'Average Order Value (AOV)' = DIVIDE ( [Net Merchandise Sales], [Delivered Orders] )
+		formatString: ৳#,0
+		displayFolder: 1. Sales
+		lineageTag: 8715caa1-c0ae-45d4-a7a0-5bfb41c0f863
+
+	/// Cost of goods on Delivered orders.
+	measure 'Total COGS' = CALCULATE ( SUM ( FactOrderLine[COGSAmountBDT] ), FactOrderLine[OrderStatus] = "Delivered" )
+		formatString: ৳#,0
+		displayFolder: 2. Profitability
+		lineageTag: 110d26f0-bf0a-4c83-9feb-9c337d2ac9ea
+
+	/// Gross margin on Delivered orders.
+	measure 'Gross Margin' = CALCULATE ( SUM ( FactOrderLine[GrossMarginBDT] ), FactOrderLine[OrderStatus] = "Delivered" )
+		formatString: ৳#,0
+		displayFolder: 2. Profitability
+		lineageTag: c225186c-951e-41ba-b441-dde7c915d833
+
+	/// Gross Margin / Net Merchandise Sales.
+	measure 'Gross Margin %' = DIVIDE ( [Gross Margin], [Net Merchandise Sales] )
+		formatString: 0.0%
+		displayFolder: 2. Profitability
+		lineageTag: e0d83ec8-d680-4c77-8ccd-37793d61bdb9
+
+	/// Net sales + shipping revenue - COGS - logistics - gateway fees, including negative RTO reverse-logistics cost.
+	measure 'Contribution Margin' = SUM ( FactOrderLine[ContributionMarginBDT] )
+		formatString: ৳#,0
+		displayFolder: 2. Profitability
+		lineageTag: 5c787185-6c53-423b-97a6-ac0a64ab3a20
+
+	/// Contribution Margin / Net Merchandise Sales.
+	measure 'Contribution Margin %' = DIVIDE ( [Contribution Margin], [Net Merchandise Sales] )
+		formatString: 0.0%
+		displayFolder: 2. Profitability
+		lineageTag: 947a0637-4ea0-42ec-bddc-644ba4218c49
+
+	/// Contribution Margin - Advertising Spend.
+	measure 'Contribution Margin After Ad Spend' = [Contribution Margin] - [Advertising Spend]
+		formatString: ৳#,0
+		displayFolder: 2. Profitability
+		lineageTag: d72200cd-67fc-4bde-8e06-4d1bf84dec5f
+
+	/// Distinct orders across all statuses. Counted from FactOrderLine so it responds to product slicers.
+	measure 'Total Orders' = DISTINCTCOUNT ( FactOrderLine[OrderID] )
+		formatString: #,0
+		displayFolder: 3. Orders & Customers
+		lineageTag: 7859218c-2040-428c-bcd0-619e26762320
+
+	measure 'Delivered Orders' = CALCULATE ( DISTINCTCOUNT ( FactOrderLine[OrderID] ), FactOrderLine[OrderStatus] = "Delivered" )
+		formatString: #,0
+		displayFolder: 3. Orders & Customers
+		lineageTag: fda87061-9b1f-4547-8794-2fb5e113c00b
+
+	measure 'Cancelled Orders' = CALCULATE ( DISTINCTCOUNT ( FactOrderLine[OrderID] ), FactOrderLine[OrderStatus] = "Cancelled" )
+		formatString: #,0
+		displayFolder: 3. Orders & Customers
+		lineageTag: 4269909f-cbc8-43b6-852e-35e5a4ff6926
+
+	measure 'Cancellation Rate %' = DIVIDE ( [Cancelled Orders], [Total Orders] )
+		formatString: 0.0%
+		displayFolder: 3. Orders & Customers
+		lineageTag: 364fd7ec-a631-4aab-99cc-767849e1f89e
+
+	/// Orders that failed at the doorstep and returned to origin.
+	measure 'Doorstep RTO Orders' = CALCULATE ( DISTINCTCOUNT ( FactOrderLine[OrderID] ), FactOrderLine[OrderStatus] = "Delivery Failed (RTO)" )
+		formatString: #,0
+		displayFolder: 3. Orders & Customers
+		lineageTag: d9e6a756-2d1e-4169-8324-4990094e4e57
+
+	measure 'Doorstep RTO Rate %' = DIVIDE ( [Doorstep RTO Orders], [Total Orders] )
+		formatString: 0.0%
+		displayFolder: 3. Orders & Customers
+		lineageTag: 4d661b8d-b07a-4af6-b849-abcb7523bb3e
+
+	measure 'New Customer Orders' = CALCULATE ( DISTINCTCOUNT ( FactOrderHeader[OrderID] ), FactOrderHeader[IsNewCustomerOrder] = 1 )
+		formatString: #,0
+		displayFolder: 3. Orders & Customers
+		lineageTag: ed5fb77d-483c-49b3-ad1b-07bff8c89a75
+
+	measure 'Returning Customer Orders' = CALCULATE ( DISTINCTCOUNT ( FactOrderHeader[OrderID] ), FactOrderHeader[IsNewCustomerOrder] = 0 )
+		formatString: #,0
+		displayFolder: 3. Orders & Customers
+		lineageTag: ab21a8d9-1df0-481a-9991-78647c6b6419
+
+	measure 'New Customer Order Share %' = DIVIDE ( [New Customer Orders], [New Customer Orders] + [Returning Customer Orders] )
+		formatString: 0.0%
+		displayFolder: 3. Orders & Customers
+		lineageTag: 2e3e92cd-2cd3-4ece-9ee0-4056be5c1395
+
+	/// Distinct customers who placed at least one order in context.
+	measure 'Active Customers' = DISTINCTCOUNT ( FactOrderHeader[CustomerKey] )
+		formatString: #,0
+		displayFolder: 3. Orders & Customers
+		lineageTag: 2163d412-6ec7-41d1-9377-e082647f19b1
+
+	/// Customers with more than one order in context.
+	measure 'Repeat Customers' = COUNTROWS ( FILTER ( VALUES ( FactOrderHeader[CustomerKey] ), CALCULATE ( DISTINCTCOUNT ( FactOrderHeader[OrderID] ) ) > 1 ) )
+		formatString: #,0
+		displayFolder: 3. Orders & Customers
+		lineageTag: 3203991d-5cd0-4bc3-aa0e-6ef8f412cad7
+
+	measure 'Repeat Purchase Rate %' = DIVIDE ( [Repeat Customers], [Active Customers] )
+		formatString: 0.0%
+		displayFolder: 3. Orders & Customers
+		lineageTag: 4c2d5fed-48c7-4c59-a6f4-d1d749b0610b
+
+	/// LTV proxy: Net Merchandise Sales / Active Customers.
+	measure 'Net Sales per Customer' = DIVIDE ( [Net Merchandise Sales], [Active Customers] )
+		formatString: ৳#,0
+		displayFolder: 3. Orders & Customers
+		lineageTag: 4354bf95-8242-4351-adff-0003906cdf57
+
+	measure Impressions = SUM ( FactMarketingDaily[Impressions] )
+		formatString: #,0
+		displayFolder: 4. Marketing Funnel
+		lineageTag: 076f9a02-51d6-4b24-b03f-f99b127687d5
+
+	measure Clicks = SUM ( FactMarketingDaily[Clicks] )
+		formatString: #,0
+		displayFolder: 4. Marketing Funnel
+		lineageTag: 1947595b-6269-492e-be5a-f05febd608cb
+
+	measure Sessions = SUM ( FactMarketingDaily[Sessions] )
+		formatString: #,0
+		displayFolder: 4. Marketing Funnel
+		lineageTag: c5d41b00-7bc2-4b15-b796-33d61e70247b
+
+	measure 'Product Views' = SUM ( FactMarketingDaily[ProductDetailViews] )
+		formatString: #,0
+		displayFolder: 4. Marketing Funnel
+		lineageTag: 6ef7bfc6-05b6-48f6-8efe-451199711f6b
+
+	measure 'Add-to-Cart Events' = SUM ( FactMarketingDaily[AddToCartEvents] )
+		formatString: #,0
+		displayFolder: 4. Marketing Funnel
+		lineageTag: 893d1eff-e5a4-4fb8-b8ef-a99982564e2c
+
+	measure 'Checkout Starts' = SUM ( FactMarketingDaily[CheckoutStarts] )
+		formatString: #,0
+		displayFolder: 4. Marketing Funnel
+		lineageTag: 98291a85-7f55-4a69-80c1-9d3990d3098c
+
+	/// 7-day last non-direct click attributed orders. Do not mix with transactional order counts.
+	measure 'Attributed Orders' = SUM ( FactMarketingDaily[AttributedOrders] )
+		formatString: #,0
+		displayFolder: 4. Marketing Funnel
+		lineageTag: 694108d8-0da4-4cc8-a38f-7c8473348f78
+
+	/// 7-day last non-direct click attributed revenue. Do not mix with Net Merchandise Sales.
+	measure 'Attributed Net Revenue' = SUM ( FactMarketingDaily[AttributedNetRevenueBDT] )
+		formatString: ৳#,0
+		displayFolder: 4. Marketing Funnel
+		lineageTag: 728cae5c-6835-433c-9d05-fe53522b4613
+
+	measure 'Click-Through Rate %' = DIVIDE ( [Clicks], [Impressions] )
+		formatString: 0.00%
+		displayFolder: 4. Marketing Funnel
+		lineageTag: 3202d2fd-1a1b-4eb7-b4b1-339ce3d41f51
+
+	measure 'Add-to-Cart Rate %' = DIVIDE ( [Add-to-Cart Events], [Sessions] )
+		formatString: 0.0%
+		displayFolder: 4. Marketing Funnel
+		lineageTag: 3db60ebc-2064-4ac4-9c02-5bcfcbcf87ce
+
+	measure 'Cart-to-Checkout Rate %' = DIVIDE ( [Checkout Starts], [Add-to-Cart Events] )
+		formatString: 0.0%
+		displayFolder: 4. Marketing Funnel
+		lineageTag: d2402b19-70da-4400-9dc5-85284723aafa
+
+	measure 'Checkout Completion Rate %' = DIVIDE ( [Attributed Orders], [Checkout Starts] )
+		formatString: 0.0%
+		displayFolder: 4. Marketing Funnel
+		lineageTag: 495587cc-e4bd-44aa-afb5-df59f2232b31
+
+	measure 'Session Conversion Rate %' = DIVIDE ( [Attributed Orders], [Sessions] )
+		formatString: 0.00%
+		displayFolder: 4. Marketing Funnel
+		lineageTag: a17fb052-23ac-4c42-911d-a40af85ab237
+
+	measure 'Advertising Spend' = SUM ( FactMarketingDaily[AdSpendBDT] )
+		formatString: ৳#,0
+		displayFolder: 4. Marketing Funnel
+		lineageTag: f8e151c8-eec3-401f-a66f-7a838ccae4d7
+
+	/// Attributed Net Revenue / Advertising Spend.
+	measure ROAS = DIVIDE ( [Attributed Net Revenue], [Advertising Spend] )
+		formatString: 0.00"x"
+		displayFolder: 4. Marketing Funnel
+		lineageTag: aa26e395-685a-4cdb-80ce-33e26fe63079
+
+	/// Transactional Net Merchandise Sales / Advertising Spend.
+	measure 'Marketing Efficiency Ratio (MER)' = DIVIDE ( [Net Merchandise Sales], [Advertising Spend] )
+		formatString: 0.00"x"
+		displayFolder: 4. Marketing Funnel
+		lineageTag: f8d08de2-084f-45fb-a20f-0f154f2cc1df
+
+	/// Advertising Spend / New Customer Orders.
+	measure 'Customer Acquisition Cost (CAC)' = DIVIDE ( [Advertising Spend], [New Customer Orders] )
+		formatString: ৳#,0
+		displayFolder: 4. Marketing Funnel
+		lineageTag: d74fcf09-58f7-4171-84dc-55846e54470f
+
+	/// GMV in the 11.11 Main Event Window.
+	measure 'Campaign GMV' = CALCULATE ( [Gross Merchandise Value (GMV)], DimCampaign[EventClassification] = "11.11 Main Event Window" )
+		formatString: ৳#,0
+		displayFolder: 5. 11.11 Campaign
+		lineageTag: ab71ae36-2d5b-463c-88e0-6e8959a5f825
+
+	measure 'Campaign Net Sales' = CALCULATE ( [Net Merchandise Sales], DimCampaign[EventClassification] = "11.11 Main Event Window" )
+		formatString: ৳#,0
+		displayFolder: 5. 11.11 Campaign
+		lineageTag: c68daf40-667b-46ab-bfa1-f581e6a5a5a6
+
+	measure 'Campaign Orders' = CALCULATE ( [Total Orders], DimCampaign[EventClassification] = "11.11 Main Event Window" )
+		formatString: #,0
+		displayFolder: 5. 11.11 Campaign
+		lineageTag: 99cb4987-a6c4-4d87-b15d-2dbe6e62477d
+
+	measure 'Campaign Delivered Orders' = CALCULATE ( [Delivered Orders], DimCampaign[EventClassification] = "11.11 Main Event Window" )
+		formatString: #,0
+		displayFolder: 5. 11.11 Campaign
+		lineageTag: 0cbe936a-5f20-422f-8618-b487044d9a88
+
+	measure 'Campaign AOV' = DIVIDE ( [Campaign Net Sales], [Campaign Delivered Orders] )
+		formatString: ৳#,0
+		displayFolder: 5. 11.11 Campaign
+		lineageTag: eae084ae-ce2f-4655-bcc1-f336bf6eae16
+
+	measure 'Campaign Discount Rate %' = CALCULATE ( [Discount Rate %], DimCampaign[EventClassification] = "11.11 Main Event Window" )
+		formatString: 0.0%
+		displayFolder: 5. 11.11 Campaign
+		lineageTag: 020dca40-2da0-4b6c-9d58-8e2b5b1b3fe2
+
+	/// Average daily Net Merchandise Sales over the pre-event normal trading baseline (DimDate[IsPreEventBaselineWindow] = 1).
+	measure 'Baseline Daily Net Sales' = CALCULATE ( DIVIDE ( [Net Merchandise Sales], DISTINCTCOUNT ( DimDate[DateKey] ) ), REMOVEFILTERS ( DimCampaign ), REMOVEFILTERS ( DimDate[SeasonalEventType] ), REMOVEFILTERS ( DimDate[Is1111EventWindow] ), DimDate[IsPreEventBaselineWindow] = 1 )
+		formatString: ৳#,0
+		displayFolder: 5. 11.11 Campaign
+		lineageTag: 666a0ed0-522e-42d9-a169-df80d70e748d
+
+	/// Campaign Net Sales / (2.25 days x number of 11.11 events in context). The 54-hour window = 2.25 24-hour days; dividing by event count keeps multi-year totals comparable to the baseline.
+	measure '11.11 Equivalent Daily Net Sales' =
+			VAR _Events =
+			    COUNTROWS (
+			        FILTER (
+			            VALUES ( DimDate[Year] ),
+			            NOT ISBLANK ( [Campaign Net Sales] )
+			        )
+			    )
+			RETURN
+			    DIVIDE ( [Campaign Net Sales], 2.25 * _Events )
+		formatString: ৳#,0
+		displayFolder: 5. 11.11 Campaign
+		lineageTag: 2d240eed-7ed1-4432-ac82-69c3840523f3
+
+	/// Descriptive comparison of 11.11 daily run-rate vs pre-event baseline. Not a causal estimate.
+	measure 'Campaign Lift vs Baseline %' = DIVIDE ( [11.11 Equivalent Daily Net Sales] - [Baseline Daily Net Sales], [Baseline Daily Net Sales] )
+		formatString: 0.0%
+		displayFolder: 5. 11.11 Campaign
+		lineageTag: 944bc966-841b-4dd2-8894-ff96e3616db4
+
+	/// Average daily Net Merchandise Sales across trading days in the 11.11 Post-Event Window.
+	measure 'Post-Campaign Daily Net Sales' =
+			CALCULATE (
+			    DIVIDE (
+			        [Net Merchandise Sales],
+			        DISTINCTCOUNT ( FactOrderLine[OrderDateKey] )
+			    ),
+			    REMOVEFILTERS ( DimCampaign ),
+			    DimCampaign[EventClassification] = "11.11 Post-Event Window"
+			)
+		formatString: ৳#,0
+		displayFolder: 5. 11.11 Campaign
+		lineageTag: 39d7d12a-9672-4fc3-ba3a-ca013da87bf4
+
+	measure 'Post-Campaign Retention vs Baseline %' = DIVIDE ( [Post-Campaign Daily Net Sales] - [Baseline Daily Net Sales], [Baseline Daily Net Sales] )
+		formatString: 0.0%
+		displayFolder: 5. 11.11 Campaign
+		lineageTag: dd838b24-d475-4141-9fa2-633334844bd1
+
+	/// Sessions from FactHourlyCampaignTraffic (event and comparator windows only). Use with HourOfDayBDT.
+	measure 'Hourly Sessions' = SUM ( FactHourlyCampaignTraffic[Sessions] )
+		formatString: #,0
+		displayFolder: 5. 11.11 Campaign
+		lineageTag: b2485b67-5c0a-4f0b-8a22-bb7b4f3632c0
+
+	measure 'Hourly Orders' = SUM ( FactHourlyCampaignTraffic[Orders] )
+		formatString: #,0
+		displayFolder: 5. 11.11 Campaign
+		lineageTag: 2f280a68-1f97-4cf1-9b1a-7cded5d620f2
+
+	measure 'Hourly Net Sales' = SUM ( FactHourlyCampaignTraffic[NetMerchandiseSalesBDT] )
+		formatString: ৳#,0
+		displayFolder: 5. 11.11 Campaign
+		lineageTag: 009ec3c6-a7c3-4f67-b79c-4a85a9889d8a
+
+	measure 'Hourly Conversion Rate %' = DIVIDE ( [Hourly Orders], [Hourly Sessions] )
+		formatString: 0.00%
+		displayFolder: 5. 11.11 Campaign
+		lineageTag: 4598b8e1-5fef-4e82-a0c3-e00dd8cef83b
+
+	measure 'Total Payment Attempts' = COUNTROWS ( FactPayment )
+		formatString: #,0
+		displayFolder: 6. Payments
+		lineageTag: f3335da8-5c72-477c-bdc0-c187c5f9224d
+
+	measure 'Failed Payment Attempts' = CALCULATE ( COUNTROWS ( FactPayment ), FactPayment[PaymentStatus] IN { "Failed", "Failed (COD Refused at Doorstep)" } )
+		formatString: #,0
+		displayFolder: 6. Payments
+		lineageTag: fff4c8b6-5946-4a3e-820e-a30ec26b953f
+
+	measure 'Payment Failure Rate %' = DIVIDE ( [Failed Payment Attempts], [Total Payment Attempts] )
+		formatString: 0.0%
+		displayFolder: 6. Payments
+		lineageTag: e131c548-dd34-44f4-b1eb-bd3f36bfc8ff
+
+	/// Attempts with status Captured or Collected (COD).
+	measure 'Successful Payment Attempts' = CALCULATE ( COUNTROWS ( FactPayment ), FactPayment[PaymentStatus] IN { "Captured", "Collected (COD)" } )
+		formatString: #,0
+		displayFolder: 6. Payments
+		lineageTag: 823258ef-afcb-4f1a-a919-70e07c3efb89
+
+	/// Cash actually collected (by order date). Never sum AttemptedAmountBDT as revenue.
+	measure 'Successful Collection Amount' = SUM ( FactPayment[CollectedAmountBDT] )
+		formatString: ৳#,0
+		displayFolder: 6. Payments
+		lineageTag: bafbe682-c08f-4cc2-b6e1-1299eb3d42d0
+
+	/// Collected amount on the payment date via the inactive PaymentDateKey relationship.
+	measure 'Collection by Settlement Date' = CALCULATE ( SUM ( FactPayment[CollectedAmountBDT] ), USERELATIONSHIP ( FactPayment[PaymentDateKey], DimDate[DateKey] ) )
+		formatString: ৳#,0
+		displayFolder: 6. Payments
+		lineageTag: aba63682-67d7-48a2-866b-29c4ece94ef3
+
+	measure 'Gateway Transaction Fees' = SUM ( FactPayment[TransactionFeeBDT] )
+		formatString: ৳#,0
+		displayFolder: 6. Payments
+		lineageTag: 9a8da003-7cd3-4ebf-854e-6b9359298044
+
+	measure 'Total Shipments' = COUNTROWS ( FactDelivery )
+		formatString: #,0
+		displayFolder: 7. Delivery
+		lineageTag: 99d4c94e-df0c-40e2-95c8-b122dbcd2310
+
+	measure 'Delivered Shipments' = CALCULATE ( COUNTROWS ( FactDelivery ), FactDelivery[DeliveryStatus] = "Delivered" )
+		formatString: #,0
+		displayFolder: 7. Delivery
+		lineageTag: 2654656b-5493-47ed-9556-7815facdf35b
+
+	measure 'Delivery Success Rate %' = DIVIDE ( [Delivered Shipments], [Total Shipments] )
+		formatString: 0.0%
+		displayFolder: 7. Delivery
+		lineageTag: 1aea727c-2b97-4276-84ed-a1ac48b5628a
+
+	measure 'On-Time Deliveries' = CALCULATE ( COUNTROWS ( FactDelivery ), FactDelivery[DeliveryStatus] = "Delivered", FactDelivery[IsOnTimeDelivery] = 1 )
+		formatString: #,0
+		displayFolder: 7. Delivery
+		lineageTag: 29cef699-6836-481c-bebf-6bf94ffe91ab
+
+	/// On-time deliveries / delivered shipments.
+	measure 'On-Time Delivery Rate %' = DIVIDE ( [On-Time Deliveries], [Delivered Shipments] )
+		formatString: 0.0%
+		displayFolder: 7. Delivery
+		lineageTag: 6ce3ed31-a804-4f66-8d94-312a926f7e3d
+
+	measure 'Avg Delivery Lead Time (Days)' = CALCULATE ( AVERAGE ( FactDelivery[DeliveryLeadTimeDays] ), FactDelivery[DeliveryStatus] = "Delivered" )
+		formatString: 0.0
+		displayFolder: 7. Delivery
+		lineageTag: 545fb0ba-5ad5-475b-921f-8356371b1bbb
+
+	measure 'Shipping Cost' = SUM ( FactDelivery[ShippingCostBDT] )
+		formatString: ৳#,0
+		displayFolder: 7. Delivery
+		lineageTag: 4ba52b2d-cc1e-479c-b6dd-7221b92ad711
+
+	/// Shipment count on dispatch date via the inactive DispatchDateKey relationship.
+	measure 'Shipments by Dispatch Date' = CALCULATE ( COUNTROWS ( FactDelivery ), USERELATIONSHIP ( FactDelivery[DispatchDateKey], DimDate[DateKey] ) )
+		formatString: #,0
+		displayFolder: 7. Delivery
+		lineageTag: 36fc22c1-37c9-4e04-9099-ca7f36ddd0a5
+
+	measure 'Returned Units' = SUM ( FactReturn[ReturnQuantity] )
+		formatString: #,0
+		displayFolder: 8. Returns
+		lineageTag: d1cbb2c4-1415-439d-9e97-f5a370682662
+
+	measure 'Return Rate (Units) %' = DIVIDE ( [Returned Units], [Units Sold] )
+		formatString: 0.0%
+		displayFolder: 8. Returns
+		lineageTag: 0b2f3940-b399-41cc-9290-bf636177596a
+
+	measure 'Refund Amount' = SUM ( FactReturn[RefundAmountBDT] )
+		formatString: ৳#,0
+		displayFolder: 8. Returns
+		lineageTag: d26fb825-5980-4224-b8bb-45e354a0d368
+
+	measure 'Return Rate (Value) %' = DIVIDE ( [Refund Amount], [Net Merchandise Sales] )
+		formatString: 0.0%
+		displayFolder: 8. Returns
+		lineageTag: e930968a-8e62-4707-bf22-b087dfee8410
+
+	measure 'Return Handling Cost' = SUM ( FactReturn[ReturnHandlingCostBDT] )
+		formatString: ৳#,0
+		displayFolder: 8. Returns
+		lineageTag: eb8ffecd-3f20-4ddd-9677-e375890d1766
+
+	measure 'Restockable Return %' = DIVIDE ( CALCULATE ( SUM ( FactReturn[ReturnQuantity] ), FactReturn[IsRestockable] = 1 ), [Returned Units] )
+		formatString: 0.0%
+		displayFolder: 8. Returns
+		lineageTag: 0beb8b08-c5ed-4555-8a3e-3300de5ebf71
+
+	/// Refund amount on the return-processing date via the inactive ReturnDateKey relationship.
+	measure 'Refunds by Return Date' = CALCULATE ( [Refund Amount], USERELATIONSHIP ( FactReturn[ReturnDateKey], DimDate[DateKey] ) )
+		formatString: ৳#,0
+		displayFolder: 8. Returns
+		lineageTag: d24deccb-19e0-4b18-be93-fa1ad177e20d
+
+	/// Semi-additive: closing stock at the last snapshot date in context.
+	measure 'Ending Inventory Units' = LASTNONBLANKVALUE ( DimDate[FullDate], SUM ( FactInventoryWeekly[ClosingStockUnits] ) )
+		formatString: #,0
+		displayFolder: 9. Inventory
+		lineageTag: b9835959-50ce-4165-8b73-3fc76a9ff1db
+
+	measure 'Avg Snapshot Inventory Units' = AVERAGEX ( FILTER ( VALUES ( DimDate[FullDate] ), CALCULATE ( NOT ISEMPTY ( FactInventoryWeekly ) ) ), CALCULATE ( SUM ( FactInventoryWeekly[ClosingStockUnits] ) ) )
+		formatString: #,0
+		displayFolder: 9. Inventory
+		lineageTag: 3d514cb8-4cf6-4b9a-b9a5-78c6cc49ccdc
+
+	measure 'Stockout Rate %' = DIVIDE ( CALCULATE ( COUNTROWS ( FactInventoryWeekly ), FactInventoryWeekly[StockoutFlag] = 1 ), COUNTROWS ( FactInventoryWeekly ) )
+		formatString: 0.0%
+		displayFolder: 9. Inventory
+		lineageTag: e4ab26bd-daaa-4637-b7f0-2bc504dd9e9f
+
+	measure 'Estimated Lost Sales (Stockouts)' = SUM ( FactInventoryWeekly[EstimatedLostSalesBDT] )
+		formatString: ৳#,0
+		displayFolder: 9. Inventory
+		lineageTag: 5ccceb04-9847-4ac1-a547-2aa0bc907945
+
+	measure 'Inventory Turnover Proxy' = DIVIDE ( [Units Sold], [Avg Snapshot Inventory Units] )
+		formatString: 0.00
+		displayFolder: 9. Inventory
+		lineageTag: b1bee48e-99dd-4c07-9a5f-1192f006ce1d
+
+	measure 'YTD Net Sales' = TOTALYTD ( [Net Merchandise Sales], DimDate[FullDate] )
+		formatString: ৳#,0
+		displayFolder: 10. Time Intelligence
+		lineageTag: c59f028e-6ede-4efb-b09c-8f7e74294942
+
+	measure 'PY Net Sales' = CALCULATE ( [Net Merchandise Sales], SAMEPERIODLASTYEAR ( DimDate[FullDate] ) )
+		formatString: ৳#,0
+		displayFolder: 10. Time Intelligence
+		lineageTag: 14860d4b-b247-4397-9374-268f2a4323de
+
+	measure 'YoY Net Sales Growth %' = DIVIDE ( [Net Merchandise Sales] - [PY Net Sales], [PY Net Sales] )
+		formatString: 0.0%
+		displayFolder: 10. Time Intelligence
+		lineageTag: 20c073cf-6c60-4ee3-969c-d19adc34c235
+
+	measure 'PM Net Sales' = CALCULATE ( [Net Merchandise Sales], DATEADD ( DimDate[FullDate], -1, MONTH ) )
+		formatString: ৳#,0
+		displayFolder: 10. Time Intelligence
+		lineageTag: 0af0654d-c83e-46f8-b6f4-88197bbd1c60
+
+	measure 'MoM Net Sales Growth %' = DIVIDE ( [Net Merchandise Sales] - [PM Net Sales], [PM Net Sales] )
+		formatString: 0.0%
+		displayFolder: 10. Time Intelligence
+		lineageTag: 5c760768-f685-4326-bf13-f12e512bec15
+
+	/// 11.11 Main Event Net Sales in the prior year (use with DimDate[Year]).
+	measure 'PY Campaign Net Sales' = CALCULATE ( [Campaign Net Sales], SAMEPERIODLASTYEAR ( DimDate[FullDate] ) )
+		formatString: ৳#,0
+		displayFolder: 10. Time Intelligence
+		lineageTag: c159332d-a0ed-4273-80cd-4346608d7674
+
+	measure 'Late Delivery Rate %' = DIVIDE ( [Delivered Shipments] - [On-Time Deliveries], [Delivered Shipments] )
+		formatString: 0.0%
+		displayFolder: 7. Delivery
+		lineageTag: 93382f86-71f9-42a5-8428-63022710440c
+
+	measure 'COD Order Share %' = DIVIDE ( CALCULATE ( [Total Orders], DimPaymentMethod[CODDigitalClass] = "Cash on Delivery" ), [Total Orders] )
+		formatString: 0.0%
+		displayFolder: 3. Orders & Customers
+		lineageTag: 4a51c792-593d-446d-924c-f2b6e2f9c399
+
+	/// Lifetime repeat rate of customers acquired during 11.11 (ignores date filters so late-year cohorts are not truncated).
+	measure '11.11-Acquired Repeat Rate %' = CALCULATE ( [Repeat Purchase Rate %], DimCustomer[AcquiredDuring1111Flag] = 1, REMOVEFILTERS ( DimDate ) )
+		formatString: 0.0%
+		displayFolder: 3. Orders & Customers
+		lineageTag: 1dbf0261-e44d-4a63-ab43-0d2686ae36c4
+
+	/// Lifetime repeat rate of customers acquired outside 11.11 (ignores date filters).
+	measure 'Normal-Acquired Repeat Rate %' = CALCULATE ( [Repeat Purchase Rate %], DimCustomer[AcquiredDuring1111Flag] = 0, REMOVEFILTERS ( DimDate ) )
+		formatString: 0.0%
+		displayFolder: 3. Orders & Customers
+		lineageTag: 58c57379-da8c-438b-b2c2-8f446f16c02b
+
+	measure 'Campaign Contribution Margin %' = CALCULATE ( [Contribution Margin %], DimCampaign[EventClassification] = "11.11 Main Event Window" )
+		formatString: 0.0%
+		displayFolder: 5. 11.11 Campaign
+		lineageTag: 8691c3da-9bf8-4df9-8e51-a6e34764562b
+
+	measure 'Normal Trading Contribution Margin %' = CALCULATE ( [Contribution Margin %], DimCampaign[EventClassification] = "Normal Trading" )
+		formatString: 0.0%
+		displayFolder: 5. 11.11 Campaign
+		lineageTag: 69e96424-8cfc-4300-849d-8ed3c4a71e5f
+
+	measure 'Campaign Advertising Spend' = CALCULATE ( [Advertising Spend], DimCampaign[EventClassification] = "11.11 Main Event Window" )
+		formatString: ৳#,0
+		displayFolder: 5. 11.11 Campaign
+		lineageTag: 1ee7536e-9493-48f2-94cb-0b48aa1aeb52
+
+	measure 'Campaign CM After Ad Spend' = CALCULATE ( [Contribution Margin After Ad Spend], DimCampaign[EventClassification] = "11.11 Main Event Window" )
+		formatString: ৳#,0
+		displayFolder: 5. 11.11 Campaign
+		lineageTag: e31b6e06-6c7f-4df5-8f09-f62c5810e672
+
+	measure 'Campaign Payment Failure Rate %' = CALCULATE ( [Payment Failure Rate %], DimCampaign[EventClassification] = "11.11 Main Event Window" )
+		formatString: 0.0%
+		displayFolder: 5. 11.11 Campaign
+		lineageTag: 6e6d9b48-7135-4ba3-bc69-ce3c0feecc54
+
+	measure 'Campaign On-Time Delivery Rate %' = CALCULATE ( [On-Time Delivery Rate %], DimCampaign[EventClassification] = "11.11 Main Event Window" )
+		formatString: 0.0%
+		displayFolder: 5. 11.11 Campaign
+		lineageTag: 5184a507-95e3-4b74-92ec-c54247aca4cf
+
+	measure 'Campaign Cancellation Rate %' = CALCULATE ( [Cancellation Rate %], DimCampaign[EventClassification] = "11.11 Main Event Window" )
+		formatString: 0.0%
+		displayFolder: 5. 11.11 Campaign
+		lineageTag: 6d294bd1-bce2-4610-9507-cdb4471ec95d
+
+	measure 'Campaign Share of Net Sales %' = DIVIDE ( [Campaign Net Sales], [Net Merchandise Sales] )
+		formatString: 0.0%
+		displayFolder: 5. 11.11 Campaign
+		lineageTag: f88eb7e4-94f2-4458-b749-e8d3b4c73406
+
+	/// 11.11 equivalent daily net sales as a multiple of the pre-event baseline day.
+	measure 'Campaign Daily Lift Multiple' = DIVIDE ( [11.11 Equivalent Daily Net Sales], [Baseline Daily Net Sales] )
+		formatString: 0.0"x"
+		displayFolder: 5. 11.11 Campaign
+		lineageTag: 4cbbc8b8-5e07-48fd-bd28-030ab6a5fb1b
+
+	measure 'Margin-Trap SKU Count' = CALCULATE ( DISTINCTCOUNT ( DimProduct[ProductKey] ), DimProduct[IsMarginTrapSKU] = 1 )
+		formatString: #,0
+		displayFolder: 9. Inventory
+		lineageTag: a6288443-5b18-4785-bf5b-ff73d9880e45
+
+	measure 'Margin-Trap Campaign CM %' = CALCULATE ( [Campaign Contribution Margin %], DimProduct[IsMarginTrapSKU] = 1 )
+		formatString: 0.0%
+		displayFolder: 5. 11.11 Campaign
+		lineageTag: eb94af4a-e698-4b82-a8b2-d9ad78654418
+
+	measure 'Margin-Trap Campaign Discount %' = CALCULATE ( [Campaign Discount Rate %], DimProduct[IsMarginTrapSKU] = 1 )
+		formatString: 0.0%
+		displayFolder: 5. 11.11 Campaign
+		lineageTag: 00774900-4884-440c-8bac-106a7374ccf4
+
+	/// Share of Net Merchandise Sales within the current visual selection (product dimension).
+	measure 'Net Sales Share %' = DIVIDE ( [Net Merchandise Sales], CALCULATE ( [Net Merchandise Sales], ALLSELECTED ( DimProduct ) ) )
+		formatString: 0.0%
+		displayFolder: 1. Sales
+		lineageTag: 6bae3560-dbc4-4486-b8e3-a97273023f35
+
+	/// Share of Net Merchandise Sales from channels with no ad spend (App, Direct Web, Organic Search).
+	measure 'Zero-Media Channel Share %' = DIVIDE ( CALCULATE ( [Net Merchandise Sales], DimChannel[ChannelGroup] IN { "Owned App", "Direct Web", "Organic Web" } ), [Net Merchandise Sales] )
+		formatString: 0.0%
+		displayFolder: 4. Marketing Funnel
+		lineageTag: 2d922020-a067-44c7-9661-faee656877c2
+
+	measure 'Funnel Value' = SWITCH ( SELECTEDVALUE ( 'Funnel Stage'[Stage] ), "Sessions", [Sessions], "Product Views", [Product Views], "Add to Cart", [Add-to-Cart Events], "Checkout Starts", [Checkout Starts], "Attributed Orders", [Attributed Orders] )
+		formatString: #,0
+		displayFolder: 4. Marketing Funnel
+		lineageTag: 995cab6b-e3fd-4390-bc32-629a13369085
+
+	measure 'Funnel % of Sessions' = DIVIDE ( [Funnel Value], [Sessions] )
+		formatString: 0.0%
+		displayFolder: 4. Marketing Funnel
+		lineageTag: 36d9e421-3b02-4266-a4ee-c5ae53554fd5
+
+	measure 'Ops Metric Value' = SWITCH ( SELECTEDVALUE ( 'Ops Metric'[Metric] ), "Cancellation Rate", [Cancellation Rate %], "Payment Failure Rate", [Payment Failure Rate %], "Doorstep RTO Rate", [Doorstep RTO Rate %], "Late Delivery Rate", [Late Delivery Rate %], "Discount Rate", [Discount Rate %] )
+		formatString: 0.0%
+		displayFolder: 7. Delivery
+		lineageTag: ac5315bb-c409-438b-8c38-dadc63f76e0e
+
+	/// YoY growth when one year is in context; compound annual growth across the first and last selected year otherwise.
+	measure 'Net Sales Growth %' =
+			VAR _MinY = CALCULATE ( MIN ( DimDate[Year] ), FILTER ( VALUES ( DimDate[Year] ), NOT ISBLANK ( [Net Merchandise Sales] ) ) )
+			VAR _MaxY = CALCULATE ( MAX ( DimDate[Year] ), FILTER ( VALUES ( DimDate[Year] ), NOT ISBLANK ( [Net Merchandise Sales] ) ) )
+			VAR _First = CALCULATE ( [Net Merchandise Sales], DimDate[Year] = _MinY )
+			VAR _Last = CALCULATE ( [Net Merchandise Sales], DimDate[Year] = _MaxY )
+			RETURN
+			    IF (
+			        _MinY = _MaxY,
+			        [YoY Net Sales Growth %],
+			        IF ( _First > 0, POWER ( DIVIDE ( _Last, _First ), DIVIDE ( 1, _MaxY - _MinY ) ) - 1 )
+			    )
+		formatString: 0.0%
+		displayFolder: 10. Time Intelligence
+		lineageTag: 6c48a855-4a64-4d81-aae3-6a9ab6719955
+
+	measure 'KPI Net Sales Subtitle' =
+			VAR _MinY = CALCULATE ( MIN ( DimDate[Year] ), FILTER ( VALUES ( DimDate[Year] ), NOT ISBLANK ( [Net Merchandise Sales] ) ) )
+			VAR _MaxY = CALCULATE ( MAX ( DimDate[Year] ), FILTER ( VALUES ( DimDate[Year] ), NOT ISBLANK ( [Net Merchandise Sales] ) ) )
+			VAR _G = [Net Sales Growth %]
+			RETURN
+			    IF (
+			        ISBLANK ( _G ),
+			        "First year in range – no comparison",
+			        IF ( _G >= 0, "▲ ", "▼ " ) & FORMAT ( ABS ( _G ), "0.0%" )
+			            & IF ( _MinY = _MaxY, " vs prior year", " CAGR " & _MinY & "–" & RIGHT ( _MaxY, 2 ) )
+			    )
+		displayFolder: 11. Dashboard Text
+		lineageTag: 6e9459b5-c55e-432c-924b-168fe4270e4b
+
+	measure 'KPI Net Sales Color' = IF ( [Net Sales Growth %] < 0, "#DC2626", "#00796B" )
+		displayFolder: 11. Dashboard Text
+		lineageTag: 760f8b04-876e-4d09-b0f8-34a67beee27c
+
+	measure 'KPI GMV Subtitle' = FORMAT ( [Discount Rate %], "0.0%" ) & " given away in discounts"
+		displayFolder: 11. Dashboard Text
+		lineageTag: 3f1d482a-50a3-4e09-b077-20e31b427c13
+
+	measure 'KPI CM Subtitle' =
+			VAR _P = [Contribution Margin %]
+			RETURN
+			    FORMAT ( _P, "0.0%" ) & " of net sales · "
+			        & SWITCH ( TRUE (), _P >= 0.10, "healthy", _P >= 0.03, "under pressure", "margin trap" )
+		displayFolder: 11. Dashboard Text
+		lineageTag: 2cb7d32a-39b2-4715-972a-556263bfda0c
+
+	measure 'KPI CM Color' =
+			VAR _P = [Contribution Margin %]
+			RETURN SWITCH ( TRUE (), _P >= 0.10, "#00796B", _P >= 0.03, "#D97706", "#DC2626" )
+		displayFolder: 11. Dashboard Text
+		lineageTag: 57559e01-94d1-4237-83b0-8abcb7746368
+
+	measure 'KPI Orders Subtitle' = FORMAT ( [Cancellation Rate %], "0.0%" ) & " cancelled · " & FORMAT ( [Doorstep RTO Rate %], "0.0%" ) & " RTO"
+		displayFolder: 11. Dashboard Text
+		lineageTag: 5bd3af6e-3cbf-47d1-a8ab-229c76ddae1a
+
+	measure 'KPI Orders Color' = IF ( [Cancellation Rate %] + [Doorstep RTO Rate %] > 0.12, "#DC2626", "#64748B" )
+		displayFolder: 11. Dashboard Text
+		lineageTag: 52c72f0b-5ce6-4ceb-949c-5a7a3032a9a8
+
+	measure 'KPI AOV Subtitle' = "Per delivered order · " & FORMAT ( [Units Sold] / [Delivered Orders], "0.00" ) & " units"
+		displayFolder: 11. Dashboard Text
+		lineageTag: 6c04bb93-4f77-4622-8d7f-3337b833943d
+
+	measure 'KPI Lift Subtitle' = IF ( ISBLANK ( [Campaign Net Sales] ), "No 11.11 sales in selection", "11.11 daily run-rate vs Oct baseline" )
+		displayFolder: 11. Dashboard Text
+		lineageTag: e70eee45-5fb3-4f8a-bd4c-37847f8c8312
+
+	measure 'KPI Campaign CM Subtitle' = IF ( ISBLANK ( [Campaign Net Sales] ), "No 11.11 sales in selection", "vs " & FORMAT ( [Normal Trading Contribution Margin %], "0.0%" ) & " in normal trading" )
+		displayFolder: 11. Dashboard Text
+		lineageTag: 676c8762-500d-412c-8736-7b901399b623
+
+	measure 'KPI Campaign CM Color' = IF ( [Campaign Contribution Margin %] < 0.03, "#DC2626", IF ( [Campaign Contribution Margin %] < 0.10, "#D97706", "#00796B" ) )
+		displayFolder: 11. Dashboard Text
+		lineageTag: 67a7181e-6803-4045-b493-b0f034613500
+
+	measure 'Selection Context' =
+			VAR _Y = IF ( ISFILTERED ( DimDate[Year] ), CONCATENATEX ( VALUES ( DimDate[Year] ), DimDate[Year], ", ", DimDate[Year], ASC ), "2022–2025" )
+			VAR _E = IF ( ISFILTERED ( DimCampaign[EventClassification] ), CONCATENATEX ( VALUES ( DimCampaign[EventClassification] ), DimCampaign[EventClassification], ", " ), "All event windows" )
+			VAR _D = IF ( ISFILTERED ( DimGeography[Division] ), CONCATENATEX ( VALUES ( DimGeography[Division] ), DimGeography[Division], ", " ), "All divisions" )
+			VAR _C = IF ( ISFILTERED ( DimProduct[Category] ), CONCATENATEX ( VALUES ( DimProduct[Category] ), DimProduct[Category], ", " ), "All categories" )
+			RETURN "Showing: " & _Y & "  |  " & _E & "  |  " & _D & "  |  " & _C & "  |  Amounts in BDT (৳) · Synthetic portfolio data"
+		displayFolder: 11. Dashboard Text
+		lineageTag: 57e160ea-70d6-4881-b31c-5fcb7e981234
+
+	measure 'Headline Executive' =
+			VAR _NS = [Net Merchandise Sales]
+			VAR _G = [Net Sales Growth %]
+			VAR _L = [Campaign Daily Lift Multiple]
+			VAR _One = HASONEVALUE ( DimDate[Year] )
+			VAR _NSTxt = "৳" & IF ( ABS ( _NS ) >= 1e9, FORMAT ( _NS / 1e9, "0.00" ) & "B", FORMAT ( _NS / 1e6, "0.0" ) & "M" )
+			RETURN
+			    "Net sales of " & _NSTxt
+			        & IF ( NOT ISBLANK ( _G ), " (" & FORMAT ( _G, "+0.0%;-0.0%" ) & IF ( _One, " YoY", " CAGR" ) & ")" )
+			        & IF (
+			            NOT ISBLANK ( _L ),
+			            " – 11.11 multiplies daily sales " & FORMAT ( _L, "0.0" ) & "x, but earns only "
+			                & FORMAT ( [Campaign Contribution Margin %], "0.0%" ) & " contribution margin vs "
+			                & FORMAT ( [Normal Trading Contribution Margin %], "0.0%" ) & " in normal trading",
+			            " – contribution margin " & FORMAT ( [Contribution Margin %], "0.0%" )
+			        )
+		displayFolder: 11. Dashboard Text
+		lineageTag: c37f1b77-57a8-429d-90cd-54c48d0cc8a5
+
+	measure 'Headline Campaign' =
+			IF (
+			    ISBLANK ( [Campaign Net Sales] ),
+			    "No 11.11 Main Event sales in the current selection – reset the Event Window filter to compare",
+			    "The 54-hour 11.11 window runs at " & FORMAT ( [Campaign Daily Lift Multiple], "0.0" ) & "x baseline daily sales, but "
+			        & FORMAT ( [Campaign Discount Rate %], "0.0%" ) & " discounting and " & FORMAT ( [Campaign Payment Failure Rate %], "0.0%" )
+			        & " payment failures squeeze contribution margin to " & FORMAT ( [Campaign Contribution Margin %], "0.0%" )
+			)
+		displayFolder: 11. Dashboard Text
+		lineageTag: 68803ee6-104f-45c5-8110-9a103b9cc0c4
+
+	measure 'Headline Marketing' =
+			VAR _T = FILTER ( ADDCOLUMNS ( VALUES ( DimChannel[ChannelName] ), "@r", [ROAS] ), [@r] > 0 )
+			VAR _B = TOPN ( 1, _T, [@r], DESC )
+			VAR _W = TOPN ( 1, _T, [@r], ASC )
+			RETURN
+			    IF (
+			        ISEMPTY ( _T ),
+			        "No paid media in the current selection",
+			        MAXX ( _B, DimChannel[ChannelName] ) & " returns " & FORMAT ( MAXX ( _B, [@r] ), "0" ) & "x on ad spend vs "
+			            & FORMAT ( MAXX ( _W, [@r] ), "0" ) & "x for " & MAXX ( _W, DimChannel[ChannelName] )
+			            & " – zero-media channels already deliver " & FORMAT ( [Zero-Media Channel Share %], "0%" ) & " of net sales"
+			    )
+		displayFolder: 11. Dashboard Text
+		lineageTag: c50d5e92-b11c-4f7a-8b17-f79629952cbf
+
+	measure 'Headline Product' =
+			VAR _C = FILTER ( ADDCOLUMNS ( VALUES ( DimProduct[Category] ), "@s", [Net Merchandise Sales], "@m", [Contribution Margin %] ), NOT ISBLANK ( [@s] ) )
+			VAR _Top = TOPN ( 1, _C, [@s], DESC )
+			VAR _Share = DIVIDE ( MAXX ( _Top, [@s] ), [Net Merchandise Sales] )
+			VAR _MT = [Margin-Trap Campaign CM %]
+			RETURN
+			    MAXX ( _Top, DimProduct[Category] ) & " drive " & FORMAT ( _Share, "0%" ) & " of net sales at " & FORMAT ( MAXX ( _Top, [@m] ), "0.0%" ) & " margin"
+			        & IF (
+			            NOT ISBLANK ( _MT ),
+			            "; " & [Margin-Trap SKU Count] & " margin-trap SKUs swing to " & FORMAT ( _MT, "0.0%" ) & " during 11.11 at "
+			                & FORMAT ( [Margin-Trap Campaign Discount %], "0.0%" ) & " discount"
+			        )
+		displayFolder: 11. Dashboard Text
+		lineageTag: 5b45c5cd-60f1-4c4f-8220-66c3584c78ee
+
+	measure 'Headline Operations' =
+			VAR _DF = CALCULATE ( [Payment Failure Rate %], DimCampaign[EventClassification] = "11.11 Main Event Window", DimPaymentMethod[CODDigitalClass] = "Digital Prepayment" )
+			VAR _DN = CALCULATE ( [Payment Failure Rate %], DimCampaign[EventClassification] = "Normal Trading", DimPaymentMethod[CODDigitalClass] = "Digital Prepayment" )
+			VAR _Z = TOPN ( 1, FILTER ( ADDCOLUMNS ( VALUES ( DimGeography[DeliveryZone] ), "@o", [On-Time Delivery Rate %] ), NOT ISBLANK ( [@o] ) ), [@o], ASC )
+			RETURN
+			    IF ( NOT ISBLANK ( _DF ), "Digital payment failures jump from " & FORMAT ( _DN, "0.0%" ) & " to " & FORMAT ( _DF, "0.0%" ) & " during 11.11; ", "" )
+			        & MAXX ( _Z, DimGeography[DeliveryZone] ) & " on-time delivery lags at " & FORMAT ( MAXX ( _Z, [@o] ), "0%" )
+			        & ", and 11.11-acquired customers repeat less (" & FORMAT ( [11.11-Acquired Repeat Rate %], "0%" ) & " vs " & FORMAT ( [Normal-Acquired Repeat Rate %], "0%" ) & ")"
+		displayFolder: 11. Dashboard Text
+		lineageTag: 988bd5b1-419d-4e41-9805-77a72d41a236
+
+	measure 'Title Monthly Trend' =
+			VAR _T = FILTER ( ADDCOLUMNS ( VALUES ( DimDate[YearMonth] ), "@s", [Net Merchandise Sales], "@m", [Contribution Margin %] ), NOT ISBLANK ( [@s] ) )
+			VAR _Pk = TOPN ( 1, _T, [@s], DESC )
+			VAR _Lo = TOPN ( 1, _T, [@m], ASC )
+			VAR _V = MAXX ( _Pk, [@s] )
+			RETURN
+			    "Sales peak in " & MAXX ( _Pk, DimDate[YearMonth] ) & " (৳" & FORMAT ( _V / 1e6, "0" ) & "M) while margin bottoms at "
+			        & FORMAT ( MAXX ( _Lo, [@m] ), "0.0%" ) & " in " & MAXX ( _Lo, DimDate[YearMonth] ) & " – event months buy volume with margin"
+		displayFolder: 11. Dashboard Text
+		lineageTag: c50612df-4aa3-4dae-9b0c-c3ccb09fad6a
+
+	measure 'Title Category Mix' =
+			VAR _C = FILTER ( ADDCOLUMNS ( VALUES ( DimProduct[Category] ), "@s", [Net Merchandise Sales], "@m", [Contribution Margin %] ), NOT ISBLANK ( [@s] ) )
+			VAR _Top = TOPN ( 1, _C, [@s], DESC )
+			VAR _Best = TOPN ( 1, _C, [@m], DESC )
+			RETURN
+			    MAXX ( _Top, DimProduct[Category] ) & " carry " & FORMAT ( DIVIDE ( MAXX ( _Top, [@s] ), [Net Merchandise Sales] ), "0%" ) & " of sales at "
+			        & FORMAT ( MAXX ( _Top, [@m] ), "0.0%" ) & " margin; " & MAXX ( _Best, DimProduct[Category] ) & " earn " & FORMAT ( MAXX ( _Best, [@m] ), "0.0%" )
+		displayFolder: 11. Dashboard Text
+		lineageTag: 1ff77775-83e5-42fc-b57a-47cb4cf4a15f
+
+	measure 'Title Event Windows' =
+			VAR _E = FILTER ( ADDCOLUMNS ( VALUES ( DimCampaign[EventClassification] ), "@m", [Contribution Margin %] ), NOT ISBLANK ( [@m] ) )
+			VAR _Lo = TOPN ( 1, _E, [@m], ASC )
+			RETURN
+			    MAXX ( _Lo, DimCampaign[EventClassification] ) & " is the least profitable window at " & FORMAT ( MAXX ( _Lo, [@m] ), "0.0%" )
+			        & " contribution margin vs " & FORMAT ( [Normal Trading Contribution Margin %], "0.0%" ) & " in normal trading"
+		displayFolder: 11. Dashboard Text
+		lineageTag: 9da6d8c3-773d-44db-8510-7f9baf1afb19
+
+	measure 'Title Lift by Year' =
+			VAR _Y = FILTER ( ADDCOLUMNS ( VALUES ( DimDate[Year] ), "@l", [Campaign Daily Lift Multiple], "@n", [Campaign Net Sales] ), NOT ISBLANK ( [@n] ) )
+			VAR _MinY = MINX ( _Y, DimDate[Year] )
+			VAR _MaxY = MAXX ( _Y, DimDate[Year] )
+			RETURN
+			    IF (
+			        _MinY = _MaxY,
+			        "11.11 " & _MaxY & " ran at " & FORMAT ( MAXX ( _Y, [@l] ), "0.0" ) & "x baseline daily sales",
+			        "11.11 lift grew from " & FORMAT ( MAXX ( FILTER ( _Y, DimDate[Year] = _MinY ), [@l] ), "0.0" ) & "x to "
+			            & FORMAT ( MAXX ( FILTER ( _Y, DimDate[Year] = _MaxY ), [@l] ), "0.0" ) & "x baseline (" & _MinY & "–" & _MaxY & ") – the event is scaling, not saturating"
+			    )
+		displayFolder: 11. Dashboard Text
+		lineageTag: 21caf822-7c65-4f21-b23a-e4cd186d763a
+
+	measure 'Title Hourly Curve' =
+			VAR _Win = FILTER ( ALL ( FactHourlyCampaignTraffic[Hours Since Launch] ), NOT ISBLANK ( FactHourlyCampaignTraffic[Hours Since Launch] ) )
+			VAR _All = CALCULATE ( [Hourly Orders], _Win )
+			VAR _First6 = CALCULATE ( [Hourly Orders], FILTER ( _Win, FactHourlyCampaignTraffic[Hours Since Launch] <= 5 ) )
+			VAR _Peak = TOPN ( 1, ADDCOLUMNS ( VALUES ( FactHourlyCampaignTraffic[HourOfDayBDT] ), "@o", CALCULATE ( [Hourly Orders], _Win ) ), [@o], DESC )
+			RETURN
+			    IF (
+			        ISBLANK ( _All ),
+			        "Hourly 11.11 order curve",
+			        "Launch night captures " & FORMAT ( DIVIDE ( _First6, _All ), "0%" ) & " of 54-hour orders in 6 hours (vs 11% if even), and demand re-peaks daily around "
+			            & FORMAT ( MAXX ( _Peak, FactHourlyCampaignTraffic[HourOfDayBDT] ), "00" ) & ":00 – staff capacity to these peaks"
+			    )
+		displayFolder: 11. Dashboard Text
+		lineageTag: 8a9c4115-92b6-4df9-b0a5-21af52a5ad4b
+
+	measure 'Title Promotions' =
+			VAR _P = FILTER ( ADDCOLUMNS ( VALUES ( DimPromotion[PromotionName] ), "@n", [Campaign Net Sales], "@m", [Campaign Contribution Margin %] ), NOT ISBLANK ( [@n] ) )
+			VAR _Neg = COUNTROWS ( FILTER ( _P, [@m] < 0 ) )
+			VAR _Tot = COUNTROWS ( _P )
+			RETURN
+			    IF (
+			        _Tot = 0,
+			        "11.11 promotion mechanics",
+			        FORMAT ( _Neg, "0" ) & " of " & _Tot & " 11.11 promotions destroy margin – " & MAXX ( TOPN ( 1, _P, [@m], DESC ), DimPromotion[PromotionName] )
+			            & " is the only clear value creator"
+			    )
+		displayFolder: 11. Dashboard Text
+		lineageTag: fc7d14be-3b1a-4f20-9eb6-91cf73acb685
+
+	measure 'Title Funnel' =
+			VAR _S1 = DIVIDE ( [Product Views], [Sessions] )
+			VAR _S2 = DIVIDE ( [Add-to-Cart Events], [Product Views] )
+			VAR _S3 = DIVIDE ( [Checkout Starts], [Add-to-Cart Events] )
+			VAR _S4 = DIVIDE ( [Attributed Orders], [Checkout Starts] )
+			VAR _Min = MIN ( MIN ( _S1, _S2 ), MIN ( _S3, _S4 ) )
+			VAR _Step = SWITCH ( _Min, _S1, "Session → Product View", _S2, "Product View → Add to Cart", _S3, "Cart → Checkout", "Checkout → Order" )
+			RETURN
+			    "Biggest funnel leak is " & _Step & " – only " & FORMAT ( _Min, "0%" ) & " progress; " & FORMAT ( [Session Conversion Rate %], "0.0%" ) & " of sessions convert"
+		displayFolder: 11. Dashboard Text
+		lineageTag: 88212cc7-9dbf-4276-acdb-536a070fc5e2
+
+	measure 'Title Channel Efficiency' =
+			VAR _T = FILTER ( ADDCOLUMNS ( VALUES ( DimChannel[ChannelName] ), "@c", [Customer Acquisition Cost (CAC)] ), [@c] > 0 )
+			VAR _Lo = TOPN ( 1, _T, [@c], ASC )
+			VAR _Hi = TOPN ( 1, _T, [@c], DESC )
+			RETURN
+			    IF (
+			        ISEMPTY ( _T ),
+			        "Channel efficiency",
+			        "CAC ranges from ৳" & FORMAT ( MAXX ( _Lo, [@c] ), "#,0" ) & " (" & MAXX ( _Lo, DimChannel[ChannelName] ) & ") to ৳"
+			            & FORMAT ( MAXX ( _Hi, [@c] ), "#,0" ) & " (" & MAXX ( _Hi, DimChannel[ChannelName] ) & ") at near-identical margins"
+			    )
+		displayFolder: 11. Dashboard Text
+		lineageTag: 197ddcdf-6c57-41d4-aa17-b74ab2c28123
+
+	measure 'Title SKU Matrix' =
+			IF (
+			    ISBLANK ( [Margin-Trap Campaign CM %] ),
+			    "SKU profitability vs scale – bubbles below 0% destroy value",
+			    "Margin-trap SKUs (red) sit at " & FORMAT ( CALCULATE ( [Contribution Margin %], DimProduct[IsMarginTrapSKU] = 1 ), "0.0%" )
+			        & " margin overall but " & FORMAT ( [Margin-Trap Campaign CM %], "0.0%" ) & " in 11.11 – discount caps needed"
+			)
+		displayFolder: 11. Dashboard Text
+		lineageTag: e3ca56ec-8951-4901-9789-e650e447fd48
+
+	measure 'Title Division' =
+			VAR _D = FILTER ( ADDCOLUMNS ( VALUES ( DimGeography[Division] ), "@s", [Net Merchandise Sales], "@o", [On-Time Delivery Rate %] ), NOT ISBLANK ( [@s] ) )
+			VAR _Top = TOPN ( 1, _D, [@s], DESC )
+			RETURN
+			    MAXX ( _Top, DimGeography[Division] ) & " holds " & FORMAT ( DIVIDE ( MAXX ( _Top, [@s] ), [Net Merchandise Sales] ), "0%" )
+			        & " of net sales but only " & FORMAT ( MAXX ( _Top, [@o] ), "0%" ) & " on-time delivery"
+		displayFolder: 11. Dashboard Text
+		lineageTag: 3b29f505-eb49-46bd-a0e0-b5f3c949f20f
+
+	measure 'Title Payment Methods' =
+			VAR _P = FILTER ( ADDCOLUMNS ( VALUES ( DimPaymentMethod[PaymentMethodName] ), "@f", [Campaign Payment Failure Rate %] ), NOT ISBLANK ( [@f] ) )
+			VAR _W = TOPN ( 1, _P, [@f], DESC )
+			RETURN
+			    IF (
+			        ISEMPTY ( _P ),
+			        "Payment failure rate by method",
+			        MAXX ( _W, DimPaymentMethod[PaymentMethodName] ) & " fails " & FORMAT ( MAXX ( _W, [@f] ), "0.0%" )
+			            & " of attempts during 11.11 – gateway capacity is a revenue lever"
+			    )
+		displayFolder: 11. Dashboard Text
+		lineageTag: 6e9662e3-6b50-4a3e-b103-bdf9723b47bc
+
+	measure 'Title Ops Stress' =
+			VAR _Late11 = CALCULATE ( [Late Delivery Rate %], DimCampaign[EventClassification] = "11.11 Main Event Window" )
+			VAR _LateN = CALCULATE ( [Late Delivery Rate %], DimCampaign[EventClassification] = "Normal Trading" )
+			RETURN
+			    "Every operating KPI deteriorates in 11.11 – late deliveries rise from " & FORMAT ( _LateN, "0%" ) & " to " & FORMAT ( _Late11, "0%" )
+		displayFolder: 11. Dashboard Text
+		lineageTag: 4e5765dc-d00b-4238-9030-d186752842f7
+
+	measure 'Title Cohort' =
+			VAR _A = CALCULATE ( [Net Sales per Customer], DimCustomer[AcquiredDuring1111Flag] = 1, REMOVEFILTERS ( DimDate ) )
+			VAR _B = CALCULATE ( [Net Sales per Customer], DimCustomer[AcquiredDuring1111Flag] = 0, REMOVEFILTERS ( DimDate ) )
+			RETURN
+			    "11.11-acquired customers repeat at " & FORMAT ( [11.11-Acquired Repeat Rate %], "0.0%" ) & " vs " & FORMAT ( [Normal-Acquired Repeat Rate %], "0.0%" )
+			        & " and spend " & FORMAT ( 1 - DIVIDE ( _A, _B ), "0%" ) & " less per head (lifetime)"
+		displayFolder: 11. Dashboard Text
+		lineageTag: 43773641-c6bf-4af1-8378-aac2533fa494
+
+	/// Contribution margin recovered if margin-trap SKUs earned the same 11.11 CM% as other SKUs.
+	measure 'Upside Discount Caps' =
+			VAR _MTNS = CALCULATE ( [Campaign Net Sales], DimProduct[IsMarginTrapSKU] = 1 )
+			VAR _Gap = CALCULATE ( [Campaign Contribution Margin %], DimProduct[IsMarginTrapSKU] = 0 ) - [Margin-Trap Campaign CM %]
+			RETURN MAX ( 0, _MTNS * _Gap )
+		formatString: ৳#,0
+		displayFolder: 12. Strategic Priorities
+		lineageTag: 718ab2d4-0979-42cc-afc7-f7092c30854d
+
+	/// Contribution margin lost on 11.11 promotions running below 0% CM (brought to breakeven).
+	measure 'Upside Promotion Reset' = SUMX ( VALUES ( DimPromotion[PromotionName] ), VAR _CM = CALCULATE ( [Contribution Margin], DimCampaign[EventClassification] = "11.11 Main Event Window" ) RETURN IF ( _CM < 0, -_CM ) )
+		formatString: ৳#,0
+		displayFolder: 12. Strategic Priorities
+		lineageTag: 33d374d5-a3b9-4116-8b5b-64b30234c8b3
+
+	/// 11.11 GMV on cancelled orders if the 11.11 cancellation rate matched normal trading.
+	measure 'Upside Payment Recovery' =
+			VAR _CancGMV = CALCULATE ( [Gross Merchandise Value (GMV)], FactOrderLine[OrderStatus] = "Cancelled", DimCampaign[EventClassification] = "11.11 Main Event Window" )
+			VAR _Excess = DIVIDE ( [Campaign Cancellation Rate %] - CALCULATE ( [Cancellation Rate %], DimCampaign[EventClassification] = "Normal Trading" ), [Campaign Cancellation Rate %] )
+			RETURN MAX ( 0, _CancGMV * _Excess )
+		formatString: ৳#,0
+		displayFolder: 12. Strategic Priorities
+		lineageTag: b138af81-cf53-40ea-8ab4-dd229909c4fe
+
+	/// Extra attributed revenue if 20% of the lowest-ROAS channel's spend earned the highest-ROAS paid search/social level (conservative: uses Paid Search ROAS).
+	measure 'Upside Budget Reallocation' =
+			VAR _Social = CALCULATE ( [Advertising Spend], DimChannel[ChannelName] = "Paid Social (Meta/TikTok Ads)" )
+			VAR _RS = CALCULATE ( [ROAS], DimChannel[ChannelName] = "Paid Social (Meta/TikTok Ads)" )
+			VAR _RQ = CALCULATE ( [ROAS], DimChannel[ChannelName] = "Paid Search (Google/YouTube)" )
+			RETURN MAX ( 0, 0.2 * _Social * ( _RQ - _RS ) )
+		formatString: ৳#,0
+		displayFolder: 12. Strategic Priorities
+		lineageTag: 2e77fc72-ffd4-45d4-8d30-058b589feb31
+
+	measure 'Rec 1 Evidence' =
+			[Margin-Trap SKU Count] & " margin-trap SKUs run at " & FORMAT ( [Margin-Trap Campaign Discount %], "0.0%" ) & " discount in 11.11 and post "
+			    & FORMAT ( [Margin-Trap Campaign CM %], "0.0%" ) & " contribution margin vs " & FORMAT ( CALCULATE ( [Campaign Contribution Margin %], DimProduct[IsMarginTrapSKU] = 0 ), "0.0%" )
+			    & " for other SKUs. Set SKU-level discount ceilings and exclude them from sitewide vouchers."
+		displayFolder: 12. Strategic Priorities
+		lineageTag: 4650f1c2-ac13-4ada-86b4-4d6d02e410bf
+
+	measure 'Rec 2 Evidence' =
+			VAR _P = FILTER ( ADDCOLUMNS ( VALUES ( DimPromotion[PromotionName] ), "@n", [Campaign Net Sales], "@m", [Campaign Contribution Margin %] ), NOT ISBLANK ( [@n] ) )
+			VAR _Neg = FILTER ( _P, [@m] < 0 )
+			VAR _Best = TOPN ( 1, _P, [@m], DESC )
+			RETURN
+			    FORMAT ( COUNTROWS ( _Neg ), "0" ) & " mechanics (" & CONCATENATEX ( _Neg, SUBSTITUTE ( DimPromotion[PromotionName], "11.11 ", "" ), "; " ) & ") generate ৳"
+			        & FORMAT ( SUMX ( _Neg, [@n] ) / 1e6, "0.0" ) & "M sales below breakeven. Re-weight funding toward " & SUBSTITUTE ( MAXX ( _Best, DimPromotion[PromotionName] ), "11.11 ", "" )
+			        & " (" & FORMAT ( MAXX ( _Best, [@m] ), "0.0%" ) & " CM)."
+		displayFolder: 12. Strategic Priorities
+		lineageTag: 517e3c1a-1c6c-4d90-84e4-585c5db7b9af
+
+	measure 'Rec 3 Evidence' =
+			"CRM returns " & FORMAT ( CALCULATE ( [ROAS], DimChannel[ChannelName] = "SMS & Email CRM Broadcast" ), "0" ) & "x and Paid Search "
+			    & FORMAT ( CALCULATE ( [ROAS], DimChannel[ChannelName] = "Paid Search (Google/YouTube)" ), "0" ) & "x vs Paid Social at "
+			    & FORMAT ( CALCULATE ( [ROAS], DimChannel[ChannelName] = "Paid Social (Meta/TikTok Ads)" ), "0" ) & "x, which absorbs "
+			    & FORMAT ( DIVIDE ( CALCULATE ( [Advertising Spend], DimChannel[ChannelName] = "Paid Social (Meta/TikTok Ads)" ), [Advertising Spend] ), "0%" )
+			    & " of spend. Shift 20% of Paid Social into Search and CRM ahead of 11.11."
+		displayFolder: 12. Strategic Priorities
+		lineageTag: be53a27a-49d7-47ea-aaac-147baaaeafa1
+
+	measure 'Rec 4 Evidence' =
+			"During 11.11, payment failures hit " & FORMAT ( [Campaign Payment Failure Rate %], "0.0%" ) & ", cancellations " & FORMAT ( [Campaign Cancellation Rate %], "0.0%" )
+			    & " and on-time delivery falls to " & FORMAT ( [Campaign On-Time Delivery Rate %], "0%" ) & " (vs "
+			    & FORMAT ( CALCULATE ( [On-Time Delivery Rate %], DimCampaign[EventClassification] = "Normal Trading" ), "0%" )
+			    & " normally). Pre-book wallet/gateway headroom and courier surge slots for launch night and the daily evening peaks."
+		displayFolder: 12. Strategic Priorities
+		lineageTag: 0ee6cfcb-ff59-487e-8396-460e50836a1d
+
+	measure 'Rec 5 Evidence' =
+			"11.11-acquired customers repeat at " & FORMAT ( [11.11-Acquired Repeat Rate %], "0%" ) & " vs " & FORMAT ( [Normal-Acquired Repeat Rate %], "0%" )
+			    & " and are worth ৳" & FORMAT ( CALCULATE ( [Net Sales per Customer], DimCustomer[AcquiredDuring1111Flag] = 1, REMOVEFILTERS ( DimDate ) ) / 1e3, "0" ) & "K vs ৳"
+			    & FORMAT ( CALCULATE ( [Net Sales per Customer], DimCustomer[AcquiredDuring1111Flag] = 0, REMOVEFILTERS ( DimDate ) ) / 1e3, "0" ) & "K over their lifetime. Launch a 60-day post-event CRM journey to convert deal-seekers."
+		displayFolder: 12. Strategic Priorities
+		lineageTag: 82396de7-e6a7-4382-afa7-8226d23d56f9
+
+	measure 'Title Nov Curve' =
+			VAR _R = [Post-Campaign Retention vs Baseline %]
+			RETURN
+			    IF (
+			        ISBLANK ( _R ),
+			        "Daily net sales, Nov 1–20, by year",
+			        "Post-event daily sales run " & FORMAT ( ABS ( _R ), "0%" ) & IF ( _R < 0, " below", " above" )
+			            & " the October baseline – part of the 11.11 spike is demand pulled forward, not created"
+			    )
+		displayFolder: 11. Dashboard Text
+		lineageTag: 523190fb-998b-46e8-99c6-dc71bdbbe56f
+
+	measure 'Title Channel Table' = "Channel P&L – zero-media channels (App, Direct, SEO) deliver " & FORMAT ( [Zero-Media Channel Share %], "0%" ) & " of net sales; paid media must earn its place on CM after ad spend"
+		displayFolder: 11. Dashboard Text
+		lineageTag: e4e04185-389b-48b4-97c0-4254481986ef
+
+	measure 'Title Category Campaign' =
+			VAR _C = FILTER ( ADDCOLUMNS ( VALUES ( DimProduct[Category] ), "@n", [Campaign Net Sales], "@m", [Campaign Contribution Margin %] ), NOT ISBLANK ( [@n] ) )
+			VAR _Top = TOPN ( 1, _C, [@n], DESC )
+			VAR _Best = TOPN ( 1, _C, [@m], DESC )
+			RETURN
+			    IF (
+			        ISEMPTY ( _C ),
+			        "11.11 discount depth vs margin by category",
+			        "In 11.11, " & MAXX ( _Top, DimProduct[Category] ) & " (" & FORMAT ( DIVIDE ( MAXX ( _Top, [@n] ), [Campaign Net Sales] ), "0%" ) & " of event sales) run at "
+			            & FORMAT ( MAXX ( _Top, [@m] ), "0.0%" ) & " margin; " & MAXX ( _Best, DimProduct[Category] ) & " hold " & FORMAT ( MAXX ( _Best, [@m] ), "0.0%" )
+			    )
+		displayFolder: 11. Dashboard Text
+		lineageTag: 1256076f-929d-4664-a104-a86aca3f1df2
+
+	measure 'Title Drill Category' = "Category deep dive: " & SELECTEDVALUE ( DimProduct[Category], "multiple categories" )
+		displayFolder: 11. Dashboard Text
+		lineageTag: 4f5c7670-04bd-4537-9871-d83e451a7b7c
+
+	measure 'Headline Drill Category' =
+			SELECTEDVALUE ( DimProduct[Category], "Selected categories" ) & ": ৳" & FORMAT ( [Net Merchandise Sales] / 1e6, "#,0.0" ) & "M net sales (" & FORMAT ( DIVIDE ( [Net Merchandise Sales], CALCULATE ( [Net Merchandise Sales], REMOVEFILTERS ( DimProduct ) ) ), "0%" )
+			    & " of total) at " & FORMAT ( [Contribution Margin %], "0.0%" ) & " margin; in 11.11 margin moves to " & FORMAT ( [Campaign Contribution Margin %], "0.0%" ) & " at " & FORMAT ( [Campaign Discount Rate %], "0.0%" ) & " discount"
+		displayFolder: 11. Dashboard Text
+		lineageTag: d5bebb4b-80ba-49a8-a014-1f6a8d33f60b
+
+	measure 'KPI Campaign NS Subtitle' = IF ( ISBLANK ( [Campaign Net Sales] ), "No 11.11 sales in selection", FORMAT ( [Campaign Share of Net Sales %], "0.0%" ) & " of net sales in 2.25 days" )
+		displayFolder: 11. Dashboard Text
+		lineageTag: 0a56c7b9-5554-4bd5-adb5-be0979301634
+
+	measure 'KPI Campaign GMV Subtitle' = IF ( ISBLANK ( [Campaign GMV] ), "No 11.11 sales in selection", FORMAT ( [Campaign Orders], "#,0" ) & " orders placed" )
+		displayFolder: 11. Dashboard Text
+		lineageTag: 0fc19bba-ea88-478f-ab69-02b73defd1be
+
+	measure 'KPI Campaign Discount Subtitle' = "vs " & FORMAT ( CALCULATE ( [Discount Rate %], DimCampaign[EventClassification] = "Normal Trading" ), "0.0%" ) & " in normal trading"
+		displayFolder: 11. Dashboard Text
+		lineageTag: 23a4282e-b3ff-482b-9f27-f8f8bda2bca4
+
+	measure 'KPI Campaign CM After Ad Subtitle' = "after ৳" & FORMAT ( [Campaign Advertising Spend] / 1e6, "0.0" ) & "M of 11.11 ad spend"
+		displayFolder: 11. Dashboard Text
+		lineageTag: 0bffdc4c-1b51-4d91-884f-74bed88021c1
+
+	measure 'KPI Campaign CM After Ad Color' = IF ( [Campaign CM After Ad Spend] < 0, "#DC2626", "#00796B" )
+		displayFolder: 11. Dashboard Text
+		lineageTag: 560fd9ed-8afe-48e1-9063-6268706c2195
+
+	measure 'KPI Ad Spend Subtitle' = "Paid Social = " & FORMAT ( DIVIDE ( CALCULATE ( [Advertising Spend], DimChannel[ChannelName] = "Paid Social (Meta/TikTok Ads)" ), [Advertising Spend] ), "0%" ) & " of spend"
+		displayFolder: 11. Dashboard Text
+		lineageTag: 14f11f54-5c0e-45df-a27d-7c154079375a
+
+	measure 'KPI Static Attributed' = "7-day last non-direct click"
+		displayFolder: 11. Dashboard Text
+		lineageTag: f4a8561d-c2d0-45fb-95e7-2c19cbd7adfa
+
+	measure 'KPI Static ROAS' = "Attributed revenue per ৳1 spent"
+		displayFolder: 11. Dashboard Text
+		lineageTag: 27b99dd7-fe28-4ea5-97c4-61255da2e947
+
+	measure 'KPI Static MER' = "Total net sales per ৳1 spent"
+		displayFolder: 11. Dashboard Text
+		lineageTag: 0d87f1e2-c016-497c-8493-90f9d8c16a8f
+
+	measure 'KPI Static CAC' = "Ad spend per new-customer order"
+		displayFolder: 11. Dashboard Text
+		lineageTag: d9aeb2bd-d845-4313-b887-8b770a5f92c9
+
+	measure 'KPI CVR Subtitle' = FORMAT ( [Sessions] / 1e6, "0.0" ) & "M sessions → " & FORMAT ( [Attributed Orders], "#,0" ) & " orders"
+		displayFolder: 11. Dashboard Text
+		lineageTag: fb51b26d-6797-4466-bc45-c13b8d9192ad
+
+	measure 'KPI Units Subtitle' = "Delivered units · " & FORMAT ( [Returned Units], "#,0" ) & " returned"
+		displayFolder: 11. Dashboard Text
+		lineageTag: 722485d1-f24a-4bef-9c49-decc92da5ec7
+
+	measure 'KPI GM Subtitle' = "Before logistics & payment fees"
+		displayFolder: 11. Dashboard Text
+		lineageTag: abd03ce7-77f6-400a-8a3e-aefe9a2b648b
+
+	measure 'KPI Lost Sales Subtitle' = FORMAT ( [Stockout Rate %], "0.00%" ) & " of SKU-weeks out of stock"
+		displayFolder: 11. Dashboard Text
+		lineageTag: 1c33567e-c9d1-4665-ba55-e262c9ac6cff
+
+	measure 'KPI Returns Subtitle' = "৳" & FORMAT ( [Refund Amount] / 1e6, "0" ) & "M refunded · " & FORMAT ( [Restockable Return %], "0%" ) & " restockable"
+		displayFolder: 11. Dashboard Text
+		lineageTag: bac99aae-5f38-4c5b-ae6b-83e4ef25f148
+
+	measure 'KPI Customers Subtitle' = FORMAT ( [New Customer Order Share %], "0.0%" ) & " of orders are first orders"
+		displayFolder: 11. Dashboard Text
+		lineageTag: c2dbbd0e-0aee-41eb-ae72-80ebc2d66e80
+
+	measure 'KPI Repeat Subtitle' = "11.11 cohort: " & FORMAT ( [11.11-Acquired Repeat Rate %], "0.0%" )
+		displayFolder: 11. Dashboard Text
+		lineageTag: a9b984ab-f807-4d89-91b6-742333a147c6
+
+	measure 'KPI COD Subtitle' = "Cash risk: " & FORMAT ( [Doorstep RTO Rate %], "0.0%" ) & " doorstep RTO"
+		displayFolder: 11. Dashboard Text
+		lineageTag: 6bb06891-07ad-4eaa-b6ad-db2ffe2264b3
+
+	measure 'KPI OnTime Subtitle' = "11.11: " & FORMAT ( [Campaign On-Time Delivery Rate %], "0%" ) & " · avg " & FORMAT ( [Avg Delivery Lead Time (Days)], "0.0" ) & " days"
+		displayFolder: 11. Dashboard Text
+		lineageTag: 7d4ba9bb-fe6a-4f0c-90b0-15cb6cadf785
+
+	measure 'KPI OnTime Color' = IF ( [On-Time Delivery Rate %] < 0.7, "#DC2626", "#00796B" )
+		displayFolder: 11. Dashboard Text
+		lineageTag: 30361e3b-54c5-49d5-9e6b-69219bbd114a
+
+	measure 'KPI RTO Subtitle' = FORMAT ( [Doorstep RTO Orders], "#,0" ) & " orders refused at the door"
+		displayFolder: 11. Dashboard Text
+		lineageTag: 7a3690ea-13d5-4da8-828c-8ec86452ff77
+
+	measure 'KPI PayFail Subtitle' = "11.11: " & FORMAT ( [Campaign Payment Failure Rate %], "0.0%" ) & " of attempts"
+		displayFolder: 11. Dashboard Text
+		lineageTag: a9569872-d574-4fcd-910f-ef07e9847ade
+
+	measure 'KPI Alert Color' = "#DC2626"
+		displayFolder: 11. Dashboard Text
+		lineageTag: aaed612c-eacd-4fad-ad61-73f8c3a9adc9
+
+	measure 'KPI Neutral Color' = "#64748B"
+		displayFolder: 11. Dashboard Text
+		lineageTag: f00987d4-5298-4498-a1f0-697540c35471
+
+	/// Net sales gap if 11.11-acquired customers were worth as much per head as normally acquired customers.
+	measure 'Upside Cohort Value Gap' =
+			VAR _N = CALCULATE ( [Active Customers], DimCustomer[AcquiredDuring1111Flag] = 1, REMOVEFILTERS ( DimDate ) )
+			VAR _Gap = CALCULATE ( [Net Sales per Customer], DimCustomer[AcquiredDuring1111Flag] = 0, REMOVEFILTERS ( DimDate ) ) - CALCULATE ( [Net Sales per Customer], DimCustomer[AcquiredDuring1111Flag] = 1, REMOVEFILTERS ( DimDate ) )
+			RETURN MAX ( 0, _N * _Gap )
+		formatString: ৳#,0
+		displayFolder: 12. Strategic Priorities
+		lineageTag: 55578819-6cba-45d4-96f6-6671fa7f25ac
+
+	column MeasureTable
+		isHidden
+		lineageTag: d95c2401-e093-471b-aad2-881fb6384f7e
+		isNameInferred
+		sourceColumn: [MeasureTable]
+
+	partition _Measures = calculated
+		mode: import
+		source = ROW("MeasureTable", BLANK())
+

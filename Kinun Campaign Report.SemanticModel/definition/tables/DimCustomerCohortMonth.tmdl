@@ -1,0 +1,151 @@
+table DimCustomerCohortMonth
+	lineageTag: 481c10ec-4ba4-4e4a-9804-694907c88d68
+
+	column CohortMonthKey
+		dataType: int64
+		formatString: 0
+		lineageTag: fb02f325-71b9-4b9b-a655-a728e043057f
+		summarizeBy: count
+		sourceColumn: CohortMonthKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column CohortYearMonth
+		dataType: string
+		lineageTag: 9193b44b-b430-4bf8-9047-2ab93d08de07
+		summarizeBy: none
+		sourceColumn: CohortYearMonth
+
+		annotation SummarizationSetBy = Automatic
+
+	column CohortStartDate
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 49231ad9-4cb8-4d36-bab5-b190fb944b12
+		summarizeBy: none
+		sourceColumn: CohortStartDate
+
+		variation Variation
+			isDefault
+			relationship: b8dbd43f-9d29-4571-a888-7dcd646642b2
+			defaultHierarchy: LocalDateTable_371e71ca-b125-4709-8802-8cf397edf945.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column CohortYear
+		dataType: int64
+		formatString: 0
+		lineageTag: 2ba5d529-00ed-4cdd-be21-f3b92d139709
+		summarizeBy: sum
+		sourceColumn: CohortYear
+
+		annotation SummarizationSetBy = Automatic
+
+	column CohortQuarter
+		dataType: int64
+		formatString: 0
+		lineageTag: 70baddbb-38aa-4244-8e81-769c6dd58f40
+		summarizeBy: sum
+		sourceColumn: CohortQuarter
+
+		annotation SummarizationSetBy = Automatic
+
+	column CohortQuarterName
+		dataType: string
+		lineageTag: 4457037b-c834-494e-8541-196b4e93b13a
+		summarizeBy: none
+		sourceColumn: CohortQuarterName
+
+		annotation SummarizationSetBy = Automatic
+
+	column CohortMonthNumber
+		dataType: int64
+		formatString: 0
+		lineageTag: b761e417-f88e-4f6b-a4ec-295ca58445b9
+		summarizeBy: sum
+		sourceColumn: CohortMonthNumber
+
+		annotation SummarizationSetBy = Automatic
+
+	column CohortMonthName
+		dataType: string
+		lineageTag: 3fdbd4d1-3824-4f0b-be83-1675eccf30f2
+		summarizeBy: none
+		sourceColumn: CohortMonthName
+
+		annotation SummarizationSetBy = Automatic
+
+	column CohortMonthShort
+		dataType: string
+		lineageTag: da89a2fd-91b0-4c31-85cd-6bd880f70cd2
+		summarizeBy: none
+		sourceColumn: CohortMonthShort
+
+		annotation SummarizationSetBy = Automatic
+
+	column CohortSequentialIndex
+		dataType: int64
+		formatString: 0
+		lineageTag: 1339388f-155f-498b-b0c1-ebfe07c97624
+		summarizeBy: sum
+		sourceColumn: CohortSequentialIndex
+
+		annotation SummarizationSetBy = Automatic
+
+	column IsNovember1111CohortMonth
+		dataType: int64
+		formatString: 0
+		lineageTag: 449ce191-b0c7-4e5b-91f4-3cb49a4bcf32
+		summarizeBy: sum
+		sourceColumn: IsNovember1111CohortMonth
+
+		annotation SummarizationSetBy = Automatic
+
+	column CohortTypeLabel
+		dataType: string
+		lineageTag: 355dadfc-c2b1-402f-8aa7-00ff8e8d0ca0
+		summarizeBy: none
+		sourceColumn: CohortTypeLabel
+
+		annotation SummarizationSetBy = Automatic
+
+	column AcquiredCustomerCount
+		dataType: int64
+		formatString: 0
+		lineageTag: 6336bb9c-82c8-429c-88d9-c7eb482e4e9a
+		summarizeBy: sum
+		sourceColumn: AcquiredCustomerCount
+
+		annotation SummarizationSetBy = Automatic
+
+	column AcquiredDuring1111Count
+		dataType: int64
+		formatString: 0
+		lineageTag: 75beeed8-976f-4d06-86d2-ff07ec8d7100
+		summarizeBy: sum
+		sourceColumn: AcquiredDuring1111Count
+
+		annotation SummarizationSetBy = Automatic
+
+	column SyntheticDataFlag
+		dataType: int64
+		formatString: 0
+		lineageTag: cd310cf0-6b07-418d-b649-a8205fd7ae99
+		summarizeBy: sum
+		sourceColumn: SyntheticDataFlag
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DimCustomerCohortMonth = m
+		mode: import
+		source =
+				let
+				  Source = GoogleBigQuery.Database([BillingProject = null, UseStorageApi = null, ConnectionTimeout = null, CommandTimeout = null]),
+				  #"Navigation 1" = Source{[Name = BigQueryProjectId]}[Data],
+				  #"Navigation 2" = #"Navigation 1"{[Name = "kinun_dw", Kind = "Schema"]}[Data],
+				  #"Navigation 3" = #"Navigation 2"{[Name = "DimCustomerCohortMonth", Kind = "Table"]}[Data]
+				in
+				  #"Navigation 3"
+

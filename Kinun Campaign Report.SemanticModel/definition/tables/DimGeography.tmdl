@@ -1,0 +1,118 @@
+table DimGeography
+	lineageTag: 9140934a-a596-4e52-b93e-ecfe40039a87
+
+	column GeographyKey
+		dataType: int64
+		formatString: 0
+		lineageTag: d9c61136-09c4-4924-90f6-82588eb03cd1
+		summarizeBy: none
+		sourceColumn: GeographyKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column GeographyID
+		dataType: string
+		lineageTag: 6bcbd348-9150-4f98-98ca-2e9e68af1965
+		summarizeBy: none
+		sourceColumn: GeographyID
+
+		annotation SummarizationSetBy = Automatic
+
+	column Division
+		dataType: string
+		lineageTag: 353b8fd2-13e3-4c4f-95f3-8d2f7e3144f2
+		summarizeBy: none
+		sourceColumn: Division
+
+		annotation SummarizationSetBy = Automatic
+
+	column District
+		dataType: string
+		lineageTag: ea26a30b-47e3-4d8f-a9d6-8186b04009ae
+		summarizeBy: none
+		sourceColumn: District
+
+		annotation SummarizationSetBy = Automatic
+
+	column LocalityGroup
+		dataType: string
+		lineageTag: 26e2d570-4f84-4045-9b9b-ae1ae319b41d
+		summarizeBy: none
+		sourceColumn: LocalityGroup
+
+		annotation SummarizationSetBy = Automatic
+
+	column UrbanRuralClass
+		dataType: string
+		lineageTag: c7c38d7a-c518-4cd1-8d34-0294013ec0fc
+		summarizeBy: none
+		sourceColumn: UrbanRuralClass
+
+		annotation SummarizationSetBy = Automatic
+
+	column DeliveryZone
+		dataType: string
+		lineageTag: 7cab1401-0a7e-4c31-ad64-096c1ba12d06
+		summarizeBy: none
+		sourceColumn: DeliveryZone
+
+		annotation SummarizationSetBy = Automatic
+
+	column IsDhakaMetro
+		dataType: int64
+		formatString: 0
+		lineageTag: dbc9690f-3959-4aed-bfdd-4983a86246b7
+		summarizeBy: sum
+		sourceColumn: IsDhakaMetro
+
+		annotation SummarizationSetBy = Automatic
+
+	column BaseShippingFeeBDT
+		dataType: double
+		lineageTag: 3232a071-a610-4f83-ac0e-ec4e0fa09301
+		summarizeBy: sum
+		sourceColumn: BaseShippingFeeBDT
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column StandardPromisedDays
+		dataType: int64
+		formatString: 0
+		lineageTag: c2957a7c-5605-47b5-ab59-60aaad66ee6a
+		summarizeBy: sum
+		sourceColumn: StandardPromisedDays
+
+		annotation SummarizationSetBy = Automatic
+
+	column PopulationOrderWeight
+		dataType: double
+		lineageTag: f7602818-c742-4977-bfe8-87cab4781002
+		summarizeBy: sum
+		sourceColumn: PopulationOrderWeight
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column SyntheticDataFlag
+		dataType: int64
+		formatString: 0
+		lineageTag: d796a8f2-bac1-4de1-a8a2-e621853073ac
+		summarizeBy: sum
+		sourceColumn: SyntheticDataFlag
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DimGeography = m
+		mode: import
+		source =
+				let
+				  Source = GoogleBigQuery.Database([BillingProject = null, UseStorageApi = null, ConnectionTimeout = null, CommandTimeout = null]),
+				  #"Navigation 1" = Source{[Name = BigQueryProjectId]}[Data],
+				  #"Navigation 2" = #"Navigation 1"{[Name = "kinun_dw", Kind = "Schema"]}[Data],
+				  #"Navigation 3" = #"Navigation 2"{[Name = "DimGeography", Kind = "Table"]}[Data]
+				in
+				  #"Navigation 3"
+

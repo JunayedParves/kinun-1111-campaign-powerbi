@@ -1,0 +1,4 @@
+/// Google Cloud project that holds the kinun_dw dataset. Set this to your own GCP project ID (Transform data > Edit parameters).
+expression BigQueryProjectId = "YOUR_GCP_PROJECT_ID" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: 53990214-a814-4b9d-bc50-75f5c10e5977
+

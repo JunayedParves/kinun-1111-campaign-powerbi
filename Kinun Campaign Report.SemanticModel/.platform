@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "Kinun Campaign Report"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "145f8dc3-7824-4e69-bea9-557b0f2e097a"
+  }
+}

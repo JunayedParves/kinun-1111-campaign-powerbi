@@ -1,0 +1,60 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-US
+	valueFilterBehavior: independent
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBI_QueryOrder = ["DimCampaign","DimChannel","DimCustomer","DimCustomerCohortMonth","DimDate","DimGeography","DimPaymentMethod","DimProduct","DimPromotion","DimWarehouse","FactDelivery","FactHourlyCampaignTraffic","FactInventoryWeekly","FactMarketingDaily","FactOrderHeader","FactOrderLine","FactPayment","FactReturn"]
+
+annotation PBI_ProTooling = ["DevMode","MCP-PBIModeling"]
+
+ref table DimCampaign
+ref table DateTableTemplate_943c4e06-2ed8-479c-a8f0-bca074653799
+ref table LocalDateTable_a0281521-9b50-466c-a0b9-77def8ff10a6
+ref table LocalDateTable_cea49bc0-7c3a-4172-b699-03d7ba64bbbd
+ref table DimChannel
+ref table DimCustomer
+ref table LocalDateTable_cc8f3978-a51b-42ed-8606-9907d268c3cc
+ref table LocalDateTable_f68ee6fb-1494-4ddf-8cbb-114ea18d0bdd
+ref table DimCustomerCohortMonth
+ref table LocalDateTable_371e71ca-b125-4709-8802-8cf397edf945
+ref table DimDate
+ref table LocalDateTable_5ebbff02-d9f1-4ce8-84e6-57d3dada316d
+ref table DimGeography
+ref table DimPaymentMethod
+ref table DimProduct
+ref table LocalDateTable_f5e78c56-572e-4a03-95dd-06f1aa348049
+ref table DimPromotion
+ref table DimWarehouse
+ref table FactDelivery
+ref table LocalDateTable_95d85cc6-502f-401c-964c-31c0b6e35a83
+ref table LocalDateTable_69150696-c2e8-4275-b5b0-03195d344275
+ref table LocalDateTable_065dbc7c-58ce-42d6-909a-253445e49718
+ref table LocalDateTable_03d4c394-363c-43d8-9708-817236d99da2
+ref table FactHourlyCampaignTraffic
+ref table LocalDateTable_7e53a529-212d-42b2-8f7e-ef7fa8428348
+ref table LocalDateTable_3b851511-811f-49eb-bae5-25de8226b9a1
+ref table FactInventoryWeekly
+ref table LocalDateTable_924794e2-1338-49c9-9d0a-5d1ab17f46cd
+ref table FactMarketingDaily
+ref table LocalDateTable_3b3dc674-d2b5-4131-a357-5cfe6b322365
+ref table FactOrderHeader
+ref table LocalDateTable_732bd3b3-913c-4c44-b7db-91aa6a0dcd90
+ref table LocalDateTable_1264d59b-cb01-4a32-a845-46ce999353f7
+ref table FactOrderLine
+ref table FactPayment
+ref table LocalDateTable_05b7d540-5288-4295-8e85-2c6658092699
+ref table FactReturn
+ref table LocalDateTable_be883b90-2503-41c9-bafa-ce32d896c78d
+ref table LocalDateTable_8e6541c3-0bda-479a-bccf-6a4f1dfdb010
+ref table _Measures
+ref table 'Funnel Stage'
+ref table 'Ops Metric'
+
+ref cultureInfo en-US
+

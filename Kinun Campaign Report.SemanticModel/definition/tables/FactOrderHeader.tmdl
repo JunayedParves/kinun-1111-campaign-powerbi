@@ -1,0 +1,310 @@
+table FactOrderHeader
+	lineageTag: b42f4ef8-2155-4669-a62a-bf86e50f97b0
+
+	column OrderKey
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 28b1f4d2-af8f-416e-90d2-d3850518ca28
+		summarizeBy: count
+		sourceColumn: OrderKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column OrderID
+		dataType: string
+		lineageTag: d0fdfdbb-1e1b-4c41-8624-adae6eac1a0a
+		summarizeBy: none
+		sourceColumn: OrderID
+
+		annotation SummarizationSetBy = Automatic
+
+	column OrderDateKey
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: b4e3d2e6-84d8-4e83-b638-40c73f6cf27f
+		summarizeBy: count
+		sourceColumn: OrderDateKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column OrderDate
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 7c93a5b6-0890-43ab-8d97-420e1509ad75
+		summarizeBy: none
+		sourceColumn: OrderDate
+
+		variation Variation
+			isDefault
+			relationship: 5f707b81-0558-4f03-8c98-a10934b5c550
+			defaultHierarchy: LocalDateTable_732bd3b3-913c-4c44-b7db-91aa6a0dcd90.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column OrderTimestampBDT
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: eef6ddf6-07d5-4a1a-bf96-a59b2ae8d0c8
+		summarizeBy: none
+		sourceColumn: OrderTimestampBDT
+
+		variation Variation
+			isDefault
+			relationship: 0088954d-ad33-4259-be85-d5e99b5c23a3
+			defaultHierarchy: LocalDateTable_1264d59b-cb01-4a32-a845-46ce999353f7.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column OrderHour
+		dataType: int64
+		formatString: 0
+		lineageTag: 2b8ececa-6f55-4bbe-bd03-06258b52f18b
+		summarizeBy: sum
+		sourceColumn: OrderHour
+
+		annotation SummarizationSetBy = Automatic
+
+	column CustomerKey
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 04aae7ab-dd14-4af4-803f-2ea5bd523f4a
+		summarizeBy: none
+		sourceColumn: CustomerKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column GeographyKey
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 3442d772-16ae-42eb-898b-dfe08531471f
+		summarizeBy: none
+		sourceColumn: GeographyKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column ChannelKey
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 2a8a6203-f63e-4c06-b151-bafa3eacf047
+		summarizeBy: none
+		sourceColumn: ChannelKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column CampaignKey
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: e0a74b9d-0f29-4155-8516-d93098370885
+		summarizeBy: none
+		sourceColumn: CampaignKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column PromotionKey
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: c3b9b20e-c29c-4146-a9b8-dca08b121c03
+		summarizeBy: none
+		sourceColumn: PromotionKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column PaymentMethodKey
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 1c8d8681-0257-437e-8072-cede0f1b90d2
+		summarizeBy: none
+		sourceColumn: PaymentMethodKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column WarehouseKey
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 3de6a079-2426-48ba-9ade-877a7b1b7fc0
+		summarizeBy: none
+		sourceColumn: WarehouseKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column IsNewCustomerOrder
+		dataType: int64
+		formatString: 0
+		lineageTag: a27e3679-3a47-4318-8234-1bb3d8fca51b
+		summarizeBy: sum
+		sourceColumn: IsNewCustomerOrder
+
+		annotation SummarizationSetBy = Automatic
+
+	column OrderStatus
+		dataType: string
+		lineageTag: 8a1e671b-e550-434b-9b0e-3194ac0102c4
+		summarizeBy: none
+		sourceColumn: OrderStatus
+
+		annotation SummarizationSetBy = Automatic
+
+	column CancellationReason
+		dataType: string
+		lineageTag: 79d81464-69e0-46a2-a105-fe712854bfb7
+		summarizeBy: none
+		sourceColumn: CancellationReason
+
+		annotation SummarizationSetBy = Automatic
+
+	column HasReturnFlag
+		dataType: int64
+		formatString: 0
+		lineageTag: 240e85d9-64a1-484f-8ab8-0d8895dac6f1
+		summarizeBy: sum
+		sourceColumn: HasReturnFlag
+
+		annotation SummarizationSetBy = Automatic
+
+	column TotalUnits
+		dataType: int64
+		formatString: 0
+		lineageTag: a8343c6f-dd41-4b8b-b97d-d807f517a1f1
+		summarizeBy: sum
+		sourceColumn: TotalUnits
+
+		annotation SummarizationSetBy = Automatic
+
+	column LineCount
+		dataType: int64
+		formatString: 0
+		lineageTag: 2f782df9-f790-4582-a433-eebb7c8a5b0e
+		summarizeBy: sum
+		sourceColumn: LineCount
+
+		annotation SummarizationSetBy = Automatic
+
+	column GrossMerchandiseValueBDT
+		dataType: double
+		lineageTag: 05a8c94f-3a9a-471d-95e4-ae0fdc420428
+		summarizeBy: sum
+		sourceColumn: GrossMerchandiseValueBDT
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column ItemDiscountTotalBDT
+		dataType: double
+		lineageTag: e17c0e45-523e-490b-a0f5-a47901568b2b
+		summarizeBy: sum
+		sourceColumn: ItemDiscountTotalBDT
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column OrderLevelDiscountBDT
+		dataType: double
+		lineageTag: c18ebd7d-a7e6-4c39-8349-39070cf2ff1a
+		summarizeBy: sum
+		sourceColumn: OrderLevelDiscountBDT
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column TotalDiscountBDT
+		dataType: double
+		lineageTag: df2ef2d7-1058-4576-b090-50f92c35e972
+		summarizeBy: sum
+		sourceColumn: TotalDiscountBDT
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column NetMerchandiseSubtotalBDT
+		dataType: double
+		lineageTag: cb3fd964-cb5b-470e-aa86-0e611e7298b1
+		summarizeBy: sum
+		sourceColumn: NetMerchandiseSubtotalBDT
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column ShippingFeeBDT
+		dataType: double
+		lineageTag: 234cf9f6-3b39-46ed-bca1-313526a6162f
+		summarizeBy: sum
+		sourceColumn: ShippingFeeBDT
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column OrderTotalPayableBDT
+		dataType: double
+		lineageTag: 9399e24f-15a7-4767-9a5f-dacc113221d0
+		summarizeBy: sum
+		sourceColumn: OrderTotalPayableBDT
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column CollectedAmountBDT
+		dataType: double
+		lineageTag: f5580666-82d1-461c-83b5-f782c955a871
+		summarizeBy: sum
+		sourceColumn: CollectedAmountBDT
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column RefundedAmountBDT
+		dataType: double
+		lineageTag: 4c6841a4-65d3-4992-aa6d-f21b4effe632
+		summarizeBy: sum
+		sourceColumn: RefundedAmountBDT
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column CampaignRealityStatus
+		dataType: string
+		lineageTag: 0235c436-01b4-41e9-a97e-4ea1acbbbbdb
+		summarizeBy: none
+		sourceColumn: CampaignRealityStatus
+
+		annotation SummarizationSetBy = Automatic
+
+	column SyntheticDataFlag
+		dataType: int64
+		formatString: 0
+		lineageTag: a4322e59-bded-430d-90e5-afb51477c0a2
+		summarizeBy: sum
+		sourceColumn: SyntheticDataFlag
+
+		annotation SummarizationSetBy = Automatic
+
+	partition FactOrderHeader = m
+		mode: import
+		source =
+				let
+				  Source = GoogleBigQuery.Database([BillingProject = null, UseStorageApi = null, ConnectionTimeout = null, CommandTimeout = null]),
+				  #"Navigation 1" = Source{[Name = BigQueryProjectId]}[Data],
+				  #"Navigation 2" = #"Navigation 1"{[Name = "kinun_dw", Kind = "Schema"]}[Data],
+				  #"Navigation 3" = #"Navigation 2"{[Name = "FactOrderHeader", Kind = "Table"]}[Data]
+				in
+				  #"Navigation 3"
+

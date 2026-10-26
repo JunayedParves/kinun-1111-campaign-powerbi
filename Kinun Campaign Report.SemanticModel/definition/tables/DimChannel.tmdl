@@ -1,0 +1,91 @@
+table DimChannel
+	lineageTag: ec8ebbb5-207b-43ba-81a3-228d479d55e5
+
+	column ChannelKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 23e22d59-c391-43f7-8dd4-8261cf00436f
+		summarizeBy: none
+		sourceColumn: ChannelKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column ChannelID
+		dataType: string
+		lineageTag: 92e04673-27b5-43fe-a2b8-d388d1bb2682
+		summarizeBy: none
+		sourceColumn: ChannelID
+
+		annotation SummarizationSetBy = Automatic
+
+	column ChannelName
+		dataType: string
+		lineageTag: a9c4218d-d7bd-4f2f-94d4-091271cf1042
+		summarizeBy: none
+		sourceColumn: ChannelName
+
+		annotation SummarizationSetBy = Automatic
+
+	column ChannelGroup
+		dataType: string
+		lineageTag: b8f6fbf7-1c94-4ab5-8b37-0908dddb3063
+		summarizeBy: none
+		sourceColumn: ChannelGroup
+
+		annotation SummarizationSetBy = Automatic
+
+	column TrafficSource
+		dataType: string
+		lineageTag: 4276f2ed-7b00-4892-9cdc-e2beffe8808a
+		summarizeBy: none
+		sourceColumn: TrafficSource
+
+		annotation SummarizationSetBy = Automatic
+
+	column AcquisitionType
+		dataType: string
+		lineageTag: 381f1232-b4de-4d62-a5d8-b2e82ffe56c7
+		summarizeBy: none
+		sourceColumn: AcquisitionType
+
+		annotation SummarizationSetBy = Automatic
+
+	column DisplayOrder
+		dataType: int64
+		formatString: 0
+		lineageTag: 459dc329-dfa7-4f9a-8e52-1154326b0ab1
+		summarizeBy: sum
+		sourceColumn: DisplayOrder
+
+		annotation SummarizationSetBy = Automatic
+
+	column BaselineOrderShare
+		dataType: double
+		lineageTag: 732480f0-74af-44f2-8c92-d15a242d9afd
+		summarizeBy: sum
+		sourceColumn: BaselineOrderShare
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column SyntheticDataFlag
+		dataType: int64
+		formatString: 0
+		lineageTag: fec220ba-4690-45b6-8016-bb4f47ddcee0
+		summarizeBy: sum
+		sourceColumn: SyntheticDataFlag
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DimChannel = m
+		mode: import
+		source =
+				let
+				  Source = GoogleBigQuery.Database([BillingProject = null, UseStorageApi = null, ConnectionTimeout = null, CommandTimeout = null]),
+				  #"Navigation 1" = Source{[Name = BigQueryProjectId]}[Data],
+				  #"Navigation 2" = #"Navigation 1"{[Name = "kinun_dw", Kind = "Schema"]}[Data],
+				  #"Navigation 3" = #"Navigation 2"{[Name = "DimChannel", Kind = "Table"]}[Data]
+				in
+				  #"Navigation 3"
+

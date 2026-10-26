@@ -1,0 +1,119 @@
+table DimPromotion
+	lineageTag: 0f7f00e4-67a4-4cbd-b8ae-4b3773ac3d3f
+
+	column PromotionKey
+		dataType: int64
+		formatString: 0
+		lineageTag: e41022e5-980a-435d-8958-c1b7dd371376
+		summarizeBy: none
+		sourceColumn: PromotionKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column PromotionID
+		dataType: string
+		lineageTag: d9cefc3b-786b-4eda-998e-d16e3cfd0b38
+		summarizeBy: none
+		sourceColumn: PromotionID
+
+		annotation SummarizationSetBy = Automatic
+
+	column PromotionName
+		dataType: string
+		lineageTag: 4ba9db4b-4097-4798-81c0-104605f0d749
+		summarizeBy: none
+		sourceColumn: PromotionName
+
+		annotation SummarizationSetBy = Automatic
+
+	column CouponType
+		dataType: string
+		lineageTag: d77e5a2f-f26d-4866-bc82-949c30c2c6de
+		summarizeBy: none
+		sourceColumn: CouponType
+
+		annotation SummarizationSetBy = Automatic
+
+	column DiscountMechanism
+		dataType: string
+		lineageTag: c53c24b3-f014-4e2b-87b8-f8804464b8da
+		summarizeBy: none
+		sourceColumn: DiscountMechanism
+
+		annotation SummarizationSetBy = Automatic
+
+	column PromotionEligibility
+		dataType: string
+		lineageTag: a466145c-d0c7-4fc5-ad03-2d4758209444
+		summarizeBy: none
+		sourceColumn: PromotionEligibility
+
+		annotation SummarizationSetBy = Automatic
+
+	column ModeledDiscountRate
+		dataType: double
+		lineageTag: 2f467d3a-5bd2-4c6a-b95a-dae7732102b7
+		summarizeBy: sum
+		sourceColumn: ModeledDiscountRate
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column DiscountCapBDT
+		dataType: double
+		lineageTag: 6554bdef-d64b-4fa4-b4dd-ab49921a24fb
+		summarizeBy: sum
+		sourceColumn: DiscountCapBDT
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column MinOrderValueBDT
+		dataType: double
+		lineageTag: 6defe086-d6a8-48c3-b875-ba8ec92b4dca
+		summarizeBy: sum
+		sourceColumn: MinOrderValueBDT
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column IsStackable
+		dataType: int64
+		formatString: 0
+		lineageTag: 29bd453f-50b2-4b7c-ad11-951e7cd4168c
+		summarizeBy: sum
+		sourceColumn: IsStackable
+
+		annotation SummarizationSetBy = Automatic
+
+	column CampaignAssociation
+		dataType: string
+		lineageTag: 0631f4de-d172-49ee-a6cf-4c9d8912dcfc
+		summarizeBy: none
+		sourceColumn: CampaignAssociation
+
+		annotation SummarizationSetBy = Automatic
+
+	column SyntheticDataFlag
+		dataType: int64
+		formatString: 0
+		lineageTag: 0f036695-318b-4cec-9681-9dad81b1bc55
+		summarizeBy: sum
+		sourceColumn: SyntheticDataFlag
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DimPromotion = m
+		mode: import
+		source =
+				let
+				  Source = GoogleBigQuery.Database([BillingProject = null, UseStorageApi = null, ConnectionTimeout = null, CommandTimeout = null]),
+				  #"Navigation 1" = Source{[Name = BigQueryProjectId]}[Data],
+				  #"Navigation 2" = #"Navigation 1"{[Name = "kinun_dw", Kind = "Schema"]}[Data],
+				  #"Navigation 3" = #"Navigation 2"{[Name = "DimPromotion", Kind = "Table"]}[Data]
+				in
+				  #"Navigation 3"
+

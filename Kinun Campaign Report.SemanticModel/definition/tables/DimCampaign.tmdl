@@ -1,0 +1,117 @@
+table DimCampaign
+	lineageTag: 2f660ad0-f0af-400d-a8ff-959b58148bfd
+
+	column CampaignKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 86bcb24c-27fa-4c9d-a268-1e124b44aa44
+		summarizeBy: none
+		sourceColumn: CampaignKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column CampaignID
+		dataType: string
+		lineageTag: 07805c9b-fe38-4bce-a84d-f8d577ec2e0c
+		summarizeBy: none
+		sourceColumn: CampaignID
+
+		annotation SummarizationSetBy = Automatic
+
+	column CampaignName
+		dataType: string
+		lineageTag: 156b6881-51ed-402c-a2f8-24b004191c89
+		summarizeBy: none
+		sourceColumn: CampaignName
+
+		annotation SummarizationSetBy = Automatic
+
+	column CampaignType
+		dataType: string
+		lineageTag: 41fd73bf-7a18-4c08-a2a6-293d0371eca6
+		summarizeBy: none
+		sourceColumn: CampaignType
+
+		annotation SummarizationSetBy = Automatic
+
+	column EventClassification
+		dataType: string
+		lineageTag: 19f5c86b-41b4-485f-8651-ceaf2b121a97
+		summarizeBy: none
+		sourceColumn: EventClassification
+
+		annotation SummarizationSetBy = Automatic
+
+	column CampaignYear
+		dataType: int64
+		formatString: 0
+		lineageTag: 5c700d5d-0072-42b0-b762-8c5cce4f07f0
+		summarizeBy: sum
+		sourceColumn: CampaignYear
+
+		annotation SummarizationSetBy = Automatic
+
+	column CampaignRealityStatus
+		dataType: string
+		lineageTag: fb4dba25-ed76-4a9b-a352-7a6a7e4ee8c8
+		summarizeBy: none
+		sourceColumn: CampaignRealityStatus
+
+		annotation SummarizationSetBy = Automatic
+
+	column StartTimestampBDT
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 9fe02a75-edca-460d-8570-9ed49bbb905f
+		summarizeBy: none
+		sourceColumn: StartTimestampBDT
+
+		variation Variation
+			isDefault
+			relationship: ff460070-4ba4-42d3-a782-c62eb4c2e20a
+			defaultHierarchy: LocalDateTable_a0281521-9b50-466c-a0b9-77def8ff10a6.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column EndTimestampBDT
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: b4afe2c9-0e62-4d51-aa47-de040cbc2202
+		summarizeBy: none
+		sourceColumn: EndTimestampBDT
+
+		variation Variation
+			isDefault
+			relationship: b1afd318-3be0-4389-bdef-5339ade8d02b
+			defaultHierarchy: LocalDateTable_cea49bc0-7c3a-4172-b699-03d7ba64bbbd.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column PrimaryObjective
+		dataType: string
+		lineageTag: 0cfff778-2966-404e-8803-1af9799b34cd
+		summarizeBy: none
+		sourceColumn: PrimaryObjective
+
+		annotation SummarizationSetBy = Automatic
+
+	column SyntheticDataFlag
+		dataType: int64
+		formatString: 0
+		lineageTag: 0dca4064-4af9-4312-8e29-e93949c1896f
+		summarizeBy: sum
+		sourceColumn: SyntheticDataFlag
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DimCampaign = m
+		mode: import
+		source =
+				let
+				  Source = GoogleBigQuery.Database([BillingProject = null, UseStorageApi = null, ConnectionTimeout = null, CommandTimeout = null]),
+				  #"Navigation 1" = Source{[Name = BigQueryProjectId]}[Data],
+				  #"Navigation 2" = #"Navigation 1"{[Name = "kinun_dw", Kind = "Schema"]}[Data],
+				  #"Navigation 3" = #"Navigation 2"{[Name = "DimCampaign", Kind = "Table"]}[Data]
+				in
+				  #"Navigation 3"
+

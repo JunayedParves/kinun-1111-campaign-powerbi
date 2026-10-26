@@ -1,0 +1,263 @@
+table FactDelivery
+	lineageTag: f7220663-5181-4a6f-94d3-db8a94255e2f
+
+	column ShipmentKey
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: ac2cdff9-86e4-4c1f-abf0-ef41191dec09
+		summarizeBy: count
+		sourceColumn: ShipmentKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column ShipmentID
+		dataType: string
+		lineageTag: e9f09be0-d118-4e4c-88c8-d1724d89013c
+		summarizeBy: none
+		sourceColumn: ShipmentID
+
+		annotation SummarizationSetBy = Automatic
+
+	column OrderID
+		dataType: string
+		lineageTag: b12108f7-66b9-492a-b399-0dd08cb17a91
+		summarizeBy: none
+		sourceColumn: OrderID
+
+		annotation SummarizationSetBy = Automatic
+
+	column OrderDateKey
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: c53265a9-99f7-4418-a795-bd42ad5ec75d
+		summarizeBy: count
+		sourceColumn: OrderDateKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column DispatchDateKey
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 9ac1e804-89cd-4814-9ec5-0a46c1496053
+		summarizeBy: count
+		sourceColumn: DispatchDateKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column DeliveryDateKey
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 97f4e1e0-3f3d-47f3-8f97-0dd00aa042c8
+		summarizeBy: count
+		sourceColumn: DeliveryDateKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column PromisedDateKey
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 34907ea1-0589-4eff-b380-c8ce93727a33
+		summarizeBy: count
+		sourceColumn: PromisedDateKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column OrderDate
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: e953fb6e-f6aa-4104-8487-3fe2edf55ec0
+		summarizeBy: none
+		sourceColumn: OrderDate
+
+		variation Variation
+			isDefault
+			relationship: 16f3cda9-5bc1-478a-88ca-2b1cb6d69b10
+			defaultHierarchy: LocalDateTable_95d85cc6-502f-401c-964c-31c0b6e35a83.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column DispatchDate
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 29f6d000-4522-40a7-8c0d-162ac67ec691
+		summarizeBy: none
+		sourceColumn: DispatchDate
+
+		variation Variation
+			isDefault
+			relationship: c5b0ce5f-48ad-40b2-aed9-0509125f0beb
+			defaultHierarchy: LocalDateTable_69150696-c2e8-4275-b5b0-03195d344275.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column PromisedDeliveryDate
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 7278868f-684e-4c50-ae24-ee67f89836e4
+		summarizeBy: none
+		sourceColumn: PromisedDeliveryDate
+
+		variation Variation
+			isDefault
+			relationship: b9536960-e1e8-4d1a-adca-aa047a88d74e
+			defaultHierarchy: LocalDateTable_065dbc7c-58ce-42d6-909a-253445e49718.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column ActualDeliveryDate
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: eb95d830-5525-4762-8692-f1c7bac10ed1
+		summarizeBy: none
+		sourceColumn: ActualDeliveryDate
+
+		variation Variation
+			isDefault
+			relationship: 38adebd7-093c-46e3-9f34-1e39478d42b9
+			defaultHierarchy: LocalDateTable_03d4c394-363c-43d8-9708-817236d99da2.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column CustomerKey
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 3563dfbb-0f1f-4b25-b0f7-2427045f451f
+		summarizeBy: none
+		sourceColumn: CustomerKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column GeographyKey
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 02065b19-834a-457d-8564-63baaa27d3ec
+		summarizeBy: none
+		sourceColumn: GeographyKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column WarehouseKey
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 2b8ecf09-cabe-423d-98b7-fc8cff8cb701
+		summarizeBy: none
+		sourceColumn: WarehouseKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column CampaignKey
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: bf6c78a1-e25b-4d1e-8cc8-cfdf74feff30
+		summarizeBy: none
+		sourceColumn: CampaignKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column CourierName
+		dataType: string
+		lineageTag: 197eb8c5-4307-4d67-8e25-fecc41cf0bf3
+		summarizeBy: none
+		sourceColumn: CourierName
+
+		annotation SummarizationSetBy = Automatic
+
+	column ShippingCostBDT
+		dataType: double
+		lineageTag: 78c44862-4bd0-4d65-82ea-40a3eed685b4
+		summarizeBy: sum
+		sourceColumn: ShippingCostBDT
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column DeliveryAttempts
+		dataType: int64
+		formatString: 0
+		lineageTag: 67effe1c-9528-4f4f-9637-35126ae56cf3
+		summarizeBy: sum
+		sourceColumn: DeliveryAttempts
+
+		annotation SummarizationSetBy = Automatic
+
+	column DeliveryStatus
+		dataType: string
+		lineageTag: fb427d0b-f280-4062-b5a9-0522a0b7f105
+		summarizeBy: none
+		sourceColumn: DeliveryStatus
+
+		annotation SummarizationSetBy = Automatic
+
+	column IsOnTimeDelivery
+		dataType: int64
+		formatString: 0
+		lineageTag: e1f4753a-a7f9-406e-96b3-9b9fb7d76c22
+		summarizeBy: sum
+		sourceColumn: IsOnTimeDelivery
+
+		annotation SummarizationSetBy = Automatic
+
+	column DeliveryLeadTimeDays
+		dataType: int64
+		formatString: 0
+		lineageTag: 344e30ea-8c70-448f-92cc-52ec947bb475
+		summarizeBy: sum
+		sourceColumn: DeliveryLeadTimeDays
+
+		annotation SummarizationSetBy = Automatic
+
+	column DelayDurationDays
+		dataType: int64
+		formatString: 0
+		lineageTag: ef2140c6-fc6d-4766-a96d-5d9307fb858e
+		summarizeBy: sum
+		sourceColumn: DelayDurationDays
+
+		annotation SummarizationSetBy = Automatic
+
+	column FailureReason
+		dataType: string
+		lineageTag: 4e47cb61-c550-4931-9f03-14df55d0dac2
+		summarizeBy: none
+		sourceColumn: FailureReason
+
+		annotation SummarizationSetBy = Automatic
+
+	column SyntheticDataFlag
+		dataType: int64
+		formatString: 0
+		lineageTag: 840b9055-14b9-4542-9ed1-18cb3a738188
+		summarizeBy: sum
+		sourceColumn: SyntheticDataFlag
+
+		annotation SummarizationSetBy = Automatic
+
+	partition FactDelivery = m
+		mode: import
+		source =
+				let
+				  Source = GoogleBigQuery.Database([BillingProject = null, UseStorageApi = null, ConnectionTimeout = null, CommandTimeout = null]),
+				  #"Navigation 1" = Source{[Name = BigQueryProjectId]}[Data],
+				  #"Navigation 2" = #"Navigation 1"{[Name = "kinun_dw", Kind = "Schema"]}[Data],
+				  #"Navigation 3" = #"Navigation 2"{[Name = "FactDelivery", Kind = "Table"]}[Data]
+				in
+				  #"Navigation 3"
+

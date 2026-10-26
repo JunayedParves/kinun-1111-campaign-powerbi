@@ -1,0 +1,198 @@
+table FactHourlyCampaignTraffic
+	lineageTag: c102ec4b-e719-4240-afb4-29952270c91d
+
+	column HourlyTrafficKey
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: d6e57af9-02fa-4b3f-9796-f7b1ad667dd8
+		summarizeBy: count
+		sourceColumn: HourlyTrafficKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column DateKey
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: d053faf2-e518-4ac0-bd7a-4ce291cf8661
+		summarizeBy: none
+		sourceColumn: DateKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column FullDate
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: f5f09678-4f9a-46fb-a744-459452d06628
+		summarizeBy: none
+		sourceColumn: FullDate
+
+		variation Variation
+			isDefault
+			relationship: 13e87244-ad9c-47f0-b1f0-cda909542b3d
+			defaultHierarchy: LocalDateTable_7e53a529-212d-42b2-8f7e-ef7fa8428348.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Year
+		dataType: int64
+		formatString: 0
+		lineageTag: cdd5f603-978e-47ba-9777-f02b54ae024d
+		summarizeBy: sum
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column HourOfDayBDT
+		dataType: int64
+		formatString: 0
+		lineageTag: 1a0bbc94-9c8e-4520-9beb-48474ed88c86
+		summarizeBy: sum
+		sourceColumn: HourOfDayBDT
+
+		annotation SummarizationSetBy = Automatic
+
+	column TimestampHourBDT
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 91a4b979-2368-40e7-8901-26586ea6a9ef
+		summarizeBy: none
+		sourceColumn: TimestampHourBDT
+
+		variation Variation
+			isDefault
+			relationship: 6582b416-aa21-41dc-963d-3b9294dfe8da
+			defaultHierarchy: LocalDateTable_3b851511-811f-49eb-bae5-25de8226b9a1.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column IsOfficial54HrWindow
+		dataType: int64
+		formatString: 0
+		lineageTag: 99d6787d-c693-4178-9600-d151fd2b1ab2
+		summarizeBy: sum
+		sourceColumn: IsOfficial54HrWindow
+
+		annotation SummarizationSetBy = Automatic
+
+	column WindowComparisonGroup
+		dataType: string
+		lineageTag: 75af8bf9-04aa-40a3-bec9-94d7345d6989
+		summarizeBy: none
+		sourceColumn: WindowComparisonGroup
+
+		annotation SummarizationSetBy = Automatic
+
+	column CampaignKey
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 4a4fd5a1-b772-4b8e-80bb-076bbfbb13d3
+		summarizeBy: none
+		sourceColumn: CampaignKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column ChannelKey
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 7ac6e2a0-c324-4ba9-9c89-a1a0d885cf8d
+		summarizeBy: none
+		sourceColumn: ChannelKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column DeviceType
+		dataType: string
+		lineageTag: 7b3bce54-a422-4ff7-bf9b-636fbebc39b5
+		summarizeBy: none
+		sourceColumn: DeviceType
+
+		annotation SummarizationSetBy = Automatic
+
+	column Sessions
+		dataType: int64
+		formatString: 0
+		lineageTag: 79f570e2-4d0c-455f-8d0e-13392ab8d85e
+		summarizeBy: sum
+		sourceColumn: Sessions
+
+		annotation SummarizationSetBy = Automatic
+
+	column AddToCartEvents
+		dataType: int64
+		formatString: 0
+		lineageTag: ccff646d-6aa6-437c-857f-aad5ac46c6a3
+		summarizeBy: sum
+		sourceColumn: AddToCartEvents
+
+		annotation SummarizationSetBy = Automatic
+
+	column CheckoutStarts
+		dataType: int64
+		formatString: 0
+		lineageTag: 5f9cdce6-7311-4a6f-b63f-dd43290a8754
+		summarizeBy: sum
+		sourceColumn: CheckoutStarts
+
+		annotation SummarizationSetBy = Automatic
+
+	column Orders
+		dataType: int64
+		formatString: 0
+		lineageTag: 682615f6-0b29-4821-8d8d-59d8fb8417e7
+		summarizeBy: sum
+		sourceColumn: Orders
+
+		annotation SummarizationSetBy = Automatic
+
+	column GMVBDT
+		dataType: double
+		lineageTag: 40be8634-3076-430a-878c-117aa233c0c3
+		summarizeBy: sum
+		sourceColumn: GMVBDT
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column NetMerchandiseSalesBDT
+		dataType: double
+		lineageTag: 7f633621-4e2d-43dd-b169-9ff55e6f843c
+		summarizeBy: sum
+		sourceColumn: NetMerchandiseSalesBDT
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column SyntheticDataFlag
+		dataType: int64
+		formatString: 0
+		lineageTag: cc439c79-fce0-477e-b945-fb2bfdf7f75a
+		summarizeBy: sum
+		sourceColumn: SyntheticDataFlag
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Hour index (0-53) within the 54-hour 11.11 window starting Nov 10 18:00 BDT. Blank outside the window.
+	column 'Hours Since Launch' = IF ( FactHourlyCampaignTraffic[IsOfficial54HrWindow] = 1, DATEDIFF ( DATE ( YEAR ( FactHourlyCampaignTraffic[TimestampHourBDT] ), 11, 10 ) + TIME ( 18, 0, 0 ), FactHourlyCampaignTraffic[TimestampHourBDT], HOUR ) )
+		formatString: 0
+		lineageTag: 90bc1d01-d371-4f94-b78e-9b85b040a867
+		summarizeBy: none
+
+	partition FactHourlyCampaignTraffic = m
+		mode: import
+		source =
+				let
+				  Source = GoogleBigQuery.Database([BillingProject = null, UseStorageApi = null, ConnectionTimeout = null, CommandTimeout = null]),
+				  #"Navigation 1" = Source{[Name = BigQueryProjectId]}[Data],
+				  #"Navigation 2" = #"Navigation 1"{[Name = "kinun_dw", Kind = "Schema"]}[Data],
+				  #"Navigation 3" = #"Navigation 2"{[Name = "FactHourlyCampaignTraffic", Kind = "Table"]}[Data]
+				in
+				  #"Navigation 3"
+

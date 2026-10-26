@@ -1,0 +1,202 @@
+table DimProduct
+	lineageTag: 2192f781-181c-4af0-b4ee-e918a61c3801
+
+	column ProductKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 291e2ac4-8863-4d67-bec8-1a927fdd32e1
+		summarizeBy: none
+		sourceColumn: ProductKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column ProductID
+		dataType: string
+		lineageTag: 86a59647-2f36-42ec-8bc1-1da271eeb0a9
+		summarizeBy: none
+		sourceColumn: ProductID
+
+		annotation SummarizationSetBy = Automatic
+
+	column ProductName
+		dataType: string
+		lineageTag: b168eb96-5ed1-4f0d-a2fe-3a7678cd24e7
+		summarizeBy: none
+		sourceColumn: ProductName
+
+		annotation SummarizationSetBy = Automatic
+
+	column Category
+		dataType: string
+		lineageTag: ea936d0f-83b2-48ef-9fde-fe7fc1987f0a
+		summarizeBy: none
+		sourceColumn: Category
+
+		annotation SummarizationSetBy = Automatic
+
+	column Subcategory
+		dataType: string
+		lineageTag: a9ea00c3-ebe4-4ea7-a53a-87600701a6a0
+		summarizeBy: none
+		sourceColumn: Subcategory
+
+		annotation SummarizationSetBy = Automatic
+
+	column Brand
+		dataType: string
+		lineageTag: 0f881235-f0d5-455f-aace-c43987eb5f72
+		summarizeBy: none
+		sourceColumn: Brand
+
+		annotation SummarizationSetBy = Automatic
+
+	column ModelVariant
+		dataType: string
+		lineageTag: 79f63431-5b20-4365-b6ac-a2231f448aa7
+		summarizeBy: none
+		sourceColumn: ModelVariant
+
+		annotation SummarizationSetBy = Automatic
+
+	column PriceTier
+		dataType: string
+		lineageTag: 14bff5d1-4c09-4167-a3a0-49bfa294f323
+		summarizeBy: none
+		sourceColumn: PriceTier
+
+		annotation SummarizationSetBy = Automatic
+
+	column ListPriceBDT
+		dataType: double
+		lineageTag: 70c7e73a-a6e9-43cf-8e3d-6dea2950fd21
+		summarizeBy: sum
+		sourceColumn: ListPriceBDT
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column StandardCostBDT
+		dataType: double
+		lineageTag: 3750f337-af55-4ae1-9cef-d1b465f8c9c5
+		summarizeBy: sum
+		sourceColumn: StandardCostBDT
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column BaseGrossMarginPct
+		dataType: double
+		lineageTag: 9777da62-1495-453e-a5e2-ba57cb1f33ea
+		summarizeBy: sum
+		sourceColumn: BaseGrossMarginPct
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Max1111DiscountPct
+		dataType: double
+		lineageTag: 98a9b03c-3df5-4a67-87b6-f5f2fae3fd9b
+		summarizeBy: sum
+		sourceColumn: Max1111DiscountPct
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Is1111HeroSKU
+		dataType: int64
+		formatString: 0
+		lineageTag: 3491e9cf-1208-42c9-98a4-d3190467d7f8
+		summarizeBy: sum
+		sourceColumn: Is1111HeroSKU
+
+		annotation SummarizationSetBy = Automatic
+
+	column IsMarginTrapSKU
+		dataType: int64
+		formatString: 0
+		lineageTag: d4759fb0-012d-4ed9-bf1f-89af17fc32e2
+		summarizeBy: sum
+		sourceColumn: IsMarginTrapSKU
+
+		annotation SummarizationSetBy = Automatic
+
+	column BaseReturnRate
+		dataType: double
+		lineageTag: 036b6b78-0d3f-4853-b82b-a2fc77266033
+		summarizeBy: sum
+		sourceColumn: BaseReturnRate
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column LaunchDate
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: ce9c693f-b3f6-45d0-9c54-bd0dc2873116
+		summarizeBy: none
+		sourceColumn: LaunchDate
+
+		variation Variation
+			isDefault
+			relationship: 91668669-1a70-454f-a82d-65b19d6de254
+			defaultHierarchy: LocalDateTable_f5e78c56-572e-4a03-95dd-06f1aa348049.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column LifecycleStatus
+		dataType: string
+		lineageTag: 0d0aec20-7304-4fd8-b16a-574bd291d0bc
+		summarizeBy: none
+		sourceColumn: LifecycleStatus
+
+		annotation SummarizationSetBy = Automatic
+
+	column WarrantyType
+		dataType: string
+		lineageTag: 2972d96f-018b-4e46-ad21-178aac971afa
+		summarizeBy: none
+		sourceColumn: WarrantyType
+
+		annotation SummarizationSetBy = Automatic
+
+	column PopularityWeight
+		dataType: double
+		lineageTag: 4c49a5f4-0168-48a9-a827-67030e1910a9
+		summarizeBy: sum
+		sourceColumn: PopularityWeight
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column SyntheticDataFlag
+		dataType: int64
+		formatString: 0
+		lineageTag: 54b6ec66-1575-4bb6-b4a7-02eac80ef3f3
+		summarizeBy: sum
+		sourceColumn: SyntheticDataFlag
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'SKU Health' = SWITCH ( TRUE (), DimProduct[IsMarginTrapSKU] = 1, "Margin-Trap SKU", DimProduct[Is1111HeroSKU] = 1, "Hero SKU", "Core SKU" )
+		lineageTag: 158500e2-1135-43ed-8e27-225716e70dcb
+		summarizeBy: none
+
+	partition DimProduct = m
+		mode: import
+		source =
+				let
+				  Source = GoogleBigQuery.Database([BillingProject = null, UseStorageApi = null, ConnectionTimeout = null, CommandTimeout = null]),
+				  #"Navigation 1" = Source{[Name = BigQueryProjectId]}[Data],
+				  #"Navigation 2" = #"Navigation 1"{[Name = "kinun_dw", Kind = "Schema"]}[Data],
+				  #"Navigation 3" = #"Navigation 2"{[Name = "DimProduct", Kind = "Table"]}[Data]
+				in
+				  #"Navigation 3"
+

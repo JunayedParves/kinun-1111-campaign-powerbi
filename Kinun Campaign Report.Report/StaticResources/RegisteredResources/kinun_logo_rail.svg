@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 100" width="400" height="100">
+  <rect x="6" y="14" width="72" height="72" rx="14" fill="#00796B"/>
+  <rect x="25" y="30" width="8" height="40" rx="4" fill="#FFFFFF"/>
+  <path d="M 38 46 L 55 31 C 57 29 60 31 59 34 L 45 50 Z" fill="#A7F3D0"/>
+  <path d="M 35 49 L 56 67 C 58 69 56 71 53 71 L 37 56 Z" fill="#FFFFFF"/>
+  <circle cx="57" cy="31" r="3" fill="#F59E0B"/>
+  <text x="96" y="58" font-family="Segoe UI, Arial, sans-serif" font-size="38" font-weight="700" letter-spacing="5" fill="#FFFFFF">KINUN</text>
+  <text x="98" y="80" font-family="Segoe UI, Arial, sans-serif" font-size="11.5" font-weight="600" letter-spacing="2" fill="#A7F3D0">STRATEGY &amp; CAMPAIGN INTELLIGENCE</text>
+</svg>

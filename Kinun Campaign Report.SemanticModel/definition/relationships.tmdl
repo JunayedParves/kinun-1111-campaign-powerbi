@@ -1,0 +1,297 @@
+relationship ff460070-4ba4-42d3-a782-c62eb4c2e20a
+	joinOnDateBehavior: datePartOnly
+	fromColumn: DimCampaign.StartTimestampBDT
+	toColumn: LocalDateTable_a0281521-9b50-466c-a0b9-77def8ff10a6.Date
+
+relationship b1afd318-3be0-4389-bdef-5339ade8d02b
+	joinOnDateBehavior: datePartOnly
+	fromColumn: DimCampaign.EndTimestampBDT
+	toColumn: LocalDateTable_cea49bc0-7c3a-4172-b699-03d7ba64bbbd.Date
+
+relationship 96a3b56b-6bee-4087-b5c9-8d4bf89f6451
+	joinOnDateBehavior: datePartOnly
+	fromColumn: DimCustomer.RegistrationDate
+	toColumn: LocalDateTable_cc8f3978-a51b-42ed-8606-9907d268c3cc.Date
+
+relationship 9aee5653-817c-4b36-ad81-5da7a060239b
+	joinOnDateBehavior: datePartOnly
+	fromColumn: DimCustomer.FirstPurchaseDate
+	toColumn: LocalDateTable_f68ee6fb-1494-4ddf-8cbb-114ea18d0bdd.Date
+
+relationship b8dbd43f-9d29-4571-a888-7dcd646642b2
+	joinOnDateBehavior: datePartOnly
+	fromColumn: DimCustomerCohortMonth.CohortStartDate
+	toColumn: LocalDateTable_371e71ca-b125-4709-8802-8cf397edf945.Date
+
+relationship 5cf6d78f-bb57-4e44-bf9a-08668b0e3759
+	joinOnDateBehavior: datePartOnly
+	fromColumn: DimDate.FullDate
+	toColumn: LocalDateTable_5ebbff02-d9f1-4ce8-84e6-57d3dada316d.Date
+
+relationship 91668669-1a70-454f-a82d-65b19d6de254
+	joinOnDateBehavior: datePartOnly
+	fromColumn: DimProduct.LaunchDate
+	toColumn: LocalDateTable_f5e78c56-572e-4a03-95dd-06f1aa348049.Date
+
+relationship 16f3cda9-5bc1-478a-88ca-2b1cb6d69b10
+	joinOnDateBehavior: datePartOnly
+	fromColumn: FactDelivery.OrderDate
+	toColumn: LocalDateTable_95d85cc6-502f-401c-964c-31c0b6e35a83.Date
+
+relationship c5b0ce5f-48ad-40b2-aed9-0509125f0beb
+	joinOnDateBehavior: datePartOnly
+	fromColumn: FactDelivery.DispatchDate
+	toColumn: LocalDateTable_69150696-c2e8-4275-b5b0-03195d344275.Date
+
+relationship b9536960-e1e8-4d1a-adca-aa047a88d74e
+	joinOnDateBehavior: datePartOnly
+	fromColumn: FactDelivery.PromisedDeliveryDate
+	toColumn: LocalDateTable_065dbc7c-58ce-42d6-909a-253445e49718.Date
+
+relationship 38adebd7-093c-46e3-9f34-1e39478d42b9
+	joinOnDateBehavior: datePartOnly
+	fromColumn: FactDelivery.ActualDeliveryDate
+	toColumn: LocalDateTable_03d4c394-363c-43d8-9708-817236d99da2.Date
+
+relationship 13e87244-ad9c-47f0-b1f0-cda909542b3d
+	joinOnDateBehavior: datePartOnly
+	fromColumn: FactHourlyCampaignTraffic.FullDate
+	toColumn: LocalDateTable_7e53a529-212d-42b2-8f7e-ef7fa8428348.Date
+
+relationship 6582b416-aa21-41dc-963d-3b9294dfe8da
+	joinOnDateBehavior: datePartOnly
+	fromColumn: FactHourlyCampaignTraffic.TimestampHourBDT
+	toColumn: LocalDateTable_3b851511-811f-49eb-bae5-25de8226b9a1.Date
+
+relationship aa657e95-86dd-4e52-a0b3-a458d6deb625
+	joinOnDateBehavior: datePartOnly
+	fromColumn: FactInventoryWeekly.SnapshotDate
+	toColumn: LocalDateTable_924794e2-1338-49c9-9d0a-5d1ab17f46cd.Date
+
+relationship a885366b-83b0-4162-bcd2-9f1dbbc15ffc
+	joinOnDateBehavior: datePartOnly
+	fromColumn: FactMarketingDaily.FullDate
+	toColumn: LocalDateTable_3b3dc674-d2b5-4131-a357-5cfe6b322365.Date
+
+relationship 5f707b81-0558-4f03-8c98-a10934b5c550
+	joinOnDateBehavior: datePartOnly
+	fromColumn: FactOrderHeader.OrderDate
+	toColumn: LocalDateTable_732bd3b3-913c-4c44-b7db-91aa6a0dcd90.Date
+
+relationship 0088954d-ad33-4259-be85-d5e99b5c23a3
+	joinOnDateBehavior: datePartOnly
+	fromColumn: FactOrderHeader.OrderTimestampBDT
+	toColumn: LocalDateTable_1264d59b-cb01-4a32-a845-46ce999353f7.Date
+
+relationship f0aa7243-6a3d-4722-b1e5-be67bbdc1bb8
+	joinOnDateBehavior: datePartOnly
+	fromColumn: FactPayment.PaymentTimestampBDT
+	toColumn: LocalDateTable_05b7d540-5288-4295-8e85-2c6658092699.Date
+
+relationship 449d66f3-4062-4d1f-90c1-643d29a3cdaf
+	joinOnDateBehavior: datePartOnly
+	fromColumn: FactReturn.OriginalOrderDate
+	toColumn: LocalDateTable_be883b90-2503-41c9-bafa-ce32d896c78d.Date
+
+relationship 5c00a87d-f871-4fac-8095-8865a8c59207
+	joinOnDateBehavior: datePartOnly
+	fromColumn: FactReturn.ReturnDate
+	toColumn: LocalDateTable_8e6541c3-0bda-479a-bccf-6a4f1dfdb010.Date
+
+relationship AutoDetected_c2330681-ebdc-4e47-bb04-a39c3c340a58
+	fromColumn: FactDelivery.CampaignKey
+	toColumn: DimCampaign.CampaignKey
+
+relationship AutoDetected_98376761-37eb-4ef4-b9b5-7092e2d2291c
+	fromColumn: FactHourlyCampaignTraffic.CampaignKey
+	toColumn: DimCampaign.CampaignKey
+
+relationship AutoDetected_083a7a0a-5a37-4e8f-a60b-f5f5ac85c1c0
+	fromColumn: FactMarketingDaily.CampaignKey
+	toColumn: DimCampaign.CampaignKey
+
+relationship AutoDetected_2211a3b7-cac4-4102-ad93-b6c55c63e920
+	fromColumn: FactOrderHeader.CampaignKey
+	toColumn: DimCampaign.CampaignKey
+
+relationship AutoDetected_e118b8cc-d24a-4b64-969c-344291dec091
+	fromColumn: FactOrderLine.CampaignKey
+	toColumn: DimCampaign.CampaignKey
+
+relationship AutoDetected_636da901-8095-498b-becf-256d9d37b2d7
+	fromColumn: FactPayment.CampaignKey
+	toColumn: DimCampaign.CampaignKey
+
+relationship AutoDetected_cdee5e42-31bc-4c89-a6d6-65b21b9325d1
+	fromColumn: FactReturn.CampaignKey
+	toColumn: DimCampaign.CampaignKey
+
+relationship AutoDetected_0ac986d2-fc7e-40c7-910b-6f3f08ce7aa0
+	fromColumn: FactHourlyCampaignTraffic.ChannelKey
+	toColumn: DimChannel.ChannelKey
+
+relationship AutoDetected_c9e5274b-3b3d-4c4b-8a54-31ea6b5ac532
+	fromColumn: FactMarketingDaily.ChannelKey
+	toColumn: DimChannel.ChannelKey
+
+relationship AutoDetected_3b839403-ffe6-4f29-8bdf-ed73d622eff7
+	fromColumn: FactOrderHeader.ChannelKey
+	toColumn: DimChannel.ChannelKey
+
+relationship AutoDetected_06fdc7d2-39b4-4f01-8a7e-98edc43a0844
+	fromColumn: FactOrderLine.ChannelKey
+	toColumn: DimChannel.ChannelKey
+
+relationship AutoDetected_cd163727-f18c-4365-a063-4faa8b01ce0e
+	fromColumn: FactPayment.ChannelKey
+	toColumn: DimChannel.ChannelKey
+
+relationship AutoDetected_e7d752a4-f510-42d8-bfbb-373b23dede7c
+	fromColumn: FactDelivery.CustomerKey
+	toColumn: DimCustomer.CustomerKey
+
+relationship AutoDetected_cc43458f-ae64-43bc-b4de-067f40ad60e7
+	fromColumn: FactOrderHeader.CustomerKey
+	toColumn: DimCustomer.CustomerKey
+
+relationship AutoDetected_f5c39ab6-e158-4955-9120-639cb1eff0a3
+	fromColumn: FactOrderLine.CustomerKey
+	toColumn: DimCustomer.CustomerKey
+
+relationship AutoDetected_04ae445b-6fad-4190-b1a7-78a450d372b0
+	fromColumn: FactPayment.CustomerKey
+	toColumn: DimCustomer.CustomerKey
+
+relationship AutoDetected_df1e06d4-9364-46ad-95bc-655d630bcb0e
+	fromColumn: FactReturn.CustomerKey
+	toColumn: DimCustomer.CustomerKey
+
+relationship AutoDetected_8fb74fb4-959a-4b36-8172-a3f19d0545c7
+	fromColumn: FactHourlyCampaignTraffic.DateKey
+	toColumn: DimDate.DateKey
+
+relationship AutoDetected_ab0152e2-750f-4345-b21c-ade7da332d4d
+	fromColumn: FactMarketingDaily.DateKey
+	toColumn: DimDate.DateKey
+
+relationship AutoDetected_0b3038f7-defc-4b7e-96d2-8a661bc01c45
+	fromColumn: FactDelivery.GeographyKey
+	toColumn: DimGeography.GeographyKey
+
+relationship AutoDetected_778afa42-a8fc-4dd5-8b12-d4ff6e30a831
+	fromColumn: FactOrderHeader.GeographyKey
+	toColumn: DimGeography.GeographyKey
+
+relationship AutoDetected_94188f57-f862-4c41-a1bc-5136cc5db95d
+	fromColumn: FactOrderLine.GeographyKey
+	toColumn: DimGeography.GeographyKey
+
+relationship AutoDetected_3c0b4ea4-2250-407b-a4ad-cbb3f13e4ebc
+	fromColumn: FactPayment.GeographyKey
+	toColumn: DimGeography.GeographyKey
+
+relationship AutoDetected_c590ca09-1d5c-4952-bd4b-84813a0681f8
+	fromColumn: FactReturn.GeographyKey
+	toColumn: DimGeography.GeographyKey
+
+relationship AutoDetected_dd02e6bf-ae8b-41c6-b7f0-f01711c7cc78
+	fromColumn: FactOrderHeader.PaymentMethodKey
+	toColumn: DimPaymentMethod.PaymentMethodKey
+
+relationship AutoDetected_2e1d3bd0-3d63-41ce-bd94-9463a5eba9f2
+	fromColumn: FactOrderLine.PaymentMethodKey
+	toColumn: DimPaymentMethod.PaymentMethodKey
+
+relationship AutoDetected_7e6ffd5f-9237-45c4-8885-ad83d1b36948
+	fromColumn: FactPayment.PaymentMethodKey
+	toColumn: DimPaymentMethod.PaymentMethodKey
+
+relationship AutoDetected_eeb51d52-a8de-4467-ab6d-f55280ab5e0b
+	fromColumn: FactInventoryWeekly.ProductKey
+	toColumn: DimProduct.ProductKey
+
+relationship AutoDetected_a73d02e6-eb3e-4d1b-b6d4-b83187f6a492
+	fromColumn: FactOrderLine.ProductKey
+	toColumn: DimProduct.ProductKey
+
+relationship AutoDetected_512c44fb-0332-4078-a491-d0c0bea0389a
+	fromColumn: FactReturn.ProductKey
+	toColumn: DimProduct.ProductKey
+
+relationship AutoDetected_9a7e1946-90d4-49b8-be59-aa180908ffeb
+	fromColumn: FactOrderHeader.PromotionKey
+	toColumn: DimPromotion.PromotionKey
+
+relationship AutoDetected_31d88f8d-30ef-4bee-88e8-df729c3c9c28
+	fromColumn: FactOrderLine.PromotionKey
+	toColumn: DimPromotion.PromotionKey
+
+relationship AutoDetected_60a5a37e-a459-4e2d-93e3-d9bdb6474252
+	fromColumn: FactDelivery.WarehouseKey
+	toColumn: DimWarehouse.WarehouseKey
+
+relationship AutoDetected_fb1ee9bc-5d9e-4c8a-866f-95a58f63f86a
+	fromColumn: FactInventoryWeekly.WarehouseKey
+	toColumn: DimWarehouse.WarehouseKey
+
+relationship AutoDetected_8eb9653f-79e0-4b22-a185-d44062a87a4f
+	fromColumn: FactOrderHeader.WarehouseKey
+	toColumn: DimWarehouse.WarehouseKey
+
+relationship AutoDetected_b0299b40-7932-464a-94b3-e16e7dab5871
+	fromColumn: FactOrderLine.WarehouseKey
+	toColumn: DimWarehouse.WarehouseKey
+
+relationship AutoDetected_f776ddf8-931c-4b47-bc30-27e791df20b8
+	fromColumn: FactReturn.WarehouseKey
+	toColumn: DimWarehouse.WarehouseKey
+
+relationship FactOrderHeader_OrderDateKey_DimDate_DateKey
+	fromColumn: FactOrderHeader.OrderDateKey
+	toColumn: DimDate.DateKey
+
+relationship FactOrderLine_OrderDateKey_DimDate_DateKey
+	fromColumn: FactOrderLine.OrderDateKey
+	toColumn: DimDate.DateKey
+
+relationship FactPayment_OrderDateKey_DimDate_DateKey
+	fromColumn: FactPayment.OrderDateKey
+	toColumn: DimDate.DateKey
+
+relationship FactPayment_PaymentDateKey_DimDate_DateKey
+	isActive: false
+	fromColumn: FactPayment.PaymentDateKey
+	toColumn: DimDate.DateKey
+
+relationship FactReturn_OrderDateKey_DimDate_DateKey
+	fromColumn: FactReturn.OrderDateKey
+	toColumn: DimDate.DateKey
+
+relationship FactReturn_ReturnDateKey_DimDate_DateKey
+	isActive: false
+	fromColumn: FactReturn.ReturnDateKey
+	toColumn: DimDate.DateKey
+
+relationship FactDelivery_OrderDateKey_DimDate_DateKey
+	fromColumn: FactDelivery.OrderDateKey
+	toColumn: DimDate.DateKey
+
+relationship FactDelivery_DispatchDateKey_DimDate_DateKey
+	isActive: false
+	fromColumn: FactDelivery.DispatchDateKey
+	toColumn: DimDate.DateKey
+
+relationship FactDelivery_DeliveryDateKey_DimDate_DateKey
+	isActive: false
+	fromColumn: FactDelivery.DeliveryDateKey
+	toColumn: DimDate.DateKey
+
+relationship FactDelivery_PromisedDateKey_DimDate_DateKey
+	isActive: false
+	fromColumn: FactDelivery.PromisedDateKey
+	toColumn: DimDate.DateKey
+
+relationship FactInventoryWeekly_SnapshotDateKey_DimDate_DateKey
+	fromColumn: FactInventoryWeekly.SnapshotDateKey
+	toColumn: DimDate.DateKey
+

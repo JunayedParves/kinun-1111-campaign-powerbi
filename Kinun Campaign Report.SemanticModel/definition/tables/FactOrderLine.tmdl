@@ -1,0 +1,286 @@
+table FactOrderLine
+	lineageTag: b220d0b9-366b-4129-94a2-3119d23fe688
+
+	column OrderLineKey
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 617ce770-94ea-4307-b359-c4b06bf1f7b3
+		summarizeBy: count
+		sourceColumn: OrderLineKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column OrderLineID
+		dataType: string
+		lineageTag: b4e34293-9f98-4b32-8820-a237e3dd4d8e
+		summarizeBy: none
+		sourceColumn: OrderLineID
+
+		annotation SummarizationSetBy = Automatic
+
+	column OrderID
+		dataType: string
+		lineageTag: 641d05d1-7535-4065-8e48-eb06695824ce
+		summarizeBy: none
+		sourceColumn: OrderID
+
+		annotation SummarizationSetBy = Automatic
+
+	column OrderDateKey
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: f76d02fb-10a0-4825-b4cd-76fa30e0542e
+		summarizeBy: count
+		sourceColumn: OrderDateKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column CustomerKey
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 218a7b74-1178-4f53-9287-1bb5599b4c2b
+		summarizeBy: none
+		sourceColumn: CustomerKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column ProductKey
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: f9a1e3ca-d72e-42f9-a79c-51c56c4caadf
+		summarizeBy: none
+		sourceColumn: ProductKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column GeographyKey
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 51c69047-2bb1-43a8-a6ca-8f86518ff6a7
+		summarizeBy: none
+		sourceColumn: GeographyKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column ChannelKey
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: c310dd6d-622f-44e6-899f-0daabcd1f6cd
+		summarizeBy: none
+		sourceColumn: ChannelKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column CampaignKey
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 817fccf0-c117-41c0-a301-5eba6691bf83
+		summarizeBy: none
+		sourceColumn: CampaignKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column PromotionKey
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 91b83b81-1fd0-4e93-9322-436ec779031a
+		summarizeBy: none
+		sourceColumn: PromotionKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column WarehouseKey
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 8f357152-c0ef-4ac2-ac9e-9ebd348f4fcc
+		summarizeBy: none
+		sourceColumn: WarehouseKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column PaymentMethodKey
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: f8d56c73-1f6b-421d-b848-a9802b56962d
+		summarizeBy: none
+		sourceColumn: PaymentMethodKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column OrderStatus
+		dataType: string
+		lineageTag: 95a57764-9aa3-49d0-8371-81da7324c514
+		summarizeBy: none
+		sourceColumn: OrderStatus
+
+		annotation SummarizationSetBy = Automatic
+
+	column Quantity
+		dataType: int64
+		formatString: 0
+		lineageTag: 12eafc01-50de-4ec4-b3a5-d02276c5a995
+		summarizeBy: sum
+		sourceColumn: Quantity
+
+		annotation SummarizationSetBy = Automatic
+
+	column UnitListPriceBDT
+		dataType: double
+		lineageTag: c0dc5b48-4412-4f82-b2a7-38848f0b58ef
+		summarizeBy: sum
+		sourceColumn: UnitListPriceBDT
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column GrossLineAmountBDT
+		dataType: double
+		lineageTag: 8ff24161-0bd1-4aaa-ab82-1a3e78583607
+		summarizeBy: sum
+		sourceColumn: GrossLineAmountBDT
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column ItemDiscountAmountBDT
+		dataType: double
+		lineageTag: 2e841b39-049c-467a-9af4-8f27036305b2
+		summarizeBy: sum
+		sourceColumn: ItemDiscountAmountBDT
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column AllocatedOrderDiscountBDT
+		dataType: double
+		lineageTag: 624a4fbf-a641-4cb7-a4fc-df2d8ab5bc13
+		summarizeBy: sum
+		sourceColumn: AllocatedOrderDiscountBDT
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column TotalLineDiscountBDT
+		dataType: double
+		lineageTag: f8359f6d-3248-4042-8380-3eceb7076327
+		summarizeBy: sum
+		sourceColumn: TotalLineDiscountBDT
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column NetMerchandiseAmountBDT
+		dataType: double
+		lineageTag: 54e12531-7ce6-46fa-9504-8821f1ba8724
+		summarizeBy: sum
+		sourceColumn: NetMerchandiseAmountBDT
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column AllocatedShippingRevenueBDT
+		dataType: double
+		lineageTag: 9d87751f-cf64-4556-b287-fd804d298e0d
+		summarizeBy: sum
+		sourceColumn: AllocatedShippingRevenueBDT
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column UnitCostBDT
+		dataType: double
+		lineageTag: a0c18508-1979-45f3-ab3f-902d192511e8
+		summarizeBy: sum
+		sourceColumn: UnitCostBDT
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column COGSAmountBDT
+		dataType: double
+		lineageTag: 79e041fd-393c-4267-9dba-48b6ba110bc7
+		summarizeBy: sum
+		sourceColumn: COGSAmountBDT
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column AllocatedLogisticsCostBDT
+		dataType: double
+		lineageTag: d2d181e9-e9e5-4891-ba3e-5100fa8941e5
+		summarizeBy: sum
+		sourceColumn: AllocatedLogisticsCostBDT
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column AllocatedGatewayFeeBDT
+		dataType: double
+		lineageTag: 0f1b16b3-17fe-4d70-9c71-b6e057b46074
+		summarizeBy: sum
+		sourceColumn: AllocatedGatewayFeeBDT
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column GrossMarginBDT
+		dataType: double
+		lineageTag: 049d5250-e1f7-45c1-883e-563fc5c698a9
+		summarizeBy: sum
+		sourceColumn: GrossMarginBDT
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column ContributionMarginBDT
+		dataType: double
+		lineageTag: a730e57b-809f-4c2f-9eb9-5a9f8659d097
+		summarizeBy: sum
+		sourceColumn: ContributionMarginBDT
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column SyntheticDataFlag
+		dataType: int64
+		formatString: 0
+		lineageTag: 8d4c8d5c-3eb6-46c8-ab30-091913aeb4a1
+		summarizeBy: sum
+		sourceColumn: SyntheticDataFlag
+
+		annotation SummarizationSetBy = Automatic
+
+	partition FactOrderLine = m
+		mode: import
+		source =
+				let
+				  Source = GoogleBigQuery.Database([BillingProject = null, UseStorageApi = null, ConnectionTimeout = null, CommandTimeout = null]),
+				  #"Navigation 1" = Source{[Name = BigQueryProjectId]}[Data],
+				  #"Navigation 2" = #"Navigation 1"{[Name = "kinun_dw", Kind = "Schema"]}[Data],
+				  #"Navigation 3" = #"Navigation 2"{[Name = "FactOrderLine", Kind = "Table"]}[Data]
+				in
+				  #"Navigation 3"
+

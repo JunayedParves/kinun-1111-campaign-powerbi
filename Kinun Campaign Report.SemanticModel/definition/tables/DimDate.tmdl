@@ -1,0 +1,226 @@
+table DimDate
+	lineageTag: 4807c36c-803c-486c-bcb7-efa8ed6d350d
+	dataCategory: Time
+
+	column DateKey
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: b12ee0ca-29f7-40d4-8582-770d11314895
+		summarizeBy: none
+		sourceColumn: DateKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column FullDate
+		dataType: dateTime
+		isUnique
+		formatString: Long Date
+		lineageTag: 5e300d64-ac2d-4c52-a459-9ed2c1091ad5
+		summarizeBy: none
+		sourceColumn: FullDate
+
+		variation Variation
+			isDefault
+			relationship: 5cf6d78f-bb57-4e44-bf9a-08668b0e3759
+			defaultHierarchy: LocalDateTable_5ebbff02-d9f1-4ce8-84e6-57d3dada316d.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Year
+		dataType: int64
+		formatString: 0
+		lineageTag: ba86556a-10f6-433e-a152-b4e5da4bead8
+		summarizeBy: sum
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column Quarter
+		dataType: int64
+		formatString: 0
+		lineageTag: e69f3281-6be3-473d-abe2-4b505d404bf9
+		summarizeBy: sum
+		sourceColumn: Quarter
+
+		annotation SummarizationSetBy = Automatic
+
+	column QuarterName
+		dataType: string
+		lineageTag: 83f82158-d96c-4017-b859-45bc59989ecd
+		summarizeBy: none
+		sourceColumn: QuarterName
+		sortByColumn: Quarter
+
+		annotation SummarizationSetBy = Automatic
+
+	column MonthNumber
+		dataType: int64
+		formatString: 0
+		lineageTag: 05e6caa5-21f4-4025-b198-95e5b79bad7c
+		summarizeBy: sum
+		sourceColumn: MonthNumber
+
+		annotation SummarizationSetBy = Automatic
+
+	column MonthName
+		dataType: string
+		lineageTag: 6f45ba12-5f21-4f4d-9e18-96e14f1adfb3
+		summarizeBy: none
+		sourceColumn: MonthName
+		sortByColumn: MonthNumber
+
+		annotation SummarizationSetBy = Automatic
+
+	column MonthShort
+		dataType: string
+		lineageTag: bba2ca89-eb5f-4b4e-9a47-4eadd4e17975
+		summarizeBy: none
+		sourceColumn: MonthShort
+		sortByColumn: MonthNumber
+
+		annotation SummarizationSetBy = Automatic
+
+	column YearMonth
+		dataType: string
+		lineageTag: cd2e9174-aa0d-4e0a-af43-cbcd03bab088
+		summarizeBy: none
+		sourceColumn: YearMonth
+
+		annotation SummarizationSetBy = Automatic
+
+	column WeekOfYear
+		dataType: int64
+		formatString: 0
+		lineageTag: 6662c00f-b3e7-4665-8615-4d57537d9b15
+		summarizeBy: sum
+		sourceColumn: WeekOfYear
+
+		annotation SummarizationSetBy = Automatic
+
+	column DayOfMonth
+		dataType: int64
+		formatString: 0
+		lineageTag: b2adef44-6201-4aa6-b69b-4377ea747a13
+		summarizeBy: sum
+		sourceColumn: DayOfMonth
+
+		annotation SummarizationSetBy = Automatic
+
+	column DayOfWeekMondayStart
+		dataType: int64
+		formatString: 0
+		lineageTag: 298d17d3-3712-41c5-991d-41f794741b9f
+		summarizeBy: sum
+		sourceColumn: DayOfWeekMondayStart
+
+		annotation SummarizationSetBy = Automatic
+
+	column DayName
+		dataType: string
+		lineageTag: eb618dee-0747-4674-b1b2-84931e569560
+		summarizeBy: none
+		sourceColumn: DayName
+		sortByColumn: DayOfWeekMondayStart
+
+		annotation SummarizationSetBy = Automatic
+
+	column IsWeekendBD
+		dataType: int64
+		formatString: 0
+		lineageTag: 3bc9ef7e-1acc-4878-b7aa-c97740da2243
+		summarizeBy: sum
+		sourceColumn: IsWeekendBD
+
+		annotation SummarizationSetBy = Automatic
+
+	column IsPaydayWindow
+		dataType: int64
+		formatString: 0
+		lineageTag: 59f72d2d-33c2-4130-8a00-a7efd5ef0b33
+		summarizeBy: sum
+		sourceColumn: IsPaydayWindow
+
+		annotation SummarizationSetBy = Automatic
+
+	column FiscalYearBD
+		dataType: string
+		lineageTag: afd723c4-4259-451a-a178-6b6998b2049e
+		summarizeBy: none
+		sourceColumn: FiscalYearBD
+
+		annotation SummarizationSetBy = Automatic
+
+	column FiscalQuarterBD
+		dataType: string
+		lineageTag: edb6cb8a-f6d1-4c7f-a180-b8f4d974693e
+		summarizeBy: none
+		sourceColumn: FiscalQuarterBD
+
+		annotation SummarizationSetBy = Automatic
+
+	column SeasonalEventType
+		dataType: string
+		lineageTag: 7ac0168e-eb23-49d0-80e5-21f21cbc7b23
+		summarizeBy: none
+		sourceColumn: SeasonalEventType
+
+		annotation SummarizationSetBy = Automatic
+
+	column Is1111EventWindow
+		dataType: int64
+		formatString: 0
+		lineageTag: 106ca44f-b00e-4548-a60f-7404d349c05f
+		summarizeBy: sum
+		sourceColumn: Is1111EventWindow
+
+		annotation SummarizationSetBy = Automatic
+
+	column IsPreEventBaselineWindow
+		dataType: int64
+		formatString: 0
+		lineageTag: 0a21139e-5ba1-4f65-baed-2fc58571b7f8
+		summarizeBy: sum
+		sourceColumn: IsPreEventBaselineWindow
+
+		annotation SummarizationSetBy = Automatic
+
+	column DefaultCampaignKey
+		dataType: int64
+		formatString: 0
+		lineageTag: d8152115-4840-45a4-966f-e07398fc2595
+		summarizeBy: count
+		sourceColumn: DefaultCampaignKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column CampaignRealityStatus
+		dataType: string
+		lineageTag: 1e2f50b1-cb36-4633-b899-94344db81548
+		summarizeBy: none
+		sourceColumn: CampaignRealityStatus
+
+		annotation SummarizationSetBy = Automatic
+
+	column SyntheticDataFlag
+		dataType: int64
+		formatString: 0
+		lineageTag: 3bc5af18-6546-4999-87b9-bfae8f164516
+		summarizeBy: sum
+		sourceColumn: SyntheticDataFlag
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DimDate = m
+		mode: import
+		source =
+				let
+				  Source = GoogleBigQuery.Database([BillingProject = null, UseStorageApi = null, ConnectionTimeout = null, CommandTimeout = null]),
+				  #"Navigation 1" = Source{[Name = BigQueryProjectId]}[Data],
+				  #"Navigation 2" = #"Navigation 1"{[Name = "kinun_dw", Kind = "Schema"]}[Data],
+				  #"Navigation 3" = #"Navigation 2"{[Name = "DimDate", Kind = "Table"]}[Data]
+				in
+				  #"Navigation 3"
+

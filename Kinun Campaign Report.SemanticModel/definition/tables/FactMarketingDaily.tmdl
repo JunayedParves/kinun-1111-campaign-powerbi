@@ -1,0 +1,178 @@
+table FactMarketingDaily
+	lineageTag: c38c659c-a8e2-4b73-83c4-ec035e2fb065
+
+	column MarketingDailyKey
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 050f2c83-fd74-4fa8-b45e-c40518be1e3e
+		summarizeBy: count
+		sourceColumn: MarketingDailyKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column DateKey
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: f557751e-8f72-4999-9c6b-f3428c50c5c0
+		summarizeBy: none
+		sourceColumn: DateKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column FullDate
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: a5196740-f631-4c96-8ea0-0ed61b571dec
+		summarizeBy: none
+		sourceColumn: FullDate
+
+		variation Variation
+			isDefault
+			relationship: a885366b-83b0-4162-bcd2-9f1dbbc15ffc
+			defaultHierarchy: LocalDateTable_3b3dc674-d2b5-4131-a357-5cfe6b322365.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column CampaignKey
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 87acf20b-48ce-46d3-8a00-88a6a7da39a9
+		summarizeBy: none
+		sourceColumn: CampaignKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column ChannelKey
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 48ddb20f-579b-4f58-9bf3-86738985da0f
+		summarizeBy: none
+		sourceColumn: ChannelKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column DeviceType
+		dataType: string
+		lineageTag: 4b05b31c-534d-4796-ac1b-9e0fb7982297
+		summarizeBy: none
+		sourceColumn: DeviceType
+
+		annotation SummarizationSetBy = Automatic
+
+	column Impressions
+		dataType: int64
+		formatString: 0
+		lineageTag: eebc3aaa-1de4-43fe-bee0-333df20c9063
+		summarizeBy: sum
+		sourceColumn: Impressions
+
+		annotation SummarizationSetBy = Automatic
+
+	column Clicks
+		dataType: int64
+		formatString: 0
+		lineageTag: 5a102cf1-e439-4c8d-acc8-05ea6b897db5
+		summarizeBy: sum
+		sourceColumn: Clicks
+
+		annotation SummarizationSetBy = Automatic
+
+	column Sessions
+		dataType: int64
+		formatString: 0
+		lineageTag: fd9f35ac-43f8-4064-a4fb-11f22ff54541
+		summarizeBy: sum
+		sourceColumn: Sessions
+
+		annotation SummarizationSetBy = Automatic
+
+	column ProductDetailViews
+		dataType: int64
+		formatString: 0
+		lineageTag: c9fae959-031e-4f93-b8f2-e2ae8a0d5699
+		summarizeBy: sum
+		sourceColumn: ProductDetailViews
+
+		annotation SummarizationSetBy = Automatic
+
+	column AddToCartEvents
+		dataType: int64
+		formatString: 0
+		lineageTag: 189a13f7-d2a3-47ba-bfba-613ed2682f3a
+		summarizeBy: sum
+		sourceColumn: AddToCartEvents
+
+		annotation SummarizationSetBy = Automatic
+
+	column CheckoutStarts
+		dataType: int64
+		formatString: 0
+		lineageTag: 0918b649-df51-4836-8d9d-89d5718406c1
+		summarizeBy: sum
+		sourceColumn: CheckoutStarts
+
+		annotation SummarizationSetBy = Automatic
+
+	column AttributedOrders
+		dataType: int64
+		formatString: 0
+		lineageTag: 20e46710-5760-4834-8d50-97d74c1d7935
+		summarizeBy: sum
+		sourceColumn: AttributedOrders
+
+		annotation SummarizationSetBy = Automatic
+
+	column AttributedNetRevenueBDT
+		dataType: double
+		lineageTag: 1381345c-d0bc-4a1c-b569-434b58372344
+		summarizeBy: sum
+		sourceColumn: AttributedNetRevenueBDT
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column AdSpendBDT
+		dataType: double
+		lineageTag: 9877154b-2449-48c1-a01a-fff6c249a809
+		summarizeBy: sum
+		sourceColumn: AdSpendBDT
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column AttributionModel
+		dataType: string
+		lineageTag: 867233f5-64d5-47d2-bf39-bf3132558463
+		summarizeBy: none
+		sourceColumn: AttributionModel
+
+		annotation SummarizationSetBy = Automatic
+
+	column SyntheticDataFlag
+		dataType: int64
+		formatString: 0
+		lineageTag: 50b65859-7996-40c7-9e63-c9fb2bd05070
+		summarizeBy: sum
+		sourceColumn: SyntheticDataFlag
+
+		annotation SummarizationSetBy = Automatic
+
+	partition FactMarketingDaily = m
+		mode: import
+		source =
+				let
+				  Source = GoogleBigQuery.Database([BillingProject = null, UseStorageApi = null, ConnectionTimeout = null, CommandTimeout = null]),
+				  #"Navigation 1" = Source{[Name = BigQueryProjectId]}[Data],
+				  #"Navigation 2" = #"Navigation 1"{[Name = "kinun_dw", Kind = "Schema"]}[Data],
+				  #"Navigation 3" = #"Navigation 2"{[Name = "FactMarketingDaily", Kind = "Table"]}[Data]
+				in
+				  #"Navigation 3"
+

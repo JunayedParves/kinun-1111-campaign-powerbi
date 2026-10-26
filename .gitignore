@@ -1,0 +1,23 @@
+# --- Power BI local / user state (never commit) ---
+# Imported data cache
+**/.pbi/cache.abf
+# Machine- and user-specific settings, including credential bindings
+**/.pbi/localSettings.json
+**/.pbi/editorSettings.json
+# Single-file reports embed data
+*.pbix
+*.pbit
+
+# --- Raw data extracts ---
+*.csv
+*.xlsx
+*.parquet
+
+# --- Local backups and tooling ---
+_backup_*/
+.claude/
+
+# --- OS noise ---
+Thumbs.db
+desktop.ini
+.DS_Store

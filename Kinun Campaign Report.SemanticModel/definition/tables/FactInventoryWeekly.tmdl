@@ -1,0 +1,161 @@
+table FactInventoryWeekly
+	lineageTag: 173bc2de-d3a1-4185-a630-fc1d3919c2cb
+
+	column InventorySnapshotKey
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 2bdd8f6d-c692-483f-acdd-288375485e70
+		summarizeBy: count
+		sourceColumn: InventorySnapshotKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column SnapshotDateKey
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 87a44721-f128-49b9-84bb-bbbc9314ae80
+		summarizeBy: count
+		sourceColumn: SnapshotDateKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column SnapshotDate
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: e4b7ec87-ad1b-4016-b0ee-4570f8947676
+		summarizeBy: none
+		sourceColumn: SnapshotDate
+
+		variation Variation
+			isDefault
+			relationship: aa657e95-86dd-4e52-a0b3-a458d6deb625
+			defaultHierarchy: LocalDateTable_924794e2-1338-49c9-9d0a-5d1ab17f46cd.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column ProductKey
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: da5f10df-0455-4a99-b0fd-cabf1dde06dc
+		summarizeBy: none
+		sourceColumn: ProductKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column WarehouseKey
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: b2ab6227-a6cf-47be-ae79-b1f856669f35
+		summarizeBy: none
+		sourceColumn: WarehouseKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column IsEventPeriodSnapshot
+		dataType: int64
+		formatString: 0
+		lineageTag: 56b976bb-efa0-4bdf-a017-33c413ea4cf6
+		summarizeBy: sum
+		sourceColumn: IsEventPeriodSnapshot
+
+		annotation SummarizationSetBy = Automatic
+
+	column OpeningStockUnits
+		dataType: int64
+		formatString: 0
+		lineageTag: 6698eda6-75c8-40e2-95ac-6e9fdb638def
+		summarizeBy: sum
+		sourceColumn: OpeningStockUnits
+
+		annotation SummarizationSetBy = Automatic
+
+	column StockReceivedUnits
+		dataType: int64
+		formatString: 0
+		lineageTag: b127bad4-d894-466b-85fa-51f06809d087
+		summarizeBy: sum
+		sourceColumn: StockReceivedUnits
+
+		annotation SummarizationSetBy = Automatic
+
+	column UnitsSold
+		dataType: int64
+		formatString: 0
+		lineageTag: 4894bee4-443e-47a5-a1b9-d00e565a1dbe
+		summarizeBy: sum
+		sourceColumn: UnitsSold
+
+		annotation SummarizationSetBy = Automatic
+
+	column ReturnedUnitsRestocked
+		dataType: int64
+		formatString: 0
+		lineageTag: e528c865-5667-4be5-9c0b-4c9153f32ce5
+		summarizeBy: sum
+		sourceColumn: ReturnedUnitsRestocked
+
+		annotation SummarizationSetBy = Automatic
+
+	column ClosingStockUnits
+		dataType: int64
+		formatString: 0
+		lineageTag: bc4dab5b-a29a-43e7-bfec-f56273aaca50
+		summarizeBy: sum
+		sourceColumn: ClosingStockUnits
+
+		annotation SummarizationSetBy = Automatic
+
+	column StockoutFlag
+		dataType: int64
+		formatString: 0
+		lineageTag: 18ba1808-6ac0-4dae-9f09-684f2414f154
+		summarizeBy: sum
+		sourceColumn: StockoutFlag
+
+		annotation SummarizationSetBy = Automatic
+
+	column EstimatedLostUnits
+		dataType: int64
+		formatString: 0
+		lineageTag: 41a8064c-0116-4c10-ae3a-981c46419efd
+		summarizeBy: sum
+		sourceColumn: EstimatedLostUnits
+
+		annotation SummarizationSetBy = Automatic
+
+	column EstimatedLostSalesBDT
+		dataType: double
+		lineageTag: 2358c0b0-f045-473c-8756-b199c4b31674
+		summarizeBy: sum
+		sourceColumn: EstimatedLostSalesBDT
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column SyntheticDataFlag
+		dataType: int64
+		formatString: 0
+		lineageTag: 6bbbdd1a-85b9-4a92-aaf6-10076cab3383
+		summarizeBy: sum
+		sourceColumn: SyntheticDataFlag
+
+		annotation SummarizationSetBy = Automatic
+
+	partition FactInventoryWeekly = m
+		mode: import
+		source =
+				let
+				  Source = GoogleBigQuery.Database([BillingProject = null, UseStorageApi = null, ConnectionTimeout = null, CommandTimeout = null]),
+				  #"Navigation 1" = Source{[Name = BigQueryProjectId]}[Data],
+				  #"Navigation 2" = #"Navigation 1"{[Name = "kinun_dw", Kind = "Schema"]}[Data],
+				  #"Navigation 3" = #"Navigation 2"{[Name = "FactInventoryWeekly", Kind = "Table"]}[Data]
+				in
+				  #"Navigation 3"
+

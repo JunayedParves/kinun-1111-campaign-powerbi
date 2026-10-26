@@ -1,0 +1,20 @@
+/// Axis table for the marketing funnel visual.
+table 'Funnel Stage'
+	lineageTag: ce035b69-0efa-4340-a3a7-c969de43737d
+
+	column Stage
+		lineageTag: 2b502ff2-10af-4ecc-baa5-cc145ed7caeb
+		isNameInferred
+		sourceColumn: [Stage]
+		sortByColumn: 'Stage Order'
+
+	column 'Stage Order'
+		isHidden
+		lineageTag: 9662c49a-7bc8-435a-b297-68776c348cce
+		isNameInferred
+		sourceColumn: [Stage Order]
+
+	partition 'Funnel Stage' = calculated
+		mode: import
+		source = DATATABLE ( "Stage", STRING, "Stage Order", INTEGER, { { "Sessions", 1 }, { "Product Views", 2 }, { "Add to Cart", 3 }, { "Checkout Starts", 4 }, { "Attributed Orders", 5 } } )
+
